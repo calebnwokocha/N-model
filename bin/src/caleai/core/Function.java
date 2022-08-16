@@ -1,18 +1,18 @@
 /*
  * AUTHOR: CALEB PRINCEWILL NWOKOCHA
- * SCHOOL: THE UNIVERSITY OF MANITOBA
- * DEPARTMENT: COMPUTER SCIENCE
+ * ORGANIZATION: CALE TECHNOLOGY ENTERPRISE
+ * DEPARTMENT: MAS-R&D
  */
 
 package caleai.core;
 
-public class CFunction {
+public class Function {
     private double value;
 
-    public CFunction(String cFunctionName, double... parameters) {
-        switch (cFunctionName) {
+    public Function(String function, double... parameters) {
+        switch (function) {
             case "cubic volume" -> this.cubicVolume(parameters[0]);
-            case "force" -> this.force(parameters[0], parameters[2]);
+            case "force" -> this.force(parameters[0], parameters[1]);
         }
     }
 
