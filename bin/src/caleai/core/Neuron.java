@@ -44,7 +44,9 @@ public class Neuron {
         } this.hypothesis -= this.error;
     }
 
-    public void optimize (double error) { this.error += this.hypothesis / error; }
+    public void optimize (double error, int iteration) { // Average error.
+        this.error = ((this.error * (iteration - 1)) + (this.hypothesis / error)) / iteration;
+    }
 
     private double identity (double x) { return x; }
 

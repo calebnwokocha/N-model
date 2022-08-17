@@ -24,5 +24,7 @@ public class Layer {
         for (int i = 0; i < this.neurons.length; i++) { this.neurons[i].activate(parameters[i]); }
     }
 
-    public void optimize (double error) { for (Neuron neuron : this.neurons) { neuron.optimize(error); } }
+    public void optimize (double error, int iteration) {
+        for (Neuron neuron : this.neurons) { neuron.optimize(error, iteration); }
+    }
 }

@@ -27,11 +27,11 @@ public class Network {
         for (int i = 0; i < this.layers.length; i++) { this.layers[i].activate(input[i]); }
     }
 
-    public void learn (double[] objective, Double error) throws UndefinedTarget {
-        this.setError(objective, error); for (Layer layer : layers) { layer.optimize(this.error); }
+    public void learn (double[] objective, Double error, int iteration) throws UndefinedTarget {
+        this.setError(objective, error, iteration); for (Layer layer : layers) { layer.optimize(this.error, iteration); }
     }
 
-    private void setError(double[] objective, Double error) throws UndefinedTarget {
+    private void setError(double[] objective, Double error, int iteration) throws UndefinedTarget {
         if (objective == null && error != null) { this.error = error;
         } else if (objective != null && error == null) {
             Layer outputLayer = layers[layers.length - 1]; double sum = 0.0;
