@@ -49,7 +49,7 @@ public class Main {
         int iteration = 100000000;
         double[] objective = new double[] {datasetA[0] + datasetB[0] + datasetB[1]};
         network.learn(objective, null, 1);
-        double error = network.getError();
+        double error = network.getNetworkError();
         double[] errors = new double[iteration];
         errors[0] = error;
         int i = 1;
@@ -82,7 +82,7 @@ public class Main {
             System.out.println("LAYER 2 : caleai.core.Neuron 2: value = " + network.getLayers()[1].getNeurons()[1].getHypothesis());
             System.out.println("LAYER 3 : caleai.core.Neuron 1: value = " + network.getLayers()[2].getNeurons()[0].getHypothesis());
 
-            error = network.getError();
+            error = network.getNetworkError();
             errors[i] = error;
             System.out.println("Objective is " + Arrays.toString(objective));
             System.out.println("Error is " + error);

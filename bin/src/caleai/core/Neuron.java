@@ -10,13 +10,16 @@ public class Neuron {
     private String function;
     private String activator;
     private double hypothesis;
-    private double error;
-    private String rule;
+    private double neuronError;
+    private final String rule;
 
+    // Construct neuron.
     public Neuron(String function, String activator) {
-        this.function = function;
-        this.activator = activator;
-        this.error = 0.0;
+        this.function = function; // The name of neuron comprehensive function.
+        this.activator = activator; // Then name of neuron activation function.
+        this.neuronError = 0.0; // Initial neuron error is zero.
+        this.hypothesis = Math.random(); // Initial hypothesis is random.
+        this.rule = null; // Initial rule is null.
     }
 
     public String getFunction() { return this.function; }
@@ -31,21 +34,21 @@ public class Neuron {
 
     public String getRule() { return this.rule; }
 
-    public double getError() { return this.error; }
+    public double getNeuronError() { return this.neuronError; }
 
-    public void setError(double error) { this.error = error; }
+    public void setNeuronError(double neuronError) { this.neuronError = neuronError; }
 
     public void activate (double... parameters) { // Activate neuron, use parameters for comprehensive function.
-        Function function = new Function(this.function, parameters);
+        Function function = new Function(this.function, parameters); // Construct comprehensive function.
         double value = function.getValue(); // Result of comprehensive function.
-        switch (this.activator) { // Find activation function, and initialize neuron value.
+        switch (this.activator) { // Find activation function, then update neuron hypothesis.
             case "identity" -> this.hypothesis = this.identity(value);
             case "tanh" -> this.hypothesis = this.tanh(value);
-        } this.hypothesis -= this.error;
+        } this.hypothesis -= this.neuronError; // Subtract error from hypothesis.
     }
 
-    public void optimize (double error, int iteration) { // Average error.
-        this.error = ((this.error * (iteration - 1)) + (this.hypothesis / error)) / iteration;
+    public void optimize (double networkError, int iteration) { // Update neuron error to average neuron error.
+        this.neuronError = ((this.neuronError * (iteration - 1)) + (this.hypothesis / networkError)) / iteration;
     }
 
     private double identity (double x) { return x; }
