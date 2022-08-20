@@ -12,6 +12,7 @@ public class Function {
     // Construct comprehensive function.
     public Function(String functionName, double... parameters) {
         switch (functionName) { // Configure function according to function name.
+            //case "identity" -> this.identity(parameters[0]);
             case "cubic volume" -> this.cubicVolume(parameters[0]);
             case "force" -> this.force(parameters[0], parameters[1]);
         }
@@ -19,7 +20,9 @@ public class Function {
 
     public double getValue() { return this.value; } // Return function value.
 
-    private void cubicVolume (double s) { this.value = Math.pow(s, 3); }
+    //private double identity (double x) { return x; }
 
-    private void force (double m, double a) { this.value = m * a; }
+    private void cubicVolume (double s) { this.value = 2; }
+
+    private void force (double m, double a) { this.value = 2; }
 }

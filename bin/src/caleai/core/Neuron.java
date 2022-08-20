@@ -44,12 +44,16 @@ public class Neuron {
         switch (this.activator) { // Find activation function, then update neuron hypothesis.
             case "identity" -> this.hypothesis = this.identity(value);
             case "tanh" -> this.hypothesis = this.tanh(value);
-        } this.hypothesis -= this.neuronError; // Subtract error from hypothesis.
+        } this.hypothesis += this.neuronError; // Subtract error from hypothesis.
     }
 
-    public void optimize (double networkError, int iteration) { // Update neuron error to average neuron error.
-        this.neuronError = ((this.neuronError * (iteration - 1)) + (this.hypothesis / networkError)) / iteration;
+    public void optimize (double layerError, double learningRate, int iteration) { // Update neuron error to average neuron error.
+        this.neuronError = (((this.neuronError * (iteration - 1)) + (this.hypothesis / layerError)) / iteration) * learningRate;
     }
+
+    /*public void optimize (double networkError, double learningRate, int iteration) { // Update neuron error to average neuron error.
+        this.neuronError = (((this.neuronError * (iteration - 1)) + (this.hypothesis / networkError)) / iteration) * learningRate;
+    }*/
 
     private double identity (double x) { return x; }
 

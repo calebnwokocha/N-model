@@ -31,19 +31,36 @@ public class Network {
         for (int i = 0; i < this.layers.length; i++) { this.layers[i].activate(input[i]); }
     }
 
-    public void learn (double[] objective, Double networkError, int iteration) throws UndefinedTarget {
-        this.setError(objective, networkError); // Calculate network error.
-        for (Layer layer : layers) { // Optimize all network layers.
-            layer.optimize(this.networkError, iteration); }
+    public void learn (double[] objective, Double networkError, double learningRate, int iteration)
+            throws UndefinedTarget
+    {
+        this.setNetworkError(objective, networkError); // Calculate network error.
+        for (int i = this.layers.length - 1; i >= 0; i--) {
+            if (i == this.layers.length - 1) {
+                this.layers[i].optimize(this.networkError, learningRate, iteration);
+            } else if (i == this.layers.length - 2) {
+                layers[i].optimize(this.layers[i + 1].getLayerError(), learningRate, iteration);
+            } else if (i == this.layers.length - 3) {
+                layers[i].optimize(this.layers[i + 1].getLayerError() * this.layers[i + 2].getLayerError(), learningRate, iteration);
+            }
+        }
+        /*for (Layer layer : layers) { // Optimize all network layers.
+            layer.optimize(this.networkError, learningRate, iteration); }*/
     }
 
-    private void setError(double[] objective, Double networkError) throws UndefinedTarget {
+    private void setNetworkError(double[] objective, Double networkError) throws UndefinedTarget {
         if (objective == null && networkError != null) { this.networkError = networkError;
         } else if (objective != null && networkError == null) {
             Layer outputLayer = layers[layers.length - 1]; double sum = 0.0;
             for (int i = 0; i < outputLayer.getNeurons().length; i++) {
+                double hypothesis = outputLayer.getNeurons()[i].getHypothesis();
                 sum += Math.abs(outputLayer.getNeurons()[i].getHypothesis() - objective[i]);
+                //sum += ((objective[i] * hypothesis) - Math.pow(objective[i], 2) - hypothesis) / (objective[i] + 1);
+                //sum += Math.abs(((objective[i] * hypothesis) - Math.pow(objective[i], 2) - hypothesis) / (objective[i] + 1));
             } this.networkError = sum / outputLayer.getNeurons().length;
-        } else { throw new UndefinedTarget("caleai.core.Network target undefined"); }
+        } else {
+            throw new UndefinedTarget("caleai.core.Network target undefined");
+            // TODO: Network should begin reinforcement learning.
+        }
     }
 }
