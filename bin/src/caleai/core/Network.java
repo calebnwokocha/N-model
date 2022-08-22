@@ -11,13 +11,13 @@ public class Network {
     private double networkError;
 
     // Construct network.
-    public Network (int length, int[] width, String[][] functions, String[][] activators) throws WrongInitialization {
-        /* The size of network width, functions and activators arrays, must equal to the network length, so that all
-         * all layer in the network have a width/dimension, comprehensive functions, and activators.*/
-        if (width.length == length && functions.length == length && activators.length == length) {
+    public Network (int length, int[] width, String[][] functions) throws WrongInitialization {
+        /* The size of network width, and functions array must equal to the network length, so that all
+         * all layer in the network have a width/dimension, and comprehensive functions.*/
+        if (width.length == length && functions.length == length) {
             this.layers = new Layer[length]; // Initialize layers array to store network layers.
             for (int i = 0; i < layers.length; i++) { // Construct network layers.
-                layers[i] = new Layer(width[i], functions[i], activators[i]); }
+                layers[i] = new Layer(width[i], functions[i]); }
         } else {throw new WrongInitialization("Wrong initialization of network"); }
     }
 
@@ -32,20 +32,10 @@ public class Network {
     }
 
     public void learn (double[] objective, Double networkError, double learningRate, int iteration)
-            throws UndefinedTarget
-    {
+            throws UndefinedTarget {
         this.setNetworkError(objective, networkError); // Calculate network error.
-        for (int i = this.layers.length - 1; i >= 0; i--) {
-            if (i == this.layers.length - 1) {
-                this.layers[i].optimize(this.networkError, learningRate, iteration);
-            } else if (i == this.layers.length - 2) {
-                layers[i].optimize(this.layers[i + 1].getLayerError(), learningRate, iteration);
-            } else if (i == this.layers.length - 3) {
-                layers[i].optimize(this.layers[i + 1].getLayerError() * this.layers[i + 2].getLayerError(), learningRate, iteration);
-            }
-        }
-        /*for (Layer layer : layers) { // Optimize all network layers.
-            layer.optimize(this.networkError, learningRate, iteration); }*/
+        for (Layer layer : layers) { // Optimize all network layers.
+            layer.optimize(this.networkError, learningRate, iteration); }
     }
 
     private void setNetworkError(double[] objective, Double networkError) throws UndefinedTarget {
@@ -55,6 +45,7 @@ public class Network {
             for (int i = 0; i < outputLayer.getNeurons().length; i++) {
                 double hypothesis = outputLayer.getNeurons()[i].getHypothesis();
                 sum += Math.abs(outputLayer.getNeurons()[i].getHypothesis() - objective[i]);
+                //sum += outputLayer.getNeurons()[i].getHypothesis() - objective[i];
                 //sum += ((objective[i] * hypothesis) - Math.pow(objective[i], 2) - hypothesis) / (objective[i] + 1);
                 //sum += Math.abs(((objective[i] * hypothesis) - Math.pow(objective[i], 2) - hypothesis) / (objective[i] + 1));
             } this.networkError = sum / outputLayer.getNeurons().length;
