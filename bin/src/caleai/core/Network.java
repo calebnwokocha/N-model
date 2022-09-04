@@ -1,9 +1,4 @@
 /*
- * AUTHOR: CALEB PRINCEWILL NWOKOCHA
- * ORGANIZATION: CALE TECHNOLOGY ENTERPRISE
- * DEPARTMENT: MAS-R&D
- */
-
 package caleai.core;
 
 public class Network {
@@ -12,13 +7,15 @@ public class Network {
 
     // Construct network.
     public Network (int length, int[] width, String[][] functions) throws WrongInitialization {
-        /* The size of network width, and functions array must equal to the network length, so that all
-         * all layer in the network have a width/dimension, and comprehensive functions.*/
+        */
+/* The size of perceptron width, and functions array must equal to the perceptron length, so that all
+         * all layer in the perceptron have a width/dimension, and comprehensive functions.*//*
+
         if (width.length == length && functions.length == length) {
-            this.layers = new Layer[length]; // Initialize layers array to store network layers.
-            for (int i = 0; i < layers.length; i++) { // Construct network layers.
+            this.layers = new Layer[length]; // Initialize layers array to store perceptron layers.
+            for (int i = 0; i < layers.length; i++) { // Construct perceptron layers.
                 layers[i] = new Layer(width[i], functions[i]); }
-        } else {throw new WrongInitialization("Wrong initialization of network"); }
+        } else {throw new WrongInitialization("Wrong initialization of perceptron"); }
     }
 
     public Layer[] getLayers () { return this.layers; }
@@ -27,14 +24,14 @@ public class Network {
 
     public double getNetworkError() { return this.networkError; }
 
-    public void feed (double[][]... input) { // Activate all network layers.
+    public void feed (double[][]... input) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.length; i++) { this.layers[i].activate(input[i]); }
     }
 
     public void learn (double[] objective, Double networkError, double learningRate, int iteration)
             throws UndefinedTarget {
-        this.setNetworkError(objective, networkError); // Calculate network error.
-        for (Layer layer : layers) { // Optimize all network layers.
+        this.setNetworkError(objective, networkError); // Calculate perceptron error.
+        for (Layer layer : layers) { // Optimize all perceptron layers.
             layer.optimize(this.networkError, learningRate, iteration); }
     }
 
@@ -50,8 +47,9 @@ public class Network {
                 //sum += Math.abs(((objective[i] * hypothesis) - Math.pow(objective[i], 2) - hypothesis) / (objective[i] + 1));
             } this.networkError = sum / outputLayer.getNeurons().length;
         } else {
-            throw new UndefinedTarget("caleai.core.Network target undefined");
+            throw new UndefinedTarget("caleai.core.Perceptron target undefined");
             // TODO: Network should begin reinforcement learning.
         }
     }
 }
+*/

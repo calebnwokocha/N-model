@@ -28,7 +28,7 @@ public class Layer {
         for (int i = 0; i < this.neurons.length; i++) { this.neurons[i].activate(parameters[i]); }
     }
 
-    public void optimize (double networkError, double learningRate, int iteration) { // Optimize all layer neurons.
-        for (Neuron neuron : this.neurons) { neuron.optimize(networkError, learningRate, iteration); }
+    public void optimize (double perceptronHypothesis, double perceptronError, double learningRate, int iteration) { // Optimize all layer neurons.
+        for (Neuron neuron : this.neurons) { neuron.optimize(perceptronHypothesis, perceptronError, learningRate, iteration); }
     }
 }
