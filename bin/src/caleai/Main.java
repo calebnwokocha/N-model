@@ -55,8 +55,8 @@ public class Main {
                 l += i;
                 node.optimize(objective, l + 1);
                 error = node.getErrorMean();
-                //System.out.println();
-                //System.out.println("INPUT LAYER : caleai.core.Neuron 1: value = " + node.getHypothesis() + " error = " + node.getErrorMean());
+                System.out.println();
+                System.out.println("INPUT LAYER : caleai.core.Neuron 1: value = " + node.getHypothesis() + " error = " + node.getErrorMean() + " rule = " + node.getRule());
                 //System.out.println("INPUT LAYER : caleai.core.Neuron 2: value = " + perceptron.getInputLayer().getNeurons()[1].getHypothesis() + " error = " + perceptron.getInputLayer().getNeurons()[1].getError());
                 //System.out.println("OUPUT LAYER : caleai.core.Neuron 1: value = " + perceptron.getOutputNeuron().getHypothesis() + " error = " + perceptron.getOutputNeuron().getError());
 

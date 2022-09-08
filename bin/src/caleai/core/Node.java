@@ -11,7 +11,7 @@ public class Node {
     private double power;
     private double hypothesis = 1.0;
     private double errorMean = 0.0;
-    private final String rule = null;
+    private String rule = null;
 
     // Construct neuron.
     public Node(String function, double power) {
@@ -29,7 +29,7 @@ public class Node {
 
     public double getHypothesis() { return this.hypothesis; }
 
-    public String getRule() { return this.rule; }
+    public String getRule() { setRule(); return this.rule; }
 
     public double getErrorMean() { return this.errorMean; }
 
@@ -52,6 +52,11 @@ public class Node {
     public void optimize (int iteration, double error) {
         // Update neuron error to average neuron error.
         this.errorMean = this.powerMean(this.errorMean, error, this.power, iteration);
+    }
+
+    private void setRule () {
+        double probability = this.hypothesis / (this.hypothesis + this.errorMean);
+        this.rule = this.function + " at probability " + probability;
     }
 
     private double powerMean (double m, double d, double p, int t) {
