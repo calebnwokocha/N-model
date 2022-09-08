@@ -54,8 +54,8 @@ public class Node {
         this.errorMean = this.powerMean(this.errorMean, error, this.power, iteration);
     }
 
-    private double powerMean (double mean, double datum, double power, int time) {
-        mean = (Math.pow((1.0 / (time)) * (Math.pow(datum, power) + (Math.pow(mean, power) * (time - 1))), 1.0 / power));
-        return mean;
+    private double powerMean (double m, double d, double p, int t) {
+        m = (Math.pow((1.0 / (t)) * (Math.pow(d, p) + (Math.pow(m, p) * (t - 1))), 1.0 / p));
+        return m;
     }
 }
