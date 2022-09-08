@@ -1,55 +1,78 @@
 /*
+ * AUTHOR: CALEB PRINCEWILL NWOKOCHA
+ * ORGANIZATION: CALE TECHNOLOGY ENTERPRISE
+ * DEPARTMENT: MAS-R&D
+ */
+
 package caleai.core;
 
+import java.util.ArrayList;
+
 public class Network {
-    private Layer[] layers;
-    private double networkError;
+    private final ArrayList<Layer> layers = new ArrayList<>();
 
     // Construct network.
-    public Network (int length, int[] width, String[][] functions) throws WrongInitialization {
-        */
-/* The size of perceptron width, and functions array must equal to the perceptron length, so that all
-         * all layer in the perceptron have a width/dimension, and comprehensive functions.*//*
-
-        if (width.length == length && functions.length == length) {
-            this.layers = new Layer[length]; // Initialize layers array to store perceptron layers.
-            for (int i = 0; i < layers.length; i++) { // Construct perceptron layers.
-                layers[i] = new Layer(width[i], functions[i]); }
-        } else {throw new WrongInitialization("Wrong initialization of perceptron"); }
+    public Network (int[] widths, int length, String function, double power) {
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(widths[i], function, power)); }
     }
 
-    public Layer[] getLayers () { return this.layers; }
-
-    public void setLayer (Layer[] layers) { this.layers = layers; }
-
-    public double getNetworkError() { return this.networkError; }
-
-    public void feed (double[][]... input) { // Activate all perceptron layers.
-        for (int i = 0; i < this.layers.length; i++) { this.layers[i].activate(input[i]); }
+    public Network (int[] widths, int length, String[] functions, double power) {
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(widths[i], functions, power)); }
     }
 
-    public void learn (double[] objective, Double networkError, double learningRate, int iteration)
-            throws UndefinedTarget {
-        this.setNetworkError(objective, networkError); // Calculate perceptron error.
-        for (Layer layer : layers) { // Optimize all perceptron layers.
-            layer.optimize(this.networkError, learningRate, iteration); }
+    public Network (int[] widths, int length, String function, double[] powers) {
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(widths[i], function, powers)); }
     }
 
-    private void setNetworkError(double[] objective, Double networkError) throws UndefinedTarget {
-        if (objective == null && networkError != null) { this.networkError = networkError;
-        } else if (objective != null && networkError == null) {
-            Layer outputLayer = layers[layers.length - 1]; double sum = 0.0;
-            for (int i = 0; i < outputLayer.getNeurons().length; i++) {
-                double hypothesis = outputLayer.getNeurons()[i].getHypothesis();
-                sum += Math.abs(outputLayer.getNeurons()[i].getHypothesis() - objective[i]);
-                //sum += outputLayer.getNeurons()[i].getHypothesis() - objective[i];
-                //sum += ((objective[i] * hypothesis) - Math.pow(objective[i], 2) - hypothesis) / (objective[i] + 1);
-                //sum += Math.abs(((objective[i] * hypothesis) - Math.pow(objective[i], 2) - hypothesis) / (objective[i] + 1));
-            } this.networkError = sum / outputLayer.getNeurons().length;
-        } else {
-            throw new UndefinedTarget("caleai.core.Perceptron target undefined");
-            // TODO: Network should begin reinforcement learning.
-        }
+    public Network (int[] widths, int length, String[] functions, double[] powers) {
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(widths[i], functions, powers)); }
+    }
+
+    public Network (int[] widths, int length, String[][] functions, double power) {
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(widths[i], functions[i], power)); }
+    }
+
+    public Network (int[] widths, int length, String function, double[][] powers) {
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(widths[i], function, powers[i])); }
+    }
+
+    public Network (int[] widths, int length, String[][] functions, double[] powers) {
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(widths[i], functions[i], powers)); }
+    }
+
+    public Network (int[] widths, int length, String[] functions, double[][] powers) {
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(widths[i], functions, powers[i])); }
+    }
+
+    public Network (int[] widths, int length, String[][] functions, double[][] powers) {
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(widths[i], functions[i], powers[i])); }
+    }
+
+    public ArrayList<Layer> getLayers () { return this.layers; }
+
+    public void addLayer (Layer layer) { this.layers.add(layer); }
+
+    public void activate (double parameter) { // Activate all perceptron layers.
+        for (Layer layer : this.layers) { layer.activate(parameter); }
+    }
+
+    public void activate (double... parameters) { // Activate all perceptron layers.
+        for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
+    }
+
+    public void activate (double[]... parameters) { // Activate all perceptron layers.
+        for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
+    }
+
+    public void activate (double[][]... parameters) { // Activate all perceptron layers.
+        for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
+    }
+
+    public void optimize (double[][] objective, int iteration) {
+        for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).optimize(objective[i], iteration); }
+    }
+
+    public void optimize (int iteration, double[][] error) {
+        for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).optimize(iteration, error[i]); }
     }
 }
-*/

@@ -6,29 +6,49 @@
 
 package caleai.core;
 
+import java.util.ArrayList;
+
 public class Layer {
-    private Neuron[] neurons;
+    private final ArrayList<Node> nodes = new ArrayList<>();
 
     // Construct layer.
-    public Layer (int dimension, String[] functions) throws WrongInitialization {
-        /* The size of functions array must equal to the layer dimension, so that all
-         * all neuron in the layer have a comprehensive function.*/
-        if (functions.length == dimension) {
-            this.neurons = new Neuron[dimension]; // Initialize neurons array to store layer neurons.
-            for (int i = 0; i < this.neurons.length; i++) { // Construct layer neurons.
-                this.neurons[i] = new Neuron(functions[i]); }
-        } else {throw new WrongInitialization("Wrong initialization of layer"); }
+    public Layer (int dimension, String function, double power) {
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(function, power)); }
     }
 
-    public Neuron[] getNeurons() { return this.neurons; }
+    public Layer (int dimension, String[] functions, double power) {
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(functions[i], power)); }
+    }
 
-    public void setNeurons(Neuron[] neurons) { this.neurons = neurons; }
+    public Layer (int dimension, String function, double[] powers) {
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(function, powers[i])); }
+    }
+
+    public Layer (int dimension, String[] functions, double[] powers) {
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(functions[i], powers[i])); }
+    }
+
+    public ArrayList<Node> getNodes() { return this.nodes; }
+
+    public void addNode(Node node) { this.nodes.add(node); }
+
+    public void activate (double parameter) { // Activate all layer neurons.
+        for (Node node : this.nodes) { node.activate(parameter); }
+    }
+
+    public void activate (double... parameters) { // Activate all layer neurons.
+        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(parameters[i]); }
+    }
 
     public void activate (double[]... parameters) { // Activate all layer neurons.
-        for (int i = 0; i < this.neurons.length; i++) { this.neurons[i].activate(parameters[i]); }
+        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(parameters[i]); }
     }
 
-    public void optimize (double perceptronHypothesis, double perceptronError, double learningRate, int iteration) { // Optimize all layer neurons.
-        for (Neuron neuron : this.neurons) { neuron.optimize(perceptronHypothesis, perceptronError, learningRate, iteration); }
+    public void optimize (double[] objectives, int iteration) { // Optimize all layer neurons.
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).optimize(objectives[i], iteration); }
+    }
+
+    public void optimize (int iteration, double[] error) { // Optimize all layer neurons.
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).optimize(iteration, error[i]); }
     }
 }

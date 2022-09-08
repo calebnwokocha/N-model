@@ -6,75 +6,93 @@
 
 package caleai;
 
-import caleai.core.Perceptron;
-import caleai.core.UndefinedTarget;
-import caleai.core.WrongInitialization;
+import caleai.core.Node;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws WrongInitialization, UndefinedTarget {
-        int inputDimension = 2;
-        String[] inputFunctions = new String[]{"cubic volume" /* caleai.core.Neuron 1 */, "force" /* caleai.core.Neuron 2 */}; // caleai.core.Layer 1
-        String outputFunction = "sum";
+    public static void main(String[] args) {
+        int iteration = 10;
 
-        Perceptron perceptron = new Perceptron(inputDimension, inputFunctions, outputFunction);
+        // Initialize dataset
+        double[][] datasetA = new double[iteration][1];
+        double[][] datasetB = new double[iteration][1];
+        for (int i = 0; i < datasetA.length; i++) {
+            datasetA[i][0] = Math.round(Math.random() + 9.987654321); // Generates 0 or 1
+            datasetB[i][0] = Math.round(Math.random() + 9.987654321); // Generates 0 or 1
+        }
+        //System.out.println("datasetA: " + Arrays.deepToString(datasetA));
+        //System.out.println("datasetB: " + Arrays.deepToString(datasetB));
 
-        double[] datasetA = new double[] {106};
-        double[] datasetB = new double[] {207, 308};
+        // Initialize node
+        Node node = new Node("force", 1);
+        node.activate(datasetA[0][0], datasetB[0][0]);
 
-        perceptron.feed(new double[][]{       // caleai.core.Layer 1
-                        datasetA,                                                                                                         // caleai.core.Neuron 1
-                        datasetB                                                                                                          // caleai.core.Neuron 2
-                },
+        //System.out.println();
+        //System.out.println("INPUT LAYER : caleai.core.Neuron 1: value = " + node.getHypothesis() + " error = " + node.getErrorMean());
+        //System.out.println("INPUT LAYER : caleai.core.Neuron 2: value = " + perceptron.getInputLayer().getNeurons()[1].getHypothesis() + " error = " + perceptron.getInputLayer().getNeurons()[1].getError());
+        //System.out.println("OUPUT LAYER : caleai.core.Neuron 1: value = " + perceptron.getOutputNeuron().getHypothesis() + " error = " + perceptron.getOutputNeuron().getError());
 
-                new double[] {perceptron.getInputLayer().getNeurons()[0].getHypothesis(), perceptron.getInputLayer().getNeurons()[1].getHypothesis()} // caleai.core.Neuron 1
-        );
+        double objective = (datasetA[0][0] + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
+        node.optimize(objective, 1);
+        double error = node.getErrorMean();
 
-        System.out.println();
-        System.out.println("INPUT LAYER : caleai.core.Neuron 1: value = " + perceptron.getInputLayer().getNeurons()[0].getHypothesis() + " error = " + perceptron.getInputLayer().getNeurons()[0].getError());
-        System.out.println("INPUT LAYER : caleai.core.Neuron 2: value = " + perceptron.getInputLayer().getNeurons()[1].getHypothesis() + " error = " + perceptron.getInputLayer().getNeurons()[1].getError());
-        System.out.println("OUPUT LAYER : caleai.core.Neuron 1: value = " + perceptron.getOutputNeuron().getHypothesis() + " error = " + perceptron.getOutputNeuron().getError());
-
-        double learningRate = 12;
-        int iteration = 10280;
-        double objective = datasetA[0] + datasetB[0] + datasetB[1];
-        perceptron.learn(objective, null, learningRate,  1);
-        double error = perceptron.getError();
-
-        System.out.println("Objective is " + objective);
-        System.out.println("Error is " + error);
+        //System.out.println("Objective is " + objective);
+        ///System.out.println("Error is " + error);
 
         double[] errors = new double[iteration];
         errors[0] = error;
         int i = 1;
+        int l = 0;
 
-        while (Math.abs(error) > 1.0 && i < iteration) {
-            datasetA[0] = 106;
-            datasetB[0] = 207;
-            datasetB[1] = 308;
-            objective = datasetA[0] + datasetB[0] + datasetB[1];
-            perceptron.feed(new double[][]{       // caleai.core.Layer 1
-                            datasetA,                                                                                                         // caleai.core.Neuron 1
-                            datasetB                                                                                                          // caleai.core.Neuron 2
-                    },
+        for (int j = 0; j < 3; j++) {
+            while (Math.abs(error) > 0.0 && i < iteration) {
+                node.activate(datasetA[i][0], datasetB[i][0]);
+                objective = (datasetA[0][0] + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
+                l += i;
+                node.optimize(objective, l + 1);
+                error = node.getErrorMean();
+                //System.out.println();
+                //System.out.println("INPUT LAYER : caleai.core.Neuron 1: value = " + node.getHypothesis() + " error = " + node.getErrorMean());
+                //System.out.println("INPUT LAYER : caleai.core.Neuron 2: value = " + perceptron.getInputLayer().getNeurons()[1].getHypothesis() + " error = " + perceptron.getInputLayer().getNeurons()[1].getError());
+                //System.out.println("OUPUT LAYER : caleai.core.Neuron 1: value = " + perceptron.getOutputNeuron().getHypothesis() + " error = " + perceptron.getOutputNeuron().getError());
 
-                    new double[] {perceptron.getInputLayer().getNeurons()[0].getHypothesis(), perceptron.getInputLayer().getNeurons()[1].getHypothesis()} // caleai.core.Neuron 1
-            );
+                error = node.getErrorMean();
+                errors[i] = error;
+                //System.out.println("Objective is " + objective);
+                //System.out.println("Error is " + error);
+                i++;
+            } //System.out.println("\nRecord of error is:");
+            for (double e : errors) { System.out.println( e ); }
 
-            perceptron.learn(objective, null, learningRate, i + 1);
+            // Shuffle dataset
+            List<double[]> pairA = new ArrayList<double[]>();
+            List<double[]> pairB = new ArrayList<double[]>();
 
-            System.out.println();
-            System.out.println("INPUT LAYER : caleai.core.Neuron 1: value = " + perceptron.getInputLayer().getNeurons()[0].getHypothesis() + " error = " + perceptron.getInputLayer().getNeurons()[0].getError());
-            System.out.println("INPUT LAYER : caleai.core.Neuron 2: value = " + perceptron.getInputLayer().getNeurons()[1].getHypothesis() + " error = " + perceptron.getInputLayer().getNeurons()[1].getError());
-            System.out.println("OUPUT LAYER : caleai.core.Neuron 1: value = " + perceptron.getOutputNeuron().getHypothesis() + " error = " + perceptron.getOutputNeuron().getError());
+            pairA.addAll(Arrays.asList(datasetA));
+            pairB.addAll(Arrays.asList(datasetB));
 
-            error = perceptron.getError();
-            errors[i] = error;
-            System.out.println("Objective is " + objective);
-            System.out.println("Error is " + error);
-            i++;
-        } System.out.println("\nRecord of error is:");
-        for (double e : errors) { System.out.println( e ); }
+            Collections.shuffle(pairA);
+            Collections.shuffle(pairB);
+
+            datasetA = new double[iteration][1];
+            datasetB = new double[iteration][1];
+
+            for (int k = 0; k < datasetA.length; k++) {
+                datasetA[k] = Arrays.stream(pairA.get(k)).toArray();
+                datasetB[k] = Arrays.stream(pairB.get(k)).toArray();
+            }
+
+            node.activate(datasetA[0][0], datasetB[0][0]);
+            objective = (datasetA[0][0] + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
+            i = 1;
+            l += i;
+            node.optimize(objective, l + 1);
+           // System.out.println("datasetA: " + Arrays.deepToString(datasetA));
+            //System.out.println("datasetB: " + Arrays.deepToString(datasetB));
+        }
     }
 }
