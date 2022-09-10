@@ -10,7 +10,7 @@ public class Node {
     private String function;
     private double power;
     private double hypothesis = 1.0;
-    private double errorMean = 0.0;
+    private double errorMean = 1.0;
     private String rule = null;
 
     // Construct neuron.
@@ -35,18 +35,18 @@ public class Node {
 
     public void activate (double parameter) { // Activate neuron, use parameters for comprehensive function.
         Function function = new Function(this.function, parameter); // Construct comprehensive function.
-        this.hypothesis = function.getValue() - errorMean; // Subtract the neuron error from it hypothesis.
+        this.hypothesis = Math.abs(function.getValue() - errorMean); // Subtract the neuron error from it hypothesis.
     }
 
     public void activate (double... parameters) { // Activate neuron, use parameters for comprehensive function.
         Function function = new Function(this.function, parameters); // Construct comprehensive function.
-        this.hypothesis = function.getValue() - errorMean; // Subtract the neuron error from it hypothesis.
+        this.hypothesis = Math.abs(function.getValue() - errorMean); // Subtract the neuron error from it hypothesis.
     }
 
     public void optimize (double objective, int iteration) {
         double error = Math.abs(this.hypothesis - objective);
         // Update neuron error to average neuron error.
-        this.errorMean = this.powerMean(this.errorMean, error, this.power, iteration) * 0.1;
+        this.errorMean = this.powerMean(this.errorMean, error, this.power, iteration);
     }
 
     public void optimize (int iteration, double error) {

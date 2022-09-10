@@ -15,20 +15,20 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        int iteration = 10;
+        int iteration = 100;
 
         // Initialize dataset
         double[][] datasetA = new double[iteration][1];
         double[][] datasetB = new double[iteration][1];
         for (int i = 0; i < datasetA.length; i++) {
-            datasetA[i][0] = Math.round(Math.random() + 9.987654321); // Generates 0 or 1
-            datasetB[i][0] = Math.round(Math.random() + 9.987654321); // Generates 0 or 1
+            datasetA[i][0] = Math.random() + Math.random(); // Generates 0 or 1
+            datasetB[i][0] = Math.random() + Math.random(); // Generates 0 or 1
         }
         //System.out.println("datasetA: " + Arrays.deepToString(datasetA));
         //System.out.println("datasetB: " + Arrays.deepToString(datasetB));
 
         // Initialize node
-        Node node = new Node("force", 1);
+        Node node = new Node("force", 67); // Learning rate range from -248 to -0.1 and from 0.1 to 76
         node.activate(datasetA[0][0], datasetB[0][0]);
 
         //System.out.println();
@@ -36,12 +36,12 @@ public class Main {
         //System.out.println("INPUT LAYER : caleai.core.Neuron 2: value = " + perceptron.getInputLayer().getNeurons()[1].getHypothesis() + " error = " + perceptron.getInputLayer().getNeurons()[1].getError());
         //System.out.println("OUPUT LAYER : caleai.core.Neuron 1: value = " + perceptron.getOutputNeuron().getHypothesis() + " error = " + perceptron.getOutputNeuron().getError());
 
-        double objective = (datasetA[0][0] + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
+        double objective = (datasetA[0][0] + 200 + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
         node.optimize(objective, 1);
         double error = node.getErrorMean();
 
         //System.out.println("Objective is " + objective);
-        ///System.out.println("Error is " + error);
+        //System.out.println("Error is " + error);
 
         double[] errors = new double[iteration];
         errors[0] = error;
@@ -51,7 +51,7 @@ public class Main {
         for (int j = 0; j < 3; j++) {
             while (Math.abs(error) > 0.0 && i < iteration) {
                 node.activate(datasetA[i][0], datasetB[i][0]);
-                objective = (datasetA[0][0] + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
+                objective = (datasetA[i][0] + 200 + datasetB[i][0]) - ((datasetA[i][0] * datasetB[i][0]) * (1 + datasetA[i][0] + datasetB[i][0] - (datasetA[i][0] * datasetB[i][0])));
                 l += i;
                 node.optimize(objective, l + 1);
                 error = node.getErrorMean();
@@ -62,8 +62,8 @@ public class Main {
 
                 error = node.getErrorMean();
                 errors[i] = error;
-                //System.out.println("Objective is " + objective);
-                //System.out.println("Error is " + error);
+                System.out.println("Objective is " + objective);
+                System.out.println("Error is " + error);
                 i++;
             } //System.out.println("\nRecord of error is:");
             for (double e : errors) { System.out.println( e ); }
@@ -87,7 +87,7 @@ public class Main {
             }
 
             node.activate(datasetA[0][0], datasetB[0][0]);
-            objective = (datasetA[0][0] + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
+            objective = (datasetA[0][0] + 200 + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
             i = 1;
             l += i;
             node.optimize(objective, l + 1);
