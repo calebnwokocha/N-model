@@ -26,7 +26,7 @@ public class Function {
 
     public double getValue() { return this.value; } // Return function value.
 
-    private void cubicVolume (double s) { this.value = Math.pow(s, 1); }
+    private void cubicVolume (double s) { this.value = Math.pow(s, 3); }
 
     private void force (double m, double a) { this.value = m * a /*(m + a) - ((m * a) * (1 + m + a - (m * a)))*/; }
 

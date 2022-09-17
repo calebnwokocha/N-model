@@ -6,6 +6,7 @@
 
 package caleai;
 
+import caleai.core.Data;
 import caleai.core.Node;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        int iteration = 100;
+    public static void main(String[] args) throws Exception {
+        /*int iteration = 100;
 
         // Initialize dataset
         double[][] datasetA = new double[iteration][1];
@@ -27,18 +28,20 @@ public class Main {
         //System.out.println("datasetA: " + Arrays.deepToString(datasetA));
         //System.out.println("datasetB: " + Arrays.deepToString(datasetB));
 
-        // Initialize node
-        Node node = new Node("force", 67); // Learning rate range from -248 to -0.1 and from 0.1 to 76
-        node.activate(datasetA[0][0], datasetB[0][0]);
+        // Initialize node1
+        Node node1 = new Node("force", 1); // Learning rate range from -248 to -0.1 and from 0.1 to 76
+        node1.activate(datasetA[0][0], datasetB[0][0]);
+
+        Node node2 = new Node("cublic volume", 1);
 
         //System.out.println();
-        //System.out.println("INPUT LAYER : caleai.core.Neuron 1: value = " + node.getHypothesis() + " error = " + node.getErrorMean());
+        //System.out.println("INPUT LAYER : caleai.core.Neuron 1: value = " + node1.getHypothesis() + " error = " + node1.getErrorMean());
         //System.out.println("INPUT LAYER : caleai.core.Neuron 2: value = " + perceptron.getInputLayer().getNeurons()[1].getHypothesis() + " error = " + perceptron.getInputLayer().getNeurons()[1].getError());
         //System.out.println("OUPUT LAYER : caleai.core.Neuron 1: value = " + perceptron.getOutputNeuron().getHypothesis() + " error = " + perceptron.getOutputNeuron().getError());
 
         double objective = (datasetA[0][0] + 200 + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
-        node.optimize(objective, 1);
-        double error = node.getErrorMean();
+        node1.optimize(objective, 1);
+        double error = node1.getErrorMean();
 
         //System.out.println("Objective is " + objective);
         //System.out.println("Error is " + error);
@@ -50,20 +53,20 @@ public class Main {
 
         for (int j = 0; j < 3; j++) {
             while (Math.abs(error) > 0.0 && i < iteration) {
-                node.activate(datasetA[i][0], datasetB[i][0]);
+                node1.activate(datasetA[i][0], datasetB[i][0]);
                 objective = (datasetA[i][0] + 200 + datasetB[i][0]) - ((datasetA[i][0] * datasetB[i][0]) * (1 + datasetA[i][0] + datasetB[i][0] - (datasetA[i][0] * datasetB[i][0])));
                 l += i;
-                node.optimize(objective, l + 1);
-                error = node.getErrorMean();
-                System.out.println();
-                System.out.println("INPUT LAYER : caleai.core.Neuron 1: value = " + node.getHypothesis() + " error = " + node.getErrorMean() + " rule = " + node.getRule());
+                node1.optimize(objective, l + 1);
+                error = node1.getErrorMean();
+                //System.out.println();
+                //System.out.println("INPUT LAYER : caleai.core.Neuron 1: value = " + node1.getHypothesis() + " error = " + node1.getErrorMean() + " rule = " + node1.getRule());
                 //System.out.println("INPUT LAYER : caleai.core.Neuron 2: value = " + perceptron.getInputLayer().getNeurons()[1].getHypothesis() + " error = " + perceptron.getInputLayer().getNeurons()[1].getError());
                 //System.out.println("OUPUT LAYER : caleai.core.Neuron 1: value = " + perceptron.getOutputNeuron().getHypothesis() + " error = " + perceptron.getOutputNeuron().getError());
 
-                error = node.getErrorMean();
+                error = node1.getErrorMean();
                 errors[i] = error;
-                System.out.println("Objective is " + objective);
-                System.out.println("Error is " + error);
+                //System.out.println("Objective is " + objective);
+                //System.out.println("Error is " + error);
                 i++;
             } //System.out.println("\nRecord of error is:");
             for (double e : errors) { System.out.println( e ); }
@@ -86,13 +89,16 @@ public class Main {
                 datasetB[k] = Arrays.stream(pairB.get(k)).toArray();
             }
 
-            node.activate(datasetA[0][0], datasetB[0][0]);
+            node1.activate(datasetA[0][0], datasetB[0][0]);
             objective = (datasetA[0][0] + 200 + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
             i = 1;
             l += i;
-            node.optimize(objective, l + 1);
+            node1.optimize(objective, l + 1);
            // System.out.println("datasetA: " + Arrays.deepToString(datasetA));
             //System.out.println("datasetB: " + Arrays.deepToString(datasetB));
-        }
+        }*/
+
+        Data data = new Data("bin/src/caleai/core/Instant Coffee.mp4");
+        System.out.println(Arrays.toString(data.getData()));
     }
 }
