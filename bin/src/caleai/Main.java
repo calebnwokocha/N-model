@@ -9,6 +9,7 @@ package caleai;
 import caleai.core.Data;
 import caleai.core.Node;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,11 +20,11 @@ public class Main {
         /*int iteration = 100;
 
         // Initialize dataset
-        double[][] datasetA = new double[iteration][1];
-        double[][] datasetB = new double[iteration][1];
+        byte[][] datasetA = new byte[iteration][1];
+        byte[][] datasetB = new byte[iteration][1];
         for (int i = 0; i < datasetA.length; i++) {
-            datasetA[i][0] = Math.random() + Math.random(); // Generates 0 or 1
-            datasetB[i][0] = Math.random() + Math.random(); // Generates 0 or 1
+            datasetA[i][0] = (byte) (Math.random() + Math.random()); // Generates 0 or 1
+            datasetB[i][0] = (byte) (Math.random() + Math.random()); // Generates 0 or 1
         }
         //System.out.println("datasetA: " + Arrays.deepToString(datasetA));
         //System.out.println("datasetB: " + Arrays.deepToString(datasetB));
@@ -69,36 +70,42 @@ public class Main {
                 //System.out.println("Error is " + error);
                 i++;
             } //System.out.println("\nRecord of error is:");
-            for (double e : errors) { System.out.println( e ); }
+            for (double e : errors) { System.out.println( e ); }*/
 
-            // Shuffle dataset
+/*            // Shuffle dataset
             List<double[]> pairA = new ArrayList<double[]>();
             List<double[]> pairB = new ArrayList<double[]>();
 
-            pairA.addAll(Arrays.asList(datasetA));
-            pairB.addAll(Arrays.asList(datasetB));
+            pairA.addAll(Arrays.asList((byte[]) datasetA));
+            pairB.addAll(Arrays.asList((byte[]) datasetB));
 
             Collections.shuffle(pairA);
             Collections.shuffle(pairB);
 
-            datasetA = new double[iteration][1];
-            datasetB = new double[iteration][1];
+            datasetA = new byte[iteration][1];
+            datasetB = new byte[iteration][1];
 
             for (int k = 0; k < datasetA.length; k++) {
-                datasetA[k] = Arrays.stream(pairA.get(k)).toArray();
+                datasetA[k] = Arrays.stream(pairA.get(k)).toByte();
                 datasetB[k] = Arrays.stream(pairB.get(k)).toArray();
-            }
-
+            }*/
+/*
             node1.activate(datasetA[0][0], datasetB[0][0]);
             objective = (datasetA[0][0] + 200 + datasetB[0][0]) - ((datasetA[0][0] * datasetB[0][0]) * (1 + datasetA[0][0] + datasetB[0][0] - (datasetA[0][0] * datasetB[0][0])));
             i = 1;
             l += i;
-            node1.optimize(objective, l + 1);
+            node1.optimize(objective, l + 1);*/
            // System.out.println("datasetA: " + Arrays.deepToString(datasetA));
             //System.out.println("datasetB: " + Arrays.deepToString(datasetB));
-        }*/
 
-        Data data = new Data("bin/src/caleai/core/Instant Coffee.mp4");
-        System.out.println(Arrays.toString(data.getData()));
+        /*Data data = null;
+        {
+            try {
+                data = new Data("bin/src/caleai/core/Instant Coffee.mp4");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(Arrays.toString(data.getData()));*/
     }
 }

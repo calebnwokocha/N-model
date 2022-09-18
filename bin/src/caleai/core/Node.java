@@ -33,14 +33,14 @@ public class Node {
 
     public double getErrorMean() { return this.errorMean; }
 
-    public void activate (double parameter) { // Activate neuron, use parameters for comprehensive function.
-        Function function = new Function(this.function, parameter); // Construct comprehensive function.
-        this.hypothesis = Math.abs(function.getValue() - errorMean); // Subtract the neuron error from it hypothesis.
+    public void activate (byte parameter) { // Activate neuron, use parameters for comprehensive function.
+        CFunction cFunction = new CFunction(this.function, parameter); // Construct comprehensive function.
+        this.hypothesis = Math.abs(cFunction.getValue() - errorMean); // Subtract the neuron error from it hypothesis.
     }
 
-    public void activate (double... parameters) { // Activate neuron, use parameters for comprehensive function.
-        Function function = new Function(this.function, parameters); // Construct comprehensive function.
-        this.hypothesis = Math.abs(function.getValue() - errorMean); // Subtract the neuron error from it hypothesis.
+    public void activate (byte... parameters) { // Activate neuron, use parameters for comprehensive function.
+        CFunction cFunction = new CFunction(this.function, parameters); // Construct comprehensive function.
+        this.hypothesis = Math.abs(cFunction.getValue() - errorMean); // Subtract the neuron error from it hypothesis.
     }
 
     public void optimize (double objective, int iteration) {

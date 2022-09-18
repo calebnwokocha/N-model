@@ -32,15 +32,15 @@ public class Layer {
 
     public void addNode(Node node) { this.nodes.add(node); }
 
-    public void activate (double parameter) { // Activate all layer neurons.
+    public void activate (byte parameter) { // Activate all layer neurons.
         for (Node node : this.nodes) { node.activate(parameter); }
     }
 
-    public void activate (double... parameters) { // Activate all layer neurons.
+    public void activate (byte... parameters) { // Activate all layer neurons.
         for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(parameters[i]); }
     }
 
-    public void activate (double[]... parameters) { // Activate all layer neurons.
+    public void activate (byte[]... parameters) { // Activate all layer neurons.
         for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(parameters[i]); }
     }
 

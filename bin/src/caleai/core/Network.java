@@ -52,19 +52,19 @@ public class Network {
 
     public void addLayer (Layer layer) { this.layers.add(layer); }
 
-    public void activate (double parameter) { // Activate all perceptron layers.
+    public void activate (byte parameter) { // Activate all perceptron layers.
         for (Layer layer : this.layers) { layer.activate(parameter); }
     }
 
-    public void activate (double... parameters) { // Activate all perceptron layers.
+    public void activate (byte... parameters) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
     }
 
-    public void activate (double[]... parameters) { // Activate all perceptron layers.
+    public void activate (byte[]... parameters) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
     }
 
-    public void activate (double[][]... parameters) { // Activate all perceptron layers.
+    public void activate (byte[][]... parameters) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
     }
 

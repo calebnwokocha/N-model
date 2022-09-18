@@ -6,21 +6,22 @@
 
 package caleai.core;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Data {
-    private final byte[] bytes;
+    private byte[] data;
 
-    public Data (String fileName) throws Exception {
-        Path path = Paths.get(fileName);
-        this.bytes = Files.readAllBytes(path);
+    public Data (String fileName) throws IOException {
+       this.setData(fileName);
     }
 
-    public double[] getData() {
-        double[] data = new double[this.bytes.length];
-        for (int i = 0; i < data.length; i++ ) { data[i] = this.bytes[i];}
-        return data;
+    public byte[] getData() { return this.data; }
+
+    public void setData(String fileName) throws IOException {
+        Path path = Paths.get(fileName);
+        this.data = Files.readAllBytes(path);
     }
 }
