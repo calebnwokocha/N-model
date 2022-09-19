@@ -27,13 +27,18 @@ public class Data {
         this.data = Files.readAllBytes(path);
     }
 
-    public double[][] divide (int[] groups) {
-        double[][] groupedData = new double[groups.length][];
+    public byte[][] divide (int[] groupSizes) {
+        byte[][] groupedData = new byte[groupSizes.length][];
         int k = 0;
-        for (int i = 0; i < groups.length; i++) {
-            for (int j = 0; j < groups[i]; j++, k++) {
+        for (int i = 0; i < groupSizes.length; i++) {
+            for (int j = 0; j < groupSizes[i]; j++, k++) {
                 groupedData[i][j] = this.data[k];
             }
         } return groupedData;
+    }
+
+    public byte[] transform () {
+        // TODO: This function should return a transformation of data.
+        return null;
     }
 }
