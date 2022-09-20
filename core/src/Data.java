@@ -19,8 +19,6 @@ public class Data {
 
     public byte[] getData() { return this.data; }
 
-    public int getLength() { return this.data.length; }
-
     public void setData(byte[] data) { this.data = data; }
 
     public byte[][] divide (int[] groupSizes) {

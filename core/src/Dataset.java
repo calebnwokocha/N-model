@@ -8,8 +8,7 @@ public class Dataset {
     public Dataset (String[] fileNames) throws IOException {
         this.dataset = new Data[fileNames.length];
         for (int i = 0; i < this.dataset.length; i++) {
-            this.dataset[i] = new Data(fileNames[i]);
-        }
+            this.dataset[i] = new Data(fileNames[i]); }
     }
 
     public Data[] getDataset() { return this.dataset; }
