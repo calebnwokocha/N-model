@@ -9,10 +9,10 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) throws Exception {
         String[] fileNames = {
-                "core/src/test1.txt",
-                "core/src/test2.txt",
-                "core/src/text3.txt",
-                "core/src/text4.txt"
+                "src/test1.txt",
+                "src/test2.txt",
+                "src/text3.txt",
+                "src/text4.txt"
         };
 
         Dataset dataset = new Dataset(fileNames);
