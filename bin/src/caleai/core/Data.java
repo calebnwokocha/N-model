@@ -15,17 +15,15 @@ public class Data {
     private byte[] data;
 
     public Data (String fileName) throws IOException {
-       this.setData(fileName);
+        Path path = Paths.get(fileName);
+        this.data = Files.readAllBytes(path);
     }
 
     public byte[] getData() { return this.data; }
 
     public int getLength() { return this.data.length; }
 
-    public void setData(String fileName) throws IOException {
-        Path path = Paths.get(fileName);
-        this.data = Files.readAllBytes(path);
-    }
+    public void setData(byte[] data) { this.data = data; }
 
     public byte[][] divide (int[] groupSizes) {
         byte[][] groupedData = new byte[groupSizes.length][];
@@ -35,10 +33,5 @@ public class Data {
                 groupedData[i][j] = this.data[k];
             }
         } return groupedData;
-    }
-
-    public byte[] transform () {
-        // TODO: This function should return a transformation of data.
-        return null;
     }
 }
