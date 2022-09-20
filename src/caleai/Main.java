@@ -1,4 +1,4 @@
-/*
+package caleai;/*
  * AUTHOR: CALEB PRINCEWILL NWOKOCHA
  * ORGANIZATION: CALE TECHNOLOGY ENTERPRISE
  * DEPARTMENT: MAS-R&D
@@ -9,10 +9,10 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) throws Exception {
         String[] fileNames = {
-                "src/test1.txt",
-                "src/test2.txt",
-                "src/text3.txt",
-                "src/text4.txt"
+                "src/caleai/test1.txt",
+                "src/caleai/test2.txt",
+                "src/caleai/text3.txt",
+                "src/caleai/text4.txt"
         };
 
         Dataset dataset = new Dataset(fileNames);
