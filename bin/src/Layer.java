@@ -4,8 +4,6 @@
  * DEPARTMENT: MAS-R&D
  */
 
-package caleai.core;
-
 import java.util.ArrayList;
 
 public class Layer {

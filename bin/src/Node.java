@@ -4,8 +4,6 @@
  * DEPARTMENT: MAS-R&D
  */
 
-package caleai.core;
-
 public class Node {
     private String function;
     private double power;

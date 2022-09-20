@@ -1,10 +1,6 @@
-package caleai.core;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 public class Dataset {
     private Data[] dataset;

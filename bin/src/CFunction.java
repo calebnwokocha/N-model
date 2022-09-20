@@ -4,8 +4,6 @@
  * DEPARTMENT: MAS-R&D
  */
 
-package caleai.core;
-
 public class CFunction {
     private double value;
 

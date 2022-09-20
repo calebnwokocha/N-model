@@ -4,20 +4,15 @@
  * DEPARTMENT: MAS-R&D
  */
 
-package caleai;
-
-import caleai.core.Data;
-import caleai.core.Dataset;
-
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         String[] fileNames = {
-                "bin/src/caleai/core/test1.txt",
-                "bin/src/caleai/core/test2.txt",
-                "bin/src/caleai/core/text3.txt",
-                "bin/src/caleai/core/text4.txt"
+                "bin/src/test1.txt",
+                "bin/src/test2.txt",
+                "bin/src/text3.txt",
+                "bin/src/text4.txt"
         };
 
         Dataset dataset = new Dataset(fileNames);
