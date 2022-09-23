@@ -22,12 +22,12 @@ public class Data {
     public void setData(byte[] data) { this.data = data; }
 
     public byte[][] divide (int[] groupSizes) {
-        byte[][] groupedData = new byte[groupSizes.length][];
+        byte[][] groups = new byte[groupSizes.length][];
         int k = 0;
         for (int i = 0; i < groupSizes.length; i++) {
             for (int j = 0; j < groupSizes[i]; j++, k++) {
-                groupedData[i][j] = this.data[k];
+                groups[i][j] = this.data[k];
             }
-        } return groupedData;
+        } return groups;
     }
 }

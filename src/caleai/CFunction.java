@@ -10,15 +10,15 @@ public class CFunction {
     // Construct comprehensive function.
     public CFunction(String functionName, byte parameter) {
         switch (functionName) { // Configure function according to function name.
-            case "identity" -> this.identity(parameter);
+            case "sum" -> this.sum(parameter);
             case "cubic volume" -> this.cubicVolume(parameter);
         }
     }
 
     public CFunction(String functionName, byte... parameters) {
         switch (functionName) { // Configure function according to function name.
-            case "force" -> this.force(parameters[0], parameters[1]);
             case "sum" -> this.sum(parameters);
+            case "force" -> this.force(parameters[0], parameters[1]);
         }
     }
 
@@ -27,8 +27,6 @@ public class CFunction {
     private void cubicVolume (byte s) { this.value = Math.pow(s, 3); }
 
     private void force (byte m, byte a) { this.value = m * a /*(m + a) - ((m * a) * (1 + m + a - (m * a)))*/; }
-
-    private void identity (byte x) { this.value = x; }
 
     private void sum (byte... X) {
         double s = 0;
