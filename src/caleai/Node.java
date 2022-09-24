@@ -5,79 +5,83 @@ package caleai;/*
  */
 
 public class Node {
-    private String functionName;
+    private String function;
     private double power;
-    private double hypothesis = 1.0;
+    private double hypothesis /*= 1.0*/;
+    private double thesis /*= 1.0*/;
     private double errorMean = 1.0;
-    private String rule = null;
 
     // Construct neuron.
     public Node () {
-        this.functionName = "sum";
+        this.function = "sum";
         this.setPower();
     }
 
-    public Node (String functionName) {
-        this.functionName = functionName;
+    public Node (String function) {
+        this.function = function;
         this.setPower();
     }
 
     public Node (double power) {
-        this.functionName = "sum";
+        this.function = "sum";
         this.power = power;
     }
 
     public Node (double minimumPower, double maximumPower) {
-        this.functionName = "sum";
+        this.function = "sum";
         this.setPower(minimumPower, maximumPower);
     }
 
-    public Node (String functionName, double minimumPower, double maximumPower) {
-        this.functionName = functionName;
+    public Node (String function, double minimumPower, double maximumPower) {
+        this.function = function;
         this.setPower(minimumPower, maximumPower);
     }
 
-    public Node(String functionName, double power) {
-        this.functionName = functionName; // The name of neuron comprehensive function.
+    public Node(String function, double power) {
+        this.function = function; // The name of neuron comprehensive function.
         this.power = power;
     }
 
-    public String getFunctionName() { return this.functionName; }
+    public String getFunction() { return this.function; }
 
-    public void setFunctionName(String functionName) { this.functionName = functionName; }
+    public void setFunction(String function) { this.function = function; }
 
     public double getPower() { return this.power; }
 
     public double getHypothesis() { return this.hypothesis; }
 
-    public String getRule() { setRule(); return this.rule; }
+    public double getThesis() { return this.thesis; }
 
     public double getErrorMean() { return this.errorMean; }
 
     public void setPower(double power) { this.power = power; }
 
     public void setPower() {
-        // Generates stochastic power for -1.0=>p<0.0 and 0.0<p<=2.0
-        this.power = ((Math.random() * (1.0 - (-1.0) + 1)) + (-1.0)) + 0.1;
+        double maximumPower = 2.0;
+        double minimumPower = -1.0;
+        // Generates stochastic power for p where -1.0=>p<0.0 and 0.0<p<=2.0
+        this.power = ((Math.random() * ((maximumPower - 1.0) - minimumPower + 1)) + minimumPower) + 0.1;
     }
 
     public void setPower(double minimumPower, double maximumPower) {
-        // Generates stochastic power for minimumPower=>p<0.0 and 0.0<p<=maximumPower
-        this.power = ((Math.random() * (maximumPower - minimumPower + 1)) + minimumPower) + 0.1;
+        // Generates stochastic power for p where minimumPower=>p<0.0 and 0.0<p<=maximumPower
+        this.power = ((Math.random() * ((maximumPower - 1.0) - minimumPower + 1)) + minimumPower) + 0.1;
     }
 
     public void activate (byte parameter) { // Activate neuron, use parameters for comprehensive function.
-        CFunction cFunction = new CFunction(this.functionName, parameter); // Construct comprehensive function.
-        this.hypothesis = Math.abs(cFunction.getValue() - errorMean); // Subtract the neuron error from it hypothesis.
+        CFunction cFunction = new CFunction(this.function, parameter); // Construct comprehensive function.
+        this.hypothesis = cFunction.getValue();
+        this.thesis = Math.abs(this.hypothesis - errorMean); // Subtract the neuron error from it hypothesis.
     }
 
     public void activate (byte... parameters) { // Activate neuron, use parameters for comprehensive function.
-        CFunction cFunction = new CFunction(this.functionName, parameters); // Construct comprehensive function.
-        this.hypothesis = Math.abs(cFunction.getValue() - errorMean); // Subtract the neuron error from it hypothesis.
+        CFunction cFunction = new CFunction(this.function, parameters); // Construct comprehensive function.
+        this.hypothesis = cFunction.getValue();
+        this.thesis = Math.abs(this.hypothesis - errorMean); // Subtract the neuron error from it hypothesis.
     }
 
     public void optimize (double objective, int iteration) {
-        double error = Math.abs(this.hypothesis - objective);
+        double error = Math.abs(this.thesis - objective);
         // Update neuron error to average neuron error.
         this.errorMean = this.powerMean(this.errorMean, error, this.power, iteration);
     }
@@ -87,9 +91,9 @@ public class Node {
         this.errorMean = this.powerMean(this.errorMean, error, this.power, iteration);
     }
 
-    private void setRule () {
-        double probability = this.hypothesis / (this.hypothesis + this.errorMean);
-        this.rule = this.functionName + " at probability " + probability;
+    private String getRule () {
+        double probability = this.thesis / (this.thesis + this.errorMean);
+        return this.function + " at probability " + probability;
     }
 
     private double powerMean (double m, double d, double p, int t) {

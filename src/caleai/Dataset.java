@@ -7,7 +7,7 @@ import java.util.Collections;
 public class Dataset {
     private Data[] dataset;
 
-    public Dataset (String[] fileNames) throws IOException {
+    public Dataset (String... fileNames) throws IOException {
         this.dataset = new Data[fileNames.length];
         for (int i = 0; i < this.dataset.length; i++) {
             this.dataset[i] = new Data(fileNames[i]); }
@@ -15,7 +15,7 @@ public class Dataset {
 
     public Data[] getDataset() { return this.dataset; }
 
-    public void setDataset(Data[] dataset) { this.dataset = dataset; }
+    public void setDataset(Data... dataset) { this.dataset = dataset; }
 
     public void shuffle () { Collections.shuffle(Arrays.asList(this.dataset)); }
 }
