@@ -7,8 +7,8 @@ package caleai;/*
 public class Node {
     private String function;
     private double power;
-    private double hypothesis /*= 1.0*/;
-    private double thesis /*= 1.0*/;
+    private double hypothesis;
+    private double thesis;
     private double errorMean = 1.0;
 
     // Construct neuron.
@@ -68,27 +68,27 @@ public class Node {
         this.power = ((Math.random() * ((maximumPower - 1.0) - minimumPower + 1)) + minimumPower) + 0.1;
     }
 
-    public void activate (byte parameter) { // Activate neuron, use parameters for comprehensive function.
+    public void activate (double parameter) { // Activate neuron, use parameters for comprehensive function.
         CFunction cFunction = new CFunction(this.function, parameter); // Construct comprehensive function.
         this.hypothesis = cFunction.getValue();
-        this.thesis = Math.abs(this.hypothesis - errorMean); // Subtract the neuron error from it hypothesis.
+        this.thesis = this.hypothesis - errorMean; // Subtract the neuron error from it hypothesis.
     }
 
-    public void activate (byte... parameters) { // Activate neuron, use parameters for comprehensive function.
+    public void activate (double... parameters) { // Activate neuron, use parameters for comprehensive function.
         CFunction cFunction = new CFunction(this.function, parameters); // Construct comprehensive function.
         this.hypothesis = cFunction.getValue();
-        this.thesis = Math.abs(this.hypothesis - errorMean); // Subtract the neuron error from it hypothesis.
+        this.thesis = this.hypothesis - errorMean; // Subtract the neuron error from it hypothesis.
     }
 
     public void optimize (double objective, int iteration) {
-        double error = Math.abs(this.thesis - objective);
+        double error = this.thesis - objective;
         // Update neuron error to average neuron error.
-        this.errorMean = this.powerMean(this.errorMean, error, this.power, iteration);
+        this.errorMean = this.dynamicPowerMean(this.errorMean, error, this.power, iteration);
     }
 
     public void optimize (int iteration, double error) {
         // Update neuron error to average neuron error.
-        this.errorMean = this.powerMean(this.errorMean, error, this.power, iteration);
+        this.errorMean = this.dynamicPowerMean(this.errorMean, error, this.power, iteration);
     }
 
     private String getRule () {
@@ -96,7 +96,7 @@ public class Node {
         return this.function + " at probability " + probability;
     }
 
-    private double powerMean (double m, double d, double p, int t) {
+    private double dynamicPowerMean(double m, double d, double p, int t) {
         m = (Math.pow((1.0 / (t)) * (Math.pow(d, p) + (Math.pow(m, p) * (t - 1))), 1.0 / p));
         return m;
     }

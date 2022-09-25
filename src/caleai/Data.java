@@ -17,17 +17,38 @@ public class Data {
         this.data = Files.readAllBytes(path);
     }
 
-    public byte[] getData() { return this.data; }
+    public double[] getData() {
+        double[] data = new double[this.data.length];
+        for (int i = 0; i < data.length; i++) {
+            data[i] = this.data[i];
+        } return data;
+    }
 
     public void setData(byte[] data) { this.data = data; }
 
-    public byte[][] divide (int[] groupSizes) {
-        byte[][] groups = new byte[groupSizes.length][];
+    public double[][] divide (int[] groupSizes) {
+        double[][] groups = new double[groupSizes.length][];
         int k = 0;
         for (int i = 0; i < groupSizes.length; i++) {
             for (int j = 0; j < groupSizes[i]; j++, k++) {
                 groups[i][j] = this.data[k];
             }
         } return groups;
+    }
+
+    public void toText (double... data) {
+
+    }
+
+    public void toSound (double... data) {
+
+    }
+
+    public void toImage (double... data) {
+
+    }
+
+    public void toVideo (double... data) {
+
     }
 }

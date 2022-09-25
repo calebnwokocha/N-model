@@ -13,7 +13,12 @@ public class Dataset {
             this.dataset[i] = new Data(fileNames[i]); }
     }
 
-    public Data[] getDataset() { return this.dataset; }
+    public double[][] getDataset() {
+        double[][] dataset = new double[this.dataset.length][];
+        for (int i = 0; i < dataset.length; i++) {
+            dataset[i] = this.dataset[i].getData();
+        } return dataset;
+    }
 
     public void setDataset(Data... dataset) { this.dataset = dataset; }
 
