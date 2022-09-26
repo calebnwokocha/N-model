@@ -31,12 +31,16 @@ public class Node {
 
     public Node (double minimumPower, double maximumPower) {
         this.function = "sum";
-        this.setPower(minimumPower, maximumPower);
+        this.minimumPower = minimumPower;
+        this.maximumPower = maximumPower;
+        this.setPower();
     }
 
     public Node (String function, double minimumPower, double maximumPower) {
         this.function = function;
-        this.setPower(minimumPower, maximumPower);
+        this.minimumPower = minimumPower;
+        this.maximumPower = maximumPower;
+        this.setPower();
     }
 
     public Node(String function, double power) {
@@ -67,12 +71,6 @@ public class Node {
     public void setPower(double power) { this.power = power; }
 
     public void setPower() {
-        // Generates stochastic power for p where -1.0=>p<0.0 and 0.0<p<=2.0
-        this.power = ((Math.random() * ((this.maximumPower - 1.0) - this.minimumPower + 1)) + this.minimumPower) + 0.1;
-    }
-
-    public void setPower(double minimumPower, double maximumPower) {
-        this.minimumPower = minimumPower; this.maximumPower = maximumPower;
         // Generates stochastic power for p where minimumPower=>p<0.0 and 0.0<p<=maximumPower
         this.power = ((Math.random() * ((this.maximumPower - 1.0) - this.minimumPower + 1)) + this.minimumPower) + 0.1;
     }
