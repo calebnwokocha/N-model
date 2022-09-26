@@ -48,99 +48,99 @@ public class Network {
     }
 
     public Network (int width, int length, double power) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, power)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, this.power)); }
     }
 
     public Network (int width, int length, double[] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, powers)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, this.powers)); }
     }
 
     public Network (int width, int length, double[][] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, powers[i])); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, this.powers[i])); }
     }
 
     public Network (int[] widths, int length, double power) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], power)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], this.power)); }
     }
 
     public Network (int[] widths, int length, double[] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], powers)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], this.powers)); }
     }
 
     public Network (int[] widths, int length, double[][] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], powers[i])); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], this.powers[i])); }
     }
 
     public Network (int width, int length, String function, double power) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, function, power)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, function, this.power)); }
     }
 
     public Network (int width, int length, String[] functions, double power) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions, power)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions, this.power)); }
     }
 
     public Network (int width, int length, String function, double[] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, function, powers)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, function, this.powers)); }
     }
 
     public Network (int width, int length, String[] functions, double[] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions, powers)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions, this.powers)); }
     }
 
     public Network (int width, int length, String[][] functions, double power) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions[i], power)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions[i], this.power)); }
     }
 
     public Network (int width, int length, String function, double[][] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, function, powers[i])); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, function, this.powers[i])); }
     }
 
     public Network (int width, int length, String[][] functions, double[] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions[i], powers)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions[i], this.powers)); }
     }
 
     public Network (int width, int length, String[] functions, double[][] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions, powers[i])); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions, this.powers[i])); }
     }
 
     public Network (int width, int length, String[][] functions, double[][] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions[i], powers[i])); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(width, functions[i], this.powers[i])); }
     }
 
     public Network (int[] widths, int length, String function, double power) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], function, power)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], function, this.power)); }
     }
 
     public Network (int[] widths, int length, String[] functions, double power) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions, power)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions, this.power)); }
     }
 
     public Network (int[] widths, int length, String function, double[] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], function, powers)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], function, this.powers)); }
     }
 
     public Network (int[] widths, int length, String[] functions, double[] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions, powers)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions, this.powers)); }
     }
 
     public Network (int[] widths, int length, String[][] functions, double power) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions[i], power)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions[i], this.power)); }
     }
 
     public Network (int[] widths, int length, String function, double[][] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], function, powers[i])); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], function, this.powers[i])); }
     }
 
     public Network (int[] widths, int length, String[][] functions, double[] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions[i], powers)); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions[i], this.powers)); }
     }
 
     public Network (int[] widths, int length, String[] functions, double[][] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions, powers[i])); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions, this.powers[i])); }
     }
 
     public Network (int[] widths, int length, String[][] functions, double[][] powers) {
-        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions[i], powers[i])); }
+        for (int i = 1; i <= length; i++) { this.layers.add(new Layer(widths[i], functions[i], this.powers[i])); }
     }
 
     public Network (int width, int length, String function, double minimumPower, double maximumPower) {

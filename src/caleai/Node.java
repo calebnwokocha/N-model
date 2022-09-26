@@ -10,6 +10,8 @@ public class Node {
     private double hypothesis;
     private double thesis;
     private double errorMean = 1.0;
+    private double minimumPower = -1.0; // Default
+    private double maximumPower = 2.0; // Default
 
     // Construct neuron.
     public Node () {
@@ -46,26 +48,33 @@ public class Node {
 
     public void setFunction(String function) { this.function = function; }
 
-    public double getPower() { return this.power; }
-
     public double getHypothesis() { return this.hypothesis; }
 
     public double getThesis() { return this.thesis; }
 
     public double getErrorMean() { return this.errorMean; }
 
+    public double getMinimumPower() { return this.minimumPower; }
+
+    public void setMinimumPower(double minimumPower) { this.minimumPower = minimumPower; }
+
+    public double getMaximumPower() { return this.maximumPower; }
+
+    public void setMaximumPower(double maximumPower) { this.maximumPower = maximumPower; }
+
+    public double getPower() { return this.power; }
+
     public void setPower(double power) { this.power = power; }
 
     public void setPower() {
-        double maximumPower = 2.0;
-        double minimumPower = -1.0;
         // Generates stochastic power for p where -1.0=>p<0.0 and 0.0<p<=2.0
-        this.power = ((Math.random() * ((maximumPower - 1.0) - minimumPower + 1)) + minimumPower) + 0.1;
+        this.power = ((Math.random() * ((this.maximumPower - 1.0) - this.minimumPower + 1)) + this.minimumPower) + 0.1;
     }
 
     public void setPower(double minimumPower, double maximumPower) {
+        this.minimumPower = minimumPower; this.maximumPower = maximumPower;
         // Generates stochastic power for p where minimumPower=>p<0.0 and 0.0<p<=maximumPower
-        this.power = ((Math.random() * ((maximumPower - 1.0) - minimumPower + 1)) + minimumPower) + 0.1;
+        this.power = ((Math.random() * ((this.maximumPower - 1.0) - this.minimumPower + 1)) + this.minimumPower) + 0.1;
     }
 
     public void activate (double parameter) { // Activate neuron, use parameters for comprehensive function.

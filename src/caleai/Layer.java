@@ -8,11 +8,10 @@ import java.util.ArrayList;
 
 public class Layer {
     private ArrayList<Node> nodes = new ArrayList<>();
+    private String function;
+    private double power;
     private String[] functions;
     private double[] powers;
-    private double[] hypotheses;
-    private double[] theses;
-    private double[] errorMeans;
 
     // Construct layer.
     public Layer (int dimension) {
@@ -20,35 +19,43 @@ public class Layer {
     }
 
     public Layer (int dimension, String function) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(function)); }
+        this.function = function;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.function)); }
     }
 
     public Layer (int dimension, String[] functions) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(functions[i])); }
+        this.functions = functions;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.functions[i])); }
     }
 
     public Layer (int dimension, double power) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(power)); }
+        this.power = power;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.power)); }
     }
 
     public Layer (int dimension, double[] powers) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(powers[i])); }
+        this.powers = powers;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.powers[i])); }
     }
 
     public Layer (int dimension, String function, double power) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(function, power)); }
+        this.function = function; this.power = power;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.function, this.power)); }
     }
 
     public Layer (int dimension, String[] functions, double power) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(functions[i], power)); }
+        this.functions = functions; this.power = power;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.functions[i], this.power)); }
     }
 
     public Layer (int dimension, String function, double[] powers) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(function, powers[i])); }
+        this.function = function; this.powers = powers;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.function, this.powers[i])); }
     }
 
     public Layer (int dimension, String[] functions, double[] powers) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(functions[i], powers[i])); }
+        this.functions = functions; this.powers = powers;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.functions[i], this.powers[i])); }
     }
 
     public Layer (int dimension, double minimumPower, double maximumPower) {
@@ -60,19 +67,22 @@ public class Layer {
     }
 
     public Layer (int dimension, String function, double minimumPower, double maximumPower) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(function, minimumPower, maximumPower)); }
+        this.function = function;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.function, minimumPower, maximumPower)); }
     }
 
     public Layer (int dimension, String[] functions, double minimumPower, double maximumPower) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(functions[i], minimumPower, maximumPower)); }
+        this.functions = functions;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.functions[i], minimumPower, maximumPower)); }
     }
 
     public Layer (int dimension, String function, double[] minimumPowers, double[] maximumPowers) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(function, minimumPowers[i], maximumPowers[i])); }
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.function, minimumPowers[i], maximumPowers[i])); }
     }
 
     public Layer (int dimension, String[] functions, double[] minimumPowers, double[] maximumPowers) {
-        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(functions[i], minimumPowers[i], maximumPowers[i])); }
+        this.functions = functions;
+        for (int i = 1; i <= dimension; i++) { this.nodes.add(new Node(this.functions[i], minimumPowers[i], maximumPowers[i])); }
     }
 
     public ArrayList<Node> getNodes() { return this.nodes; }
@@ -81,16 +91,42 @@ public class Layer {
 
     public void addNode(Node node) { this.nodes.add(node); }
 
-    public void setTheses(double[] theses) { this.theses = theses; }
+    public String getFunction() { return this.function; }
 
-    public void setTheses() {
-        this.theses = new double[this.nodes.size()];
+    public void setFunction(String function) { this.function = function; }
+
+    public double getPower() { return this.power; }
+
+    public void setPower(double power) { this.power = power; }
+
+    public String[] getFunctions() { return this.functions; }
+
+    public void setFunctions(String[] functions) { this.functions = functions; }
+
+    public double[] getPowers() { return this.powers; }
+
+    public void setPowers(double[] powers) { this.powers = powers; }
+
+    public double[] getErrorMeans() {
+        double[] errorMeans = new double[this.nodes.size()];
         for (int i = 0; i < this.nodes.size(); i++) {
-            this.theses[i] = nodes.get(i).getThesis();
-        }
+            errorMeans[i] = nodes.get(i).getErrorMean();
+        } return errorMeans;
     }
 
-    public double[] getTheses() { return this.theses; }
+    public double[] getHypotheses() {
+        double[] hypotheses = new double[this.nodes.size()];
+        for (int i = 0; i < this.nodes.size(); i++) {
+            hypotheses[i] = nodes.get(i).getHypothesis();
+        } return hypotheses;
+    }
+
+    public double[] getTheses() {
+        double[] theses = new double[this.nodes.size()];
+        for (int i = 0; i < this.nodes.size(); i++) {
+            theses[i] = nodes.get(i).getThesis();
+        } return theses; 
+    }
 
     public void activate (double parameter) { // Activate all layer neurons.
         for (Node node : this.nodes) { node.activate(parameter); }
