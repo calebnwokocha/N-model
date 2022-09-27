@@ -5,48 +5,28 @@ package caleai;/*
  */
 
 public class Node {
-    private String function;
-    private double power;
-    private double hypothesis;
-    private double thesis;
+    private String function; private double power;
+    private double hypothesis; private double thesis;
     private double errorMean = 1.0;
-    private double minimumPower = -1.0; // Default
-    private double maximumPower = 2.0; // Default
+    private double minPower = -1.0; // Default
+    private double maxPower = 2.0; // Default
 
     // Construct neuron.
-    public Node () {
-        this.function = "sum";
-        this.setPower();
+    public Node () { this.function = "sum"; this.setPower(); }
+
+    public Node (String function) { this.function = function; this.setPower(); }
+
+    public Node (double power) { this.function = "sum"; this.power = power; }
+
+    public Node (double minPower, double maxPower) {
+        this.function = "sum"; this.minPower = minPower; this.maxPower = maxPower; this.setPower();
     }
 
-    public Node (String function) {
-        this.function = function;
-        this.setPower();
+    public Node (String function, double minPower, double maxPower) {
+        this.function = function; this.minPower = minPower; this.maxPower = maxPower; this.setPower();
     }
 
-    public Node (double power) {
-        this.function = "sum";
-        this.power = power;
-    }
-
-    public Node (double minimumPower, double maximumPower) {
-        this.function = "sum";
-        this.minimumPower = minimumPower;
-        this.maximumPower = maximumPower;
-        this.setPower();
-    }
-
-    public Node (String function, double minimumPower, double maximumPower) {
-        this.function = function;
-        this.minimumPower = minimumPower;
-        this.maximumPower = maximumPower;
-        this.setPower();
-    }
-
-    public Node(String function, double power) {
-        this.function = function; // The name of neuron comprehensive function.
-        this.power = power;
-    }
+    public Node(String function, double power) { this.function = function; this.power = power; }
 
     public String getFunction() { return this.function; }
 
@@ -58,21 +38,21 @@ public class Node {
 
     public double getErrorMean() { return this.errorMean; }
 
-    public double getMinimumPower() { return this.minimumPower; }
+    public double getMinPower() { return this.minPower; }
 
-    public void setMinimumPower(double minimumPower) { this.minimumPower = minimumPower; }
+    public void setMinPower(double minPower) { this.minPower = minPower; }
 
-    public double getMaximumPower() { return this.maximumPower; }
+    public double getMaxPower() { return this.maxPower; }
 
-    public void setMaximumPower(double maximumPower) { this.maximumPower = maximumPower; }
+    public void setMaxPower(double maxPower) { this.maxPower = maxPower; }
 
     public double getPower() { return this.power; }
 
     public void setPower(double power) { this.power = power; }
 
     public void setPower() {
-        // Generates stochastic power for p where minimumPower=>p<0.0 and 0.0<p<=maximumPower
-        this.power = ((Math.random() * ((this.maximumPower - 1.0) - this.minimumPower + 1)) + this.minimumPower) + 0.1;
+        // Generates stochastic power for p where minPower=>p<0.0 and 0.0<p<=maxPower
+        this.power = ((Math.random() * ((this.maxPower - 1.0) - this.minPower + 1)) + this.minPower) + 0.1;
     }
 
     public void activate (double parameter) { // Activate neuron, use parameters for comprehensive function.

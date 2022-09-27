@@ -46,7 +46,7 @@ public class Demo {
                     network.getLayers().get(j).optimize(new double[]{1, 0, -1, 0, 1}, i + 1);
                 }
                 else {
-                    network.getLayers().get(j).activate(network.getLayers().get(j - 1).getTheses());
+                    network.getLayers().get(j).activate(network.getLayers().get(j - 1).getThesisVec());
                     network.getLayers().get(j).optimize(new double[]{1, 0, -1, 0, 1}, i + 1);
                 }
             }
@@ -54,7 +54,7 @@ public class Demo {
 
         for (int j = 0; j < network.getLayers().size(); j++) {
             if (j == network.getLayers().size() - 1) {
-            } System.out.println(Arrays.toString(network.getLayers().get(j).getTheses()));
+            } System.out.println(Arrays.toString(network.getLayers().get(j).getThesisVec()));
         }
     }
 }
