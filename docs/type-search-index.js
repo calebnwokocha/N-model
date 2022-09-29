@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"caleai","l":"CFunction"},{"p":"caleai","l":"Data"},{"p":"caleai","l":"Dataset"},{"p":"caleai","l":"Layer"},{"p":"caleai","l":"Main"},{"p":"caleai","l":"Network"},{"p":"caleai","l":"Node"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"caleai","l":"CFunction"},{"p":"caleai","l":"Data"},{"p":"caleai","l":"Dataset"},{"p":"caleai","l":"Demo"},{"p":"caleai","l":"Layer"},{"p":"caleai","l":"Network"},{"p":"caleai","l":"Node"}];updateSearchResults();
