@@ -1,5 +1,11 @@
 package caleai;
 
+/*
+ * AUTHOR: CALEB PRINCEWILL NWOKOCHA
+ * SCHOOL: THE UNIVERSITY OF MANITOBA
+ * DEPARTMENT: COMPUTER SCIENCE
+ */
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
