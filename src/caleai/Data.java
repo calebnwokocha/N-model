@@ -1,37 +1,48 @@
-package caleai;
+/*=======================================================================
+ <one line to give the program's name and a brief idea of what it does.>
+ Copyright (C) 2022 Caleb Princewill Nwokocha
 
-/*
- * AUTHOR: CALEB PRINCEWILL NWOKOCHA
- * SCHOOL: THE UNIVERSITY OF MANITOBA
- * DEPARTMENT: COMPUTER SCIENCE
- * WARNING: THIS SOURCE CODE IS AVAILABLE UNDER GNU AFFERO GENERAL PUBLIC LICENSE.
- *          CONTACT CALEBNWOKOCHA@GMAIL.COM FOR SPECIAL PERMISSION OR LICENSE
- *          TO USE THIS SOURCE CODE.
- */
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published
+ by the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+ Contact calebnwokocha@gmail.com for special permission to use this software.
+=========================================================================*/
+
+package caleai;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class Data {
-    private byte[] data;
+    private double[] data;
+
+    public Data() {}
 
     public Data (String fileName) throws IOException {
         Path path = Paths.get(fileName);
-        this.data = Files.readAllBytes(path);
+        byte[] data = Files.readAllBytes(path);
+        this.data = new double[data.length];
+        for (int i = 0; i < this.data.length; i++)
+        { this.data[i] = data[i]; }
     }
 
-    public double[] getData() {
-        double[] data = new double[this.data.length];
-        for (int i = 0; i < data.length; i++) {
-            data[i] = this.data[i];
-        } return data;
-    }
+    public double[] getData() { return this.data; }
 
-    public void setData(byte[] data) { this.data = data; }
+    public double getData (int index) { return this.data[index]; }
+
+    public void setData(double[] data) { this.data = data; }
 
     public double[][] divide (int[] groupSizes) {
         double[][] groups = new double[groupSizes.length][];
@@ -56,6 +67,14 @@ public class Data {
     }
 
     public void toVideo (double... data) {
+
+    }
+
+    public void saveData () {
+
+    }
+
+    public void retrieveData () {
 
     }
 }
