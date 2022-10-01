@@ -4,6 +4,9 @@ package caleai;
  * AUTHOR: CALEB PRINCEWILL NWOKOCHA
  * SCHOOL: THE UNIVERSITY OF MANITOBA
  * DEPARTMENT: COMPUTER SCIENCE
+ * WARNING: THIS SOURCE CODE IS AVAILABLE UNDER GNU AFFERO GENERAL PUBLIC LICENSE.
+ *          CONTACT CALEBNWOKOCHA@GMAIL.COM FOR SPECIAL PERMISSION OR LICENSE
+ *          TO USE THIS SOURCE CODE.
  */
 
 import java.util.Arrays;
@@ -46,17 +49,19 @@ public class Demo {
             for (int j = 0; j < network.getLayers().size(); j++) {
                 if (j == 0) {
                     network.getLayers().get(j).activate(dataset.getDataset()[i]);
-                    network.getLayers().get(j).optimize(new double[]{-10, 10, -10, 10, -10}, i + 1);
+                    //network.getLayers().get(j).optimize(new double[]{-10, 10, -10, 10, -10}, i + 1);
                 }
                 else {
                     network.getLayers().get(j).activate(network.getLayers().get(j - 1).getThesisVec());
-                    network.getLayers().get(j).optimize(new double[]{-10, 10, -10, 10, -10}, i + 1);
+                    //network.getLayers().get(j).optimize(new double[]{-10, 10, -10, 10, -10}, i + 1);
                 }
 
                 System.out.println("Layer " + j);
                 System.out.println(Arrays.toString(network.getLayers().get(j).getThesisVec()));
                 System.out.println();
             }
+
+            network.optimize(new double[]{-10, 10, -10, 10, -10}, i + 1);
         }
     }
 }

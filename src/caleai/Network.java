@@ -4,6 +4,9 @@ package caleai;
  * AUTHOR: CALEB PRINCEWILL NWOKOCHA
  * SCHOOL: THE UNIVERSITY OF MANITOBA
  * DEPARTMENT: COMPUTER SCIENCE
+ * WARNING: THIS SOURCE CODE IS AVAILABLE UNDER GNU AFFERO GENERAL PUBLIC LICENSE.
+ *          CONTACT CALEBNWOKOCHA@GMAIL.COM FOR SPECIAL PERMISSION OR LICENSE
+ *          TO USE THIS SOURCE CODE.
  */
 
 import java.util.ArrayList;
@@ -367,6 +370,10 @@ public class Network {
 
     public void activate (double[][]... parameters) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
+    }
+
+    public void optimize (double[] objective, int iteration) {
+        for (Layer layer : this.layers) { layer.optimize(objective, iteration); }
     }
 
     public void optimize (double[][] objective, int iteration) {
