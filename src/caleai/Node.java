@@ -1,5 +1,5 @@
 /*=======================================================================
- <one line to give the program's name and a brief idea of what it does.>
+ Caleai is an open-source framework for comprehensive learning.
  Copyright (C) 2022 Caleb Princewill Nwokocha
 
  This program is free software: you can redistribute it and/or modify
@@ -20,18 +20,33 @@
 
 package caleai;
 
+/**
+ * Node class consist of functions and methods for operations on a comprehensive node.
+ */
 public class Node {
     private String function; private double power;
     private double hypothesis; private double thesis;
-    private double meanError = 1.0;
+    private double meanError = 0.0; // Default
     private double minPower = -1.0; // Default
     private double maxPower = 2.0; // Default
 
-    // Construct neuron.
+    /**
+     * This constructs a comprehensive node without manually setting parameters.
+     * The comprehensive function of the constructed node is automatically set to "sum",
+     * and the power of the node is automatically configured by setPower().
+     */
     public Node () { this.function = "sum"; this.setPower(); }
 
+    /**
+     * This constructs a comprehensive node by manually setting its comprehensive function as argument.
+     * The power of the constructed node is automatically configured by setPower().
+     */
     public Node (String function) { this.function = function; this.setPower(); }
 
+    /**
+     * This constructs a comprehensive node by manually setting its power as argument.
+     * The comprehensive function of the constructed node is automatically set to "sum".
+     */
     public Node (double power) { this.function = "sum"; this.power = power; }
 
     public Node (double minPower, double maxPower) {
@@ -94,7 +109,7 @@ public class Node {
         this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
     }
 
-    private String getRule () {
+    public String getRule () {
         double probability = this.thesis / (this.thesis + this.meanError);
         return this.function + " at probability " + probability;
     }

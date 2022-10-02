@@ -20,5 +20,5 @@
 
 package caleai;
 
-public class Database {
+public class Graph {
 }

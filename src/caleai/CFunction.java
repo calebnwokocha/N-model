@@ -1,5 +1,5 @@
 /*=======================================================================
- <one line to give the program's name and a brief idea of what it does.>
+ Caleai is an open-source framework for comprehensive learning.
  Copyright (C) 2022 Caleb Princewill Nwokocha
 
  This program is free software: you can redistribute it and/or modify
@@ -20,10 +20,16 @@
 
 package caleai;
 
+/**
+ * CFunction class consist of comprehensive functions used by the Node class.
+ */
 public class CFunction {
     private double value;
 
-    // Construct comprehensive function.
+    /**
+     * This constructs a comprehensive function with only one parameter.
+     * It requires the function name.
+     */
     public CFunction(String functionName, double parameter) {
         switch (functionName) { // Configure function according to function name.
             case "sum" -> this.sum(parameter);
@@ -31,6 +37,10 @@ public class CFunction {
         }
     }
 
+    /**
+     * This constructs a comprehensive function with multiple parameters.
+     * It requires the function name.
+     */
     public CFunction(String functionName, double... parameters) {
         switch (functionName) { // Configure function according to function name.
             case "sum" -> this.sum(parameters);
@@ -38,6 +48,9 @@ public class CFunction {
         }
     }
 
+    /**
+     * This returns the result of a comprehensive function operation.
+     */
     public double getValue() { return this.value; } // Return function value.
 
     private void cubicVolume (double s) { this.value = Math.pow(s, 3); }

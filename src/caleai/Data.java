@@ -1,5 +1,5 @@
 /*=======================================================================
- <one line to give the program's name and a brief idea of what it does.>
+ Caleai is an open-source framework for comprehensive learning.
  Copyright (C) 2022 Caleb Princewill Nwokocha
 
  This program is free software: you can redistribute it and/or modify
@@ -54,19 +54,19 @@ public class Data {
         } return groups;
     }
 
-    public void toText (double... data) {
+    public void toText () {
 
     }
 
-    public void toSound (double... data) {
+    public void toSound () {
 
     }
 
-    public void toImage (double... data) {
+    public void toImage () {
 
     }
 
-    public void toVideo (double... data) {
+    public void toVideo () {
 
     }
 

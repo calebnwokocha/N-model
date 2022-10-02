@@ -1,5 +1,5 @@
 /*=======================================================================
- <one line to give the program's name and a brief idea of what it does.>
+ Caleai is an open-source framework for comprehensive learning.
  Copyright (C) 2022 Caleb Princewill Nwokocha
 
  This program is free software: you can redistribute it and/or modify
@@ -72,7 +72,7 @@ public class Demo {
                 System.out.println();
             }
 
-            network.optimize(new double[]{-10, 10, -10, 10, -10}, i + 1);
+            network.optimize(new double[]{100000, 10, 100, 10, 100}, i + 1);
         }
     }
 }
