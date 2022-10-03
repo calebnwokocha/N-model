@@ -105,14 +105,18 @@ public class Layer {
 
     public ArrayList<Node> getNodes() { return this.nodes; }
 
-    public void setNodes (ArrayList<Node> nodes) { this.nodes = nodes; }
+    public void setNodes (ArrayList<Node> nodes) { this.nodes = nodes;
+        this.functionNameVec = new ArrayList<>(); this.powerVec = new ArrayList<>();
+        this.minPowerVec = new ArrayList<>(); this.maxPowerVec = new ArrayList<>();
+        for (Node node : this.nodes) { this.functionNameVec.add(node.getFunctionName());
+            this.powerVec.add(node.getPower()); this.minPowerVec.add(node.getMinPower());
+            this.maxPowerVec.add(node.getMaxPower());
+        }
+    }
 
-    public void addNode(Node node) {
-        this.nodes.add(node);
-        this.functionNameVec.add(node.getFunctionName());
-        this.powerVec.add(node.getPower());
-        this.minPowerVec.add(node.getMinPower());
-        this.maxPowerVec.add(node.getMaxPower());
+    public void addNode(Node node) { this.nodes.add(node);
+        this.functionNameVec.add(node.getFunctionName()); this.powerVec.add(node.getPower());
+        this.minPowerVec.add(node.getMinPower()); this.maxPowerVec.add(node.getMaxPower());
     }
 
     public int getDimension () { return this.nodes.size(); }
