@@ -27,7 +27,7 @@ import java.util.Collections;
 public class Dataset {
     private double[][] dataset;
 
-    public Dataset() {}
+    public Dataset(double[][] dataset) { this.dataset = dataset; }
 
     public Dataset (String... fileNames) throws IOException {
         Data[] dataset = new Data[fileNames.length];
@@ -48,8 +48,7 @@ public class Dataset {
 
     public void saveDataset () {
         for (double[] d : this.dataset) {
-            Data data = new Data();
-            data.setData(d);
+            Data data = new Data(d);
             data.saveData();
         }
     }

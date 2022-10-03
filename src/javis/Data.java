@@ -28,7 +28,7 @@ import java.nio.file.Paths;
 public class Data {
     private double[] data;
 
-    public Data() {}
+    public Data(double[] data) { this.data = data; }
 
     public Data (String fileName) throws IOException {
         Path path = Paths.get(fileName);
