@@ -40,7 +40,7 @@ public class Data {
 
     public double[] getData() { return this.data; }
 
-    public double getData (int index) { return this.data[index]; }
+    public double getDatum (int index) { return this.data[index]; }
 
     public void setData(double[] data) { this.data = data; }
 
