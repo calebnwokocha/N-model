@@ -348,23 +348,20 @@ public class Network {
 
     public double[][] getMeanErrorMat() {
         double[][] meanErrorMat = new double[this.layers.size()][];
-        for (int i = 0; i < meanErrorMat.length; i++) {
-            meanErrorMat[i] = layers.get(i).getMeanErrorVec();
-        } return meanErrorMat;
+        for (int i = 0; i < meanErrorMat.length; i++) { meanErrorMat[i] = layers.get(i).getMeanErrorVec(); }
+        return meanErrorMat;
     }
 
     public double[][] getHypothesisMat() {
         double[][] hypothesisMat = new double[this.layers.size()][];
-        for (int i = 0; i < hypothesisMat.length; i++) {
-            hypothesisMat[i] = layers.get(i).getHypothesisVec();
-        } return hypothesisMat;
+        for (int i = 0; i < hypothesisMat.length; i++) { hypothesisMat[i] = layers.get(i).getHypothesisVec(); }
+        return hypothesisMat;
     }
 
     public double[][] getThesisMat() {
         double[][] thesisMat = new double[this.layers.size()][];
-        for (int i = 0; i < thesisMat.length; i++) {
-            thesisMat[i] = layers.get(i).getThesisVec();
-        } return thesisMat;
+        for (int i = 0; i < thesisMat.length; i++) { thesisMat[i] = layers.get(i).getThesisVec(); }
+        return thesisMat;
     }
 
     public void activate (double parameter) { // Activate all perceptron layers.

@@ -171,23 +171,20 @@ public class Layer {
 
     public double[] getMeanErrorVec() {
         double[] meanErrorVec = new double[this.nodes.size()];
-        for (int i = 0; i < meanErrorVec.length; i++) {
-            meanErrorVec[i] = nodes.get(i).getMeanError();
-        } return meanErrorVec;
+        for (int i = 0; i < meanErrorVec.length; i++) { meanErrorVec[i] = nodes.get(i).getMeanError(); }
+        return meanErrorVec;
     }
 
     public double[] getHypothesisVec() {
         double[] hypothesisVec = new double[this.nodes.size()];
-        for (int i = 0; i < hypothesisVec.length; i++) {
-            hypothesisVec[i] = nodes.get(i).getHypothesis();
-        } return hypothesisVec;
+        for (int i = 0; i < hypothesisVec.length; i++) { hypothesisVec[i] = nodes.get(i).getHypothesis(); }
+        return hypothesisVec;
     }
 
     public double[] getThesisVec() {
         double[] thesisVec = new double[this.nodes.size()];
-        for (int i = 0; i < thesisVec.length; i++) {
-            thesisVec[i] = nodes.get(i).getThesis();
-        } return thesisVec;
+        for (int i = 0; i < thesisVec.length; i++) { thesisVec[i] = nodes.get(i).getThesis(); }
+        return thesisVec;
     }
 
     public void activate (double parameter) { // Activate all layer neurons.
