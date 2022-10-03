@@ -18,13 +18,13 @@
  Contact calebnwokocha@gmail.com for special permission to use this software.
 =========================================================================*/
 
-package caleai;
+package javis;
 
 /**
  * Node class consist of functions and methods for operations on a comprehensive node.
  */
 public class Node {
-    private String function; private double power;
+    private String functionName; private double power;
     private double hypothesis; private double thesis;
     private double meanError = 0.0; // Default
     private double minPower = -1.0; // Default
@@ -32,47 +32,85 @@ public class Node {
 
     /**
      * This constructs a comprehensive node without manually setting parameters.
-     * The comprehensive function of the constructed node is automatically set to "sum",
-     * and the power of the node is automatically configured by setPower().
+     * The node comprehensive function is automatically set to "sum", and the
+     * power of the node is automatically configured by setPower().
      */
-    public Node () { this.function = "sum"; this.setPower(); }
+    public Node () { this.functionName = "sum"; this.setPower(); }
 
     /**
      * This constructs a comprehensive node by manually setting its comprehensive function as argument.
-     * The power of the constructed node is automatically configured by setPower().
+     * The node power is automatically configured by setPower().
      */
-    public Node (String function) { this.function = function; this.setPower(); }
+    public Node (String functionName) { this.functionName = functionName; this.setPower(); }
 
     /**
      * This constructs a comprehensive node by manually setting its power as argument.
-     * The comprehensive function of the constructed node is automatically set to "sum".
+     * The node comprehensive function is automatically set to "sum".
      */
-    public Node (double power) { this.function = "sum"; this.power = power; }
+    public Node (double power) { this.functionName = "sum"; this.power = power; }
 
+    /**
+     * This constructs a comprehensive node by manually setting its minimum and maximum power as argument.
+     * The actual power of the node is automatically configure by setPower(), and the comprehensive
+     * function of the node is automatically set to "sum".
+     */
     public Node (double minPower, double maxPower) {
-        this.function = "sum"; this.minPower = minPower; this.maxPower = maxPower; this.setPower();
+        this.functionName = "sum"; this.minPower = minPower; this.maxPower = maxPower; this.setPower();
     }
 
-    public Node (String function, double minPower, double maxPower) {
-        this.function = function; this.minPower = minPower; this.maxPower = maxPower; this.setPower();
+    /**
+     * This constructs a comprehensive node by manually setting its parameters as arguments.
+     * The node comprehensive function, and minimum and maximum power are configured manually,
+     * and the power of the constructed node is automatically configure by setPower().
+     */
+    public Node (String functionName, double minPower, double maxPower) {
+        this.functionName = functionName; this.minPower = minPower; this.maxPower = maxPower; this.setPower();
     }
 
-    public Node(String function, double power) { this.function = function; this.power = power; }
+    /**
+     * This constructs a comprehensive node by manually setting its parameters as argument.
+     * The node comprehensive function and power are configured manually.
+     */
+    public Node(String functionName, double power) { this.functionName = functionName; this.power = power; }
 
-    public String getFunction() { return this.function; }
+    /**
+     * This returns the node comprehensive function name.
+     */
+    public String getFunctionName() { return this.functionName; }
 
-    public void setFunction(String function) { this.function = function; }
+    /**
+     * This configures the node comprehensive function name.
+     */
+    public void setFunctionName(String functionName) { this.functionName = functionName; }
 
+    /**
+     * This returns the node hypothesis.
+     */
     public double getHypothesis() { return this.hypothesis; }
 
+    /**
+     * This returns the node thesis.
+     */
     public double getThesis() { return this.thesis; }
 
+    /**
+     * This returns the node mean error.
+     */
     public double getMeanError() { return this.meanError; }
 
+    /**
+     * This returns the node minimum power.
+     */
     public double getMinPower() { return this.minPower; }
 
+    /**
+     * This configures the node minimum power.
+     */
     public void setMinPower(double minPower) { this.minPower = minPower; }
 
+    /**
+     * This returns the node maximum power.
+     */
     public double getMaxPower() { return this.maxPower; }
 
     public void setMaxPower(double maxPower) { this.maxPower = maxPower; }
@@ -82,18 +120,18 @@ public class Node {
     public void setPower(double power) { this.power = power; }
 
     public void setPower() {
-        // Generates stochastic power for p where minPower=>p<0.0 and 0.0<p<=maxPower
+        // Generates stochastic power p where minPower=>p<0.0 and 0.0<p<=maxPower
         this.power = ((Math.random() * ((this.maxPower - 1.0) - this.minPower + 1)) + this.minPower) + 0.1;
     }
 
     public void activate (double parameter) { // Activate neuron, use parameters for comprehensive function.
-        CFunction cFunction = new CFunction(this.function, parameter); // Construct comprehensive function.
+        CFunction cFunction = new CFunction(this.functionName, parameter); // Construct comprehensive function.
         this.hypothesis = cFunction.getValue();
         this.thesis = this.hypothesis - meanError; // Subtract the neuron error from it hypothesis.
     }
 
     public void activate (double... parameters) { // Activate neuron, use parameters for comprehensive function.
-        CFunction cFunction = new CFunction(this.function, parameters); // Construct comprehensive function.
+        CFunction cFunction = new CFunction(this.functionName, parameters); // Construct comprehensive function.
         this.hypothesis = cFunction.getValue();
         this.thesis = this.hypothesis - meanError; // Subtract the neuron error from it hypothesis.
     }
@@ -111,7 +149,7 @@ public class Node {
 
     public String getRule () {
         double probability = this.thesis / (this.thesis + this.meanError);
-        return this.function + " at probability " + probability;
+        return this.functionName + " at probability " + probability;
     }
 
     private double dynamicPowerMean(double m, double d, double p, int t) {

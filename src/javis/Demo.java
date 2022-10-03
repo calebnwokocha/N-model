@@ -18,37 +18,37 @@
  Contact calebnwokocha@gmail.com for special permission to use this software.
 =========================================================================*/
 
-package caleai;
+package javis;
 
 import java.util.Arrays;
 
 public class Demo {
     public static void main(String[] args) throws Exception {
         String[] fileNames = {
-                "src/caleai/dataset/test1.txt",
-                "src/caleai/dataset/test2.txt",
-                "src/caleai/dataset/text3.txt",
-                "src/caleai/dataset/text4.txt",
-                "src/caleai/dataset/test1.txt",
-                "src/caleai/dataset/test2.txt",
-                "src/caleai/dataset/text3.txt",
-                "src/caleai/dataset/text4.txt",
-                "src/caleai/dataset/test1.txt",
-                "src/caleai/dataset/test2.txt",
-                "src/caleai/dataset/text3.txt",
-                "src/caleai/dataset/text4.txt",
-                "src/caleai/dataset/test1.txt",
-                "src/caleai/dataset/test2.txt",
-                "src/caleai/dataset/text3.txt",
-                "src/caleai/dataset/text4.txt",
-                "src/caleai/dataset/test1.txt",
-                "src/caleai/dataset/test2.txt",
-                "src/caleai/dataset/text3.txt",
-                "src/caleai/dataset/text4.txt",
-                "src/caleai/dataset/test1.txt",
-                "src/caleai/dataset/test2.txt",
-                "src/caleai/dataset/text3.txt",
-                "src/caleai/dataset/text4.txt"
+                "src/javis/dataset/test1.txt",
+                "src/javis/dataset/test2.txt",
+                "src/javis/dataset/text3.txt",
+                "src/javis/dataset/text4.txt",
+                "src/javis/dataset/test1.txt",
+                "src/javis/dataset/test2.txt",
+                "src/javis/dataset/text3.txt",
+                "src/javis/dataset/text4.txt",
+                "src/javis/dataset/test1.txt",
+                "src/javis/dataset/test2.txt",
+                "src/javis/dataset/text3.txt",
+                "src/javis/dataset/text4.txt",
+                "src/javis/dataset/test1.txt",
+                "src/javis/dataset/test2.txt",
+                "src/javis/dataset/text3.txt",
+                "src/javis/dataset/text4.txt",
+                "src/javis/dataset/test1.txt",
+                "src/javis/dataset/test2.txt",
+                "src/javis/dataset/text3.txt",
+                "src/javis/dataset/text4.txt",
+                "src/javis/dataset/test1.txt",
+                "src/javis/dataset/test2.txt",
+                "src/javis/dataset/text3.txt",
+                "src/javis/dataset/text4.txt"
         };
 
         Dataset dataset = new Dataset(fileNames);

@@ -18,13 +18,13 @@
  Contact calebnwokocha@gmail.com for special permission to use this software.
 =========================================================================*/
 
-package caleai;
+package javis;
 
 import java.util.ArrayList;
 
 public class Layer {
     private ArrayList<Node> nodes = new ArrayList<>();
-    private String function; private String[] functionVec;
+    private String functionName; private String[] functionNameVec;
     private double power; private double[] powerVec;
     private double minPower; private double maxPower;
     private double[] minPowerVec; private double[] maxPowerVec;
@@ -32,12 +32,12 @@ public class Layer {
     // Construct layer.
     public Layer (int dimension) { for (int i = 0; i < dimension; i++) { this.nodes.add(new Node()); } }
 
-    public Layer (int dimension, String function) { this.function = function;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.function)); }
+    public Layer (int dimension, String functionName) { this.functionName = functionName;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
     }
 
-    public Layer (int dimension, String[] functionVec) { this.functionVec = functionVec;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionVec[i])); }
+    public Layer (int dimension, String[] functionNameVec) { this.functionNameVec = functionNameVec;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec[i])); }
     }
 
     public Layer (int dimension, double power) { this.power = power;
@@ -48,20 +48,20 @@ public class Layer {
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.powerVec[i])); }
     }
 
-    public Layer (int dimension, String function, double power) { this.function = function; this.power = power;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.function, this.power)); }
+    public Layer (int dimension, String functionName, double power) { this.functionName = functionName; this.power = power;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.power)); }
     }
 
-    public Layer (int dimension, String[] functionVec, double power) { this.functionVec = functionVec; this.power = power;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionVec[i], this.power)); }
+    public Layer (int dimension, String[] functionNameVec, double power) { this.functionNameVec = functionNameVec; this.power = power;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec[i], this.power)); }
     }
 
-    public Layer (int dimension, String function, double[] powerVec) { this.function = function; this.powerVec = powerVec;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.function, this.powerVec[i])); }
+    public Layer (int dimension, String functionName, double[] powerVec) { this.functionName = functionName; this.powerVec = powerVec;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.powerVec[i])); }
     }
 
-    public Layer (int dimension, String[] functionVec, double[] powerVec) { this.functionVec = functionVec; this.powerVec = powerVec;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionVec[i], this.powerVec[i])); }
+    public Layer (int dimension, String[] functionNameVec, double[] powerVec) { this.functionNameVec = functionNameVec; this.powerVec = powerVec;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec[i], this.powerVec[i])); }
     }
 
     public Layer (int dimension, double minPower, double maxPower) { this.minPower = minPower; this.maxPower = maxPower;
@@ -73,24 +73,24 @@ public class Layer {
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.minPowerVec[i], this.maxPowerVec[i])); }
     }
 
-    public Layer (int dimension, String function, double minPower, double maxPower) {
-        this.function = function; this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.function, this.minPower, this.maxPower)); }
+    public Layer (int dimension, String functionName, double minPower, double maxPower) {
+        this.functionName = functionName; this.minPower = minPower; this.maxPower = maxPower;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.minPower, this.maxPower)); }
     }
 
-    public Layer (int dimension, String[] functionVec, double minPower, double maxPower) {
-        this.functionVec = functionVec; this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionVec[i], this.minPower, this.maxPower)); }
+    public Layer (int dimension, String[] functionNameVec, double minPower, double maxPower) {
+        this.functionNameVec = functionNameVec; this.minPower = minPower; this.maxPower = maxPower;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec[i], this.minPower, this.maxPower)); }
     }
 
-    public Layer (int dimension, String function, double[] minPowerVec, double[] maxPowerVec) {
+    public Layer (int dimension, String functionName, double[] minPowerVec, double[] maxPowerVec) {
         this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.function, this.minPowerVec[i], this.maxPowerVec[i])); }
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.minPowerVec[i], this.maxPowerVec[i])); }
     }
 
-    public Layer (int dimension, String[] functionVec, double[] minPowerVec, double[] maxPowerVec) {
-        this.functionVec = functionVec; this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionVec[i], this.minPowerVec[i], this.maxPowerVec[i])); }
+    public Layer (int dimension, String[] functionNameVec, double[] minPowerVec, double[] maxPowerVec) {
+        this.functionNameVec = functionNameVec; this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec[i], this.minPowerVec[i], this.maxPowerVec[i])); }
     }
 
     public ArrayList<Node> getNodes() { return this.nodes; }
@@ -101,10 +101,10 @@ public class Layer {
 
     public int getDimension () { return this.nodes.size(); }
 
-    public String getFunction() { return this.function; }
+    public String getFunctionName() { return this.functionName; }
 
-    public void setFunction(String function) { this.function = function;
-        for (Node node : nodes) { node.setFunction(this.function); }
+    public void setFunctionName(String functionName) { this.functionName = functionName;
+        for (Node node : nodes) { node.setFunctionName(this.functionName); }
     }
 
     public double getMinPower() { return this.minPower; }
@@ -137,10 +137,10 @@ public class Layer {
         for (Node node : nodes) { node.setPower(this.power); }
     }
 
-    public String[] getFunctionVec() { return this.functionVec; }
+    public String[] getFunctionNameVec() { return this.functionNameVec; }
 
-    public void setFunctionVec(String[] functionVec) { this.functionVec = functionVec;
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setFunction(this.functionVec[i]); }
+    public void setFunctionNameVec(String[] functionNameVec) { this.functionNameVec = functionNameVec;
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setFunctionName(this.functionNameVec[i]); }
     }
 
     public double[] getPowerVec() { return this.powerVec; }

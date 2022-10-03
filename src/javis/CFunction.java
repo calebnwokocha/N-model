@@ -18,7 +18,7 @@
  Contact calebnwokocha@gmail.com for special permission to use this software.
 =========================================================================*/
 
-package caleai;
+package javis;
 
 /**
  * CFunction class consist of comprehensive functions used by the Node class.
@@ -51,7 +51,9 @@ public class CFunction {
     /**
      * This returns the result of a comprehensive function operation.
      */
-    public double getValue() { return this.value; } // Return function value.
+    public double getValue() { return this.value; }
+
+    // Below are methods for comprehensive functions.
 
     private void cubicVolume (double s) { this.value = Math.pow(s, 3); }
 

@@ -18,7 +18,7 @@
  Contact calebnwokocha@gmail.com for special permission to use this software.
 =========================================================================*/
 
-package caleai;
+package javis;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -18,7 +18,7 @@
  Contact calebnwokocha@gmail.com for special permission to use this software.
 =========================================================================*/
 
-package caleai;
+package javis;
 
-public class Database {
+public class Graph {
 }
