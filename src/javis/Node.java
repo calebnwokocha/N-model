@@ -38,19 +38,19 @@ public class Node {
     public Node () { this.functionName = "sum"; this.setPower(); }
 
     /**
-     * This constructs a comprehensive node by manually setting its comprehensive function as argument.
+     * This constructs a comprehensive node by manually setting its comprehensive function from the argument.
      * The node power is automatically configured by setPower().
      */
     public Node (String functionName) { this.functionName = functionName; this.setPower(); }
 
     /**
-     * This constructs a comprehensive node by manually setting its power as argument.
+     * This constructs a comprehensive node by manually setting its power from the arguments=.
      * The node comprehensive function is automatically set to "sum".
      */
     public Node (double power) { this.functionName = "sum"; this.power = power; }
 
     /**
-     * This constructs a comprehensive node by manually setting its minimum and maximum power as argument.
+     * This constructs a comprehensive node by manually setting its minimum and maximum power from the arguments.
      * The actual power of the node is automatically configure by setPower(), and the comprehensive
      * function of the node is automatically set to "sum".
      */
@@ -59,7 +59,7 @@ public class Node {
     }
 
     /**
-     * This constructs a comprehensive node by manually setting its parameters as arguments.
+     * This constructs a comprehensive node by manually setting its parameters from the arguments.
      * The node comprehensive function, and minimum and maximum power are configured manually,
      * and the power of the constructed node is automatically configure by setPower().
      */
@@ -68,7 +68,7 @@ public class Node {
     }
 
     /**
-     * This constructs a comprehensive node by manually setting its parameters as argument.
+     * This constructs a comprehensive node by manually setting its parameters from the arguments.
      * The node comprehensive function and power are configured manually.
      */
     public Node(String functionName, double power) { this.functionName = functionName; this.power = power; }
@@ -124,12 +124,12 @@ public class Node {
     public double getPower() { return this.power; }
 
     /**
-     * This configures the node actual power to the parameter.
+     * This configures the node actual power to the argument.
      */
     public void setPower(double power) { this.power = power; }
 
     /**
-     * This configures the node actual power to a stochastic power p, where minPower=>p<0.0 or 0.0<p<=maxPower.
+     * This configures the node actual power to a stochastic power p, where minPower => p < 0.0 or 0.0 < p <= maxPower.
      * By default, minPower = -1.0 and maxPower = 2.0, in accordance to the Pythagorean means configuration
      * for the power mean. The following are requirements by the power mean to produce any of the Pythagorean means:
      * For harmonic mean, p approaches -1.0; for geometric mean, p approaches 0; for arithmetic mean, p approaches 1.0;
@@ -140,20 +140,32 @@ public class Node {
     }
 
     /**
-     * This configures the node actual power to the parameter.
+     * This prompts the node to produce its hypothesis and thesis upon a scalar argument. The result of the
+     * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
+     * meanError from that hypothesis.
      */
-    public void activate (double parameter) { // Activate neuron, use parameters for comprehensive function.
-        CFunction cFunction = new CFunction(this.functionName, parameter); // Construct comprehensive function.
+    public void activate (double parameter) {
+        CFunction cFunction = new CFunction(this.functionName, parameter);
         this.hypothesis = cFunction.getValue();
-        this.thesis = this.hypothesis - meanError; // Subtract the neuron error from it hypothesis.
+        this.thesis = this.hypothesis - this.meanError;
     }
 
-    public void activate (double... parameters) { // Activate neuron, use parameters for comprehensive function.
-        CFunction cFunction = new CFunction(this.functionName, parameters); // Construct comprehensive function.
+    /**
+     * This prompts the node to produce its hypothesis and thesis upon a vector argument. The result of the
+     * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
+     * meanError from that hypothesis.
+     */
+    public void activate (double... parameters) {
+        CFunction cFunction = new CFunction(this.functionName, parameters);
         this.hypothesis = cFunction.getValue();
-        this.thesis = this.hypothesis - meanError; // Subtract the neuron error from it hypothesis.
+        this.thesis = this.hypothesis - this.meanError;
     }
 
+    /**
+     * This prompts the node to produce its hypothesis and thesis upon a scalar argument. The result of the
+     * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
+     * meanError from that hypothesis.
+     */
     public void optimize (double objective, int iteration) {
         double error = this.thesis - objective;
         // Update neuron error to average neuron error.
