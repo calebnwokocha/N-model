@@ -18,7 +18,7 @@
  Contact calebnwokocha@gmail.com for special permission to use this software.
 =========================================================================*/
 
-package javis;
+package jarvis;
 
 import java.util.ArrayList;
 

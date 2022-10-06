@@ -18,7 +18,7 @@
  Contact calebnwokocha@gmail.com for special permission to use this software.
 =========================================================================*/
 
-package javis;
+package jarvis;
 
 /**
  * Node class consist of functions and methods for operations on a comprehensive node.

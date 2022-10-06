@@ -18,7 +18,7 @@
  Contact calebnwokocha@gmail.com for special permission to use this software.
 =========================================================================*/
 
-package javis;
+package jarvis;
 
 /**
  * CFunction class consist of comprehensive functions used by the Node class.
