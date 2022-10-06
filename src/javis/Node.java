@@ -113,17 +113,35 @@ public class Node {
      */
     public double getMaxPower() { return this.maxPower; }
 
+    /**
+     * This configures the node maximum power.
+     */
     public void setMaxPower(double maxPower) { this.maxPower = maxPower; }
 
+    /**
+     * This returns the node actual power.
+     */
     public double getPower() { return this.power; }
 
+    /**
+     * This configures the node actual power to the parameter.
+     */
     public void setPower(double power) { this.power = power; }
 
+    /**
+     * This configures the node actual power to a stochastic power p, where minPower=>p<0.0 or 0.0<p<=maxPower.
+     * By default, minPower = -1.0 and maxPower = 2.0, in accordance to the Pythagorean means configuration
+     * for the power mean. The following are requirements by the power mean to produce any of the Pythagorean means:
+     * For harmonic mean, p approaches -1.0; for geometric mean, p approaches 0; for arithmetic mean, p approaches 1.0;
+     * and for quadratic mean, p approaches 2.0.
+     */
     public void setPower() {
-        // Generates stochastic power p where minPower=>p<0.0 and 0.0<p<=maxPower
         this.power = ((Math.random() * ((this.maxPower - 1.0) - this.minPower + 1)) + this.minPower) + 0.1;
     }
 
+    /**
+     * This configures the node actual power to the parameter.
+     */
     public void activate (double parameter) { // Activate neuron, use parameters for comprehensive function.
         CFunction cFunction = new CFunction(this.functionName, parameter); // Construct comprehensive function.
         this.hypothesis = cFunction.getValue();
