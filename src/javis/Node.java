@@ -94,6 +94,14 @@ public class Node {
     public double getThesis() { return this.thesis; }
 
     /**
+     * This returns the node rule.
+     */
+    public String getRule () {
+        double probability = this.thesis / (this.thesis + this.meanError);
+        return this.functionName + " at probability " + probability;
+    }
+
+    /**
      * This returns the node mean error.
      */
     public double getMeanError() { return this.meanError; }
@@ -162,24 +170,21 @@ public class Node {
     }
 
     /**
-     * This prompts the node to produce its hypothesis and thesis upon a scalar argument. The result of the
-     * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
-     * meanError from that hypothesis.
+     * This prompts the node to update its meanError. Given the two arguments: objective and iteration,
+     * an intermediate error is calculated, and this error is used by the dynamicPowerMean function to
+     * update the node meanError.
      */
     public void optimize (double objective, int iteration) {
         double error = this.thesis - objective;
-        // Update neuron error to average neuron error.
         this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
     }
 
+    /**
+     * This prompts the node to update its meanError. Given the two arguments: iteration and error,
+     * these arguments are used by the dynamicPowerMean function to update the node meanError.
+     */
     public void optimize (int iteration, double error) {
-        // Update neuron error to average neuron error.
         this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
-    }
-
-    public String getRule () {
-        double probability = this.thesis / (this.thesis + this.meanError);
-        return this.functionName + " at probability " + probability;
     }
 
     private double dynamicPowerMean(double m, double d, double p, int t) {
