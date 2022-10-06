@@ -180,8 +180,8 @@ public class Node {
     }
 
     /**
-     * This prompts the node to update its meanError. Given the two arguments: iteration and error,
-     * these arguments are used by the dynamicPowerMean function to update the node meanError.
+     * This prompts the node to update its meanError. The two arguments: iteration and error,
+     * are used by the dynamicPowerMean function to update the node meanError.
      */
     public void optimize (int iteration, double error) {
         this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
