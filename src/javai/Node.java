@@ -22,6 +22,7 @@ package javai;
 
 /**
  * Node class consist of functions and methods for operations on a comprehensive node.
+ * Contact info@javai.org for support.
  */
 public class Node {
     private String functionName; private double power;

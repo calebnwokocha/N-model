@@ -22,6 +22,7 @@ package javai;
 
 /**
  * CFunction class consist of comprehensive functions used by the Node class.
+ * Contact info@javai.org for support.
  */
 public class CFunction {
     private double value;
