@@ -98,7 +98,7 @@ public class Layer {
 
     /**
      * This constructs a comprehensive layer by parametrically setting its dimension, functionName,
-     * and power.The power and functionName arguments are a vector and scalar-string, respectively;
+     * and power. The power and functionName arguments are a vector and scalar-string, respectively;
      * therefore,every node in the layer is assigned the same functionName, but specific power.
      */
     public Layer (int dimension, String functionName, ArrayList<Double> powerVec) {
