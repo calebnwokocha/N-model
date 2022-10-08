@@ -69,6 +69,7 @@ public class Demo {
                     network.getLayers().get(j).activate(network.getLayers().get(j - 1).getThesisVec());
                     //network.getLayers().get(j).optimize(new double[]{-10, 10, -10, 10, -10}, i + 1);
                 }
+                Layer layer = new Layer(7);
 
                 System.out.println("Layer " + j);
                 System.out.println(Arrays.toString(network.getLayers().get(j).getThesisVec()));
