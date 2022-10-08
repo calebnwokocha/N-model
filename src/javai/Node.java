@@ -15,7 +15,7 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 
- Email info@javai.org for IT support and/or special permission to use this framework.
+ Email info@javai.org for technical support and/or special permission to use this framework.
 ----------------------------------------------------------------------------------------------------*/
 
 package javai;
