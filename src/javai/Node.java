@@ -31,45 +31,44 @@ public class Node {
     private double maxPower = 1.0; // Default
 
     /**
-     * This constructs a comprehensive node without manually setting parameters.
+     * This constructs a comprehensive node without manually setting its parameters.
      * The node comprehensive function is automatically set to "sum", and the
      * power of the node is automatically configured by setPower().
      */
     public Node () { this.functionName = "sum"; this.setPower(); }
 
     /**
-     * This constructs a comprehensive node by manually setting its comprehensive function.
-     * The comprehensive functionName is parameterized, and the node power is automatically configured by setPower().
+     * This constructs a comprehensive node by parametrically setting its comprehensive function.
+     * The node power is automatically configured by setPower().
      */
     public Node (String functionName) { this.functionName = functionName; this.setPower(); }
 
     /**
-     * This constructs a comprehensive node by manually setting its power.
-     * The node power is parameterized and the node comprehensive function is automatically set to "sum".
+     * This constructs a comprehensive node by parametrically setting its power.
+     * The node comprehensive function is automatically set to "sum".
      */
     public Node (double power) { this.functionName = "sum"; this.power = power; }
 
     /**
-     * This constructs a comprehensive node by manually setting its minimum and maximum power.
-     * The node minimum and maximum power is parameterized, the actual power of the node is automatically
-     * configure by setPower(), and the comprehensive function of the node is automatically set to "sum".
+     * This constructs a comprehensive node by parametrically setting its minimum and maximum power.
+     * The actual power of the node is automatically configure by setPower(), and the comprehensive
+     * function of the node is automatically set to "sum".
      */
     public Node (double minPower, double maxPower) {
         this.functionName = "sum"; this.minPower = minPower; this.maxPower = maxPower; this.setPower();
     }
 
     /**
-     * This constructs a comprehensive node by manually setting its parameters.
-     * The node comprehensive function, and minimum and maximum power are all parameterized,
-     * and the power of the constructed node is automatically configure by setPower().
+     * This constructs a comprehensive node by parametrically setting its comprehensive function,
+     * and minimum and maximum power. The power of the constructed node is automatically configure
+     * by setPower().
      */
     public Node (String functionName, double minPower, double maxPower) {
         this.functionName = functionName; this.minPower = minPower; this.maxPower = maxPower; this.setPower();
     }
 
     /**
-     * This constructs a comprehensive node by manually setting its parameters.
-     * The node comprehensive function and power are all parameterized.
+     * This constructs a comprehensive node by parametrically setting its comprehensive function and power.
      */
     public Node(String functionName, double power) { this.functionName = functionName; this.power = power; }
 

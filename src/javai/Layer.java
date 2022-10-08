@@ -34,14 +34,13 @@ public class Layer {
     private ArrayList<Double> maxPowerVec = new ArrayList<>();
 
     /**
-     * This constructs a comprehensive layer by manually setting its dimension. The power
-     * and comprehensive function of this layer is automatically configured by the Node
-     * object.
+     * This constructs a comprehensive layer by parametrically setting its dimension. The power
+     * and comprehensive function of this layer is automatically configured by the Node object.
      */
     public Layer (int dimension) { for (int i = 0; i < dimension; i++) { this.nodes.add(new Node()); } }
 
     /**
-     * This constructs a comprehensive layer by manually setting its dimension and functionName.
+     * This constructs a comprehensive layer by parametrically setting its dimension and functionName.
      * The functionName is a scalar-string; therefore, every node in the layer is assigned the same
      * functionName. The power of this layer is automatically configured by the Node object.
      */
@@ -50,7 +49,7 @@ public class Layer {
     }
 
     /**
-     * This constructs a comprehensive layer by manually setting its dimension and functionName.
+     * This constructs a comprehensive layer by parametrically setting its dimension and functionName.
      * The functionName is a vector-string; therefore, every node in the layer is assigned a specific
      * comprehensive function. The power of this layer is automatically configured by the Node object.
      */
@@ -59,37 +58,38 @@ public class Layer {
     }
 
     /**
-     * This constructs a comprehensive layer by manually setting its dimension and power.
+     * This constructs a comprehensive layer by parametrically setting its dimension and power.
      * The power argument is a scalar; therefore, every node in the layer is assigned the same
-     * power. The comprehensive function of this layer is automatically configured by the Node object.
+     * power. The comprehensive function of this layer is automatically configured by the Node
+     * object.
      */
     public Layer (int dimension, double power) { this.power = power;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.power)); }
     }
 
     /**
-     * This constructs a comprehensive layer by manually setting its dimension and power.
-     * The power argument is a vector; therefore, every node in the layer is assigned a
-     * specific power. The comprehensive function of this layer is automatically configured
-     * by the Node object.
+     * This constructs a comprehensive layer by parametrically setting its dimension and power.
+     * The power argument is a vector; therefore, every node in the layer is assigned a specific
+     * power. The comprehensive function of this layer is automatically configured by the Node
+     * object.
      */
     public Layer (int dimension, ArrayList<Double> powerVec) { this.powerVec = powerVec;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.powerVec.get(i))); }
     }
 
     /**
-     * This constructs a comprehensive layer by manually setting its dimension, functionName, and power.
-     * The power and functionName arguments are a scalar and scalar-string, respectively; therefore,
-     * every node in the layer is assigned the same power and functionName.
+     * This constructs a comprehensive layer by parametrically setting its dimension, functionName,
+     * and power. The power and functionName arguments are a scalar and scalar-string, respectively;
+     * therefore, every node in the layer is assigned the same power and functionName.
      */
     public Layer (int dimension, String functionName, double power) { this.functionName = functionName; this.power = power;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.power)); }
     }
 
     /**
-     * This constructs a comprehensive layer by manually setting its dimension, functionName, and power.
-     * The power and functionName arguments are a scalar and vector-string, respectively; therefore,
-     * every node in the layer is assigned the same power, but specific functionName.
+     * This constructs a comprehensive layer by parametrically setting its dimension, functionName,
+     * and power. The power and functionName arguments are a scalar and vector-string, respectively;
+     * therefore, every node in the layer is assigned the same power, but specific functionName.
      */
     public Layer (int dimension, ArrayList<String> functionNameVec, double power) {
         this.functionNameVec = functionNameVec; this.power = power;
@@ -97,9 +97,9 @@ public class Layer {
     }
 
     /**
-     * This constructs a comprehensive layer by manually setting its dimension, functionName, and power.
-     * The power and functionName arguments are a vector and scalar-string, respectively; therefore,
-     * every node in the layer is assigned the same functionName, but specific power.
+     * This constructs a comprehensive layer by parametrically setting its dimension, functionName,
+     * and power.The power and functionName arguments are a vector and scalar-string, respectively;
+     * therefore,every node in the layer is assigned the same functionName, but specific power.
      */
     public Layer (int dimension, String functionName, ArrayList<Double> powerVec) {
         this.functionName = functionName; this.powerVec = powerVec;
@@ -107,9 +107,9 @@ public class Layer {
     }
 
     /**
-     * This constructs a comprehensive layer by manually setting its dimension, functionName, and power.
-     * The power and functionName arguments are a vector and vector-string, respectively; therefore,
-     * every node in the layer is assigned a specific power and functionName.
+     * This constructs a comprehensive layer by parametrically setting its dimension, functionName,
+     * and power. The power and functionName arguments are a vector and vector-string, respectively;
+     * therefore, every node in the layer is assigned a specific power and functionName.
      */
     public Layer (Integer dimension, ArrayList<Double> powerVec, ArrayList<String> functionNameVec) {
         this.functionNameVec = functionNameVec; this.powerVec = powerVec;
