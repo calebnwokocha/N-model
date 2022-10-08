@@ -1,6 +1,6 @@
-/*=======================================================================
- Javis is an open-source software framework for comprehensive learning.
- Copyright (C) 2022 Caleb Princewill Nwokocha
+/*--------------------------------------------------------------------------------------------------
+ Javai is open-source framework for comprehensive learning.
+ Copyright (C) 2022 Javai Foundation
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published
@@ -15,45 +15,48 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 
- Contact calebnwokocha@gmail.com for special permission to use this software.
-=========================================================================*/
+ Email info@javai.org for IT support and/or special permission to use this framework.
+----------------------------------------------------------------------------------------------------*/
 
-package javai;
+import javai.Dataset;
+import javai.Layer;
+import javai.Network;
 
 import java.util.Arrays;
 
 public class Demo {
     public static void main(String[] args) throws Exception {
         String[] fileNames = {
-                "src/javai/dataset/test1.txt",
-                "src/javai/dataset/test2.txt",
-                "src/javai/dataset/text3.txt",
-                "src/javai/dataset/text4.txt",
-                "src/javai/dataset/test1.txt",
-                "src/javai/dataset/test2.txt",
-                "src/javai/dataset/text3.txt",
-                "src/javai/dataset/text4.txt",
-                "src/javai/dataset/test1.txt",
-                "src/javai/dataset/test2.txt",
-                "src/javai/dataset/text3.txt",
-                "src/javai/dataset/text4.txt",
-                "src/javai/dataset/test1.txt",
-                "src/javai/dataset/test2.txt",
-                "src/javai/dataset/text3.txt",
-                "src/javai/dataset/text4.txt",
-                "src/javai/dataset/test1.txt",
-                "src/javai/dataset/test2.txt",
-                "src/javai/dataset/text3.txt",
-                "src/javai/dataset/text4.txt",
-                "src/javai/dataset/test1.txt",
-                "src/javai/dataset/test2.txt",
-                "src/javai/dataset/text3.txt",
-                "src/javai/dataset/text4.txt"
+                "demo/dataset/test1.txt",
+                "demo/dataset/test2.txt",
+                "demo/dataset/text3.txt",
+                "demo/dataset/text4.txt",
+                "demo/dataset/test1.txt",
+                "demo/dataset/test2.txt",
+                "demo/dataset/text3.txt",
+                "demo/dataset/text4.txt",
+                "demo/dataset/test1.txt",
+                "demo/dataset/test2.txt",
+                "demo/dataset/text3.txt",
+                "demo/dataset/text4.txt",
+                "demo/dataset/test1.txt",
+                "demo/dataset/test2.txt",
+                "demo/dataset/text3.txt",
+                "demo/dataset/text4.txt",
+                "demo/dataset/test1.txt",
+                "demo/dataset/test2.txt",
+                "demo/dataset/text3.txt",
+                "demo/dataset/text4.txt",
+                "demo/dataset/test1.txt",
+                "demo/dataset/test2.txt",
+                "demo/dataset/text3.txt",
+                "demo/dataset/text4.txt"
         };
 
         Dataset dataset = new Dataset(fileNames);
 
         Network network = new Network(5, 10, 1);
+
 
         for (int i = 0; i < dataset.getDataset().length; i++) {
             System.out.println("Example " + i);

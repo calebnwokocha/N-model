@@ -1,6 +1,6 @@
-/*=======================================================================
- Javis is an open-source software framework for comprehensive learning.
- Copyright (C) 2022 Caleb Princewill Nwokocha
+/*--------------------------------------------------------------------------------------------------
+ Javai is open-source framework for comprehensive learning.
+ Copyright (C) 2022 Javai Foundation
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published
@@ -15,14 +15,13 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 
- Contact calebnwokocha@gmail.com for special permission to use this software.
-=========================================================================*/
+ Email info@javai.org for IT support and/or special permission to use this framework.
+----------------------------------------------------------------------------------------------------*/
 
 package javai;
 
 /**
  * CFunction class consist of comprehensive functions used by the Node class.
- * Contact info@javai.org for support.
  */
 public class CFunction {
     private double value;

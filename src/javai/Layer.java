@@ -1,6 +1,6 @@
-/*=======================================================================
- Javis is an open-source software framework for comprehensive learning.
- Copyright (C) 2022 Caleb Princewill Nwokocha
+/*--------------------------------------------------------------------------------------------------
+ Javai is open-source framework for comprehensive learning.
+ Copyright (C) 2022 Javai Foundation
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published
@@ -15,8 +15,8 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 
- Contact calebnwokocha@gmail.com for special permission to use this software.
-=========================================================================*/
+ Email info@javai.org for IT support and/or special permission to use this framework.
+----------------------------------------------------------------------------------------------------*/
 
 package javai;
 
@@ -37,7 +37,7 @@ public class Layer {
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
     }
 
-    public Layer ( ArrayList<String> functionNameVec, int dimension) { this.functionNameVec = functionNameVec;
+    public Layer (Integer dimension, ArrayList<String> functionNameVec) { this.functionNameVec = functionNameVec;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i))); }
     }
 
@@ -63,7 +63,7 @@ public class Layer {
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.powerVec.get(i))); }
     }
 
-    public Layer (ArrayList<Double> powerVec, ArrayList<String> functionNameVec, int dimension) {
+    public Layer (Integer dimension, ArrayList<Double> powerVec, ArrayList<String> functionNameVec) {
         this.functionNameVec = functionNameVec; this.powerVec = powerVec;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i), this.powerVec.get(i))); }
     }
