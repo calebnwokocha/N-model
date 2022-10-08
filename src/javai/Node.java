@@ -149,6 +149,8 @@ public class Node {
      * This prompts the node to produce its hypothesis and thesis upon a scalar argument. The result of the
      * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
      * meanError from that hypothesis.
+     *
+     * @see javai.CFunction
      */
     public void activate (double parameter) {
         CFunction cFunction = new CFunction(this.functionName, parameter);
@@ -160,6 +162,8 @@ public class Node {
      * This prompts the node to produce its hypothesis and thesis upon a vector argument. The result of the
      * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
      * meanError from that hypothesis.
+     *
+     * @see javai.CFunction
      */
     public void activate (double... parameters) {
         CFunction cFunction = new CFunction(this.functionName, parameters);
