@@ -26,57 +26,105 @@ import java.util.Arrays;
 
 public class Demo {
     public static void main(String[] args) throws Exception {
-        String[] fileNames = {
-                "demo/dataset/test1.txt",
-                "demo/dataset/test2.txt",
-                "demo/dataset/text3.txt",
-                "demo/dataset/text4.txt",
-                "demo/dataset/test1.txt",
-                "demo/dataset/test2.txt",
-                "demo/dataset/text3.txt",
-                "demo/dataset/text4.txt",
-                "demo/dataset/test1.txt",
-                "demo/dataset/test2.txt",
-                "demo/dataset/text3.txt",
-                "demo/dataset/text4.txt",
-                "demo/dataset/test1.txt",
-                "demo/dataset/test2.txt",
-                "demo/dataset/text3.txt",
-                "demo/dataset/text4.txt",
-                "demo/dataset/test1.txt",
-                "demo/dataset/test2.txt",
-                "demo/dataset/text3.txt",
-                "demo/dataset/text4.txt",
-                "demo/dataset/test1.txt",
-                "demo/dataset/test2.txt",
-                "demo/dataset/text3.txt",
-                "demo/dataset/text4.txt"
+        String[] fileNames1 = {
+                "demo/dataset1/test1.txt",
+                "demo/dataset1/test2.txt",
+                "demo/dataset1/text3.txt",
+                "demo/dataset1/text4.txt",
+                "demo/dataset1/test1.txt",
+                "demo/dataset1/test2.txt",
+                "demo/dataset1/text3.txt",
+                "demo/dataset1/text4.txt",
+                "demo/dataset1/test1.txt",
+                "demo/dataset1/test2.txt",
+                "demo/dataset1/text3.txt",
+                "demo/dataset1/text4.txt",
+                "demo/dataset1/test1.txt",
+                "demo/dataset1/test2.txt",
+                "demo/dataset1/text3.txt",
+                "demo/dataset1/text4.txt",
+                "demo/dataset1/test1.txt",
+                "demo/dataset1/test2.txt",
+                "demo/dataset1/text3.txt",
+                "demo/dataset1/text4.txt",
+                "demo/dataset1/test1.txt",
+                "demo/dataset1/test2.txt",
+                "demo/dataset1/text3.txt",
+                "demo/dataset1/text4.txt"
         };
 
-        Dataset dataset = new Dataset(fileNames);
+        String[] fileNames2 = {
+                "demo/dataset2/test1.txt",
+                "demo/dataset2/test2.txt",
+                "demo/dataset2/text3.txt",
+                "demo/dataset2/text4.txt",
+                "demo/dataset2/test1.txt",
+                "demo/dataset2/test2.txt",
+                "demo/dataset2/text3.txt",
+                "demo/dataset2/text4.txt",
+                "demo/dataset2/test1.txt",
+                "demo/dataset2/test2.txt",
+                "demo/dataset2/text3.txt",
+                "demo/dataset2/text4.txt",
+                "demo/dataset2/test1.txt",
+                "demo/dataset2/test2.txt",
+                "demo/dataset2/text3.txt",
+                "demo/dataset2/text4.txt",
+                "demo/dataset2/test1.txt",
+                "demo/dataset2/test2.txt",
+                "demo/dataset2/text3.txt",
+                "demo/dataset2/text4.txt",
+                "demo/dataset2/test1.txt",
+                "demo/dataset2/test2.txt",
+                "demo/dataset2/text3.txt",
+                "demo/dataset2/text4.txt"
+        };
+
+        Dataset dataset1 = new Dataset(fileNames1);
+        Dataset dataset2 = new Dataset(fileNames2);
 
         Network network = new Network(5, 10, 1);
 
-
-        for (int i = 0; i < dataset.getDataset().length; i++) {
-            System.out.println("Example " + i);
+        // Train
+        for (int i = 0; i < dataset1.getDataset().length; i++) {
+            //System.out.println("Example " + i);
             for (int j = 0; j < network.getLayers().size(); j++) {
                 if (j == 0) {
-                    network.getLayers().get(j).activate(dataset.getDataset()[i]);
-                    //network.getLayers().get(j).optimize(new double[]{-10, 10, -10, 10, -10}, i + 1);
+                    network.getLayers().get(j).activate(dataset1.getDataset()[i]);
                 }
                 else {
                     network.getLayers().get(j).activate(network.getLayers().get(j - 1).getThesisVec());
-                    //network.getLayers().get(j).optimize(new double[]{-10, 10, -10, 10, -10}, i + 1);
                 }
                 Layer layer = new Layer(7);
 
-                System.out.println("Layer " + j);
-                System.out.println(Arrays.toString(network.getLayers().get(j).getThesisVec()));
-                System.out.println();
+                //System.out.println("Layer " + j);
+                //System.out.println(Arrays.toString(network.getLayers().get(j).getThesisVec()));
+                //System.out.println();
             }
 
-            network.optimize(new double[]{100000, 10, 100, 10, 100}, i + 1);
+            network.optimize(new double[]{-100000, 10, 100, 10, 100}, i + 1);
+        }
+
+        // Test
+        dataset1.shuffle();
+        for (int i = 0; i < dataset1.getDataset().length; i++) {
+            System.out.println("Test " + i);
+            for (int j = 0; j < network.getLayers().size(); j++) {
+                if (j == 0) {
+                    network.getLayers().get(j).activate(dataset1.getDataset()[i]);
+                }
+                else {
+                    network.getLayers().get(j).activate(network.getLayers().get(j - 1).getThesisVec());
+                }
+                Layer layer = new Layer(7);
+
+                //System.out.println("Layer " + j);
+                //System.out.println(Arrays.toString(network.getLayers().get(j).getThesisVec()));
+                //System.out.println();
+            }
+
+            System.out.println(Arrays.toString(network.getLayers().get(network.getLayers().size() - 1).getThesisVec()));
+            System.out.println();
         }
     }
 }
