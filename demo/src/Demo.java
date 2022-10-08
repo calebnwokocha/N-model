@@ -105,7 +105,7 @@ public class Demo {
             network.optimize(new double[]{-100000, 10, 100, 10, 100}, i + 1);
         }
 
-        // data
+        // Test
         dataset1.shuffle();
         for (int i = 0; i < dataset1.getDataset().length; i++) {
             System.out.println("Test " + i);
