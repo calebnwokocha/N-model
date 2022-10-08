@@ -27,57 +27,57 @@ import java.util.Arrays;
 public class Demo {
     public static void main(String[] args) throws Exception {
         String[] fileNames1 = {
-                "demo/dataset1/test1.txt",
-                "demo/dataset1/test2.txt",
-                "demo/dataset1/text3.txt",
-                "demo/dataset1/text4.txt",
-                "demo/dataset1/test1.txt",
-                "demo/dataset1/test2.txt",
-                "demo/dataset1/text3.txt",
-                "demo/dataset1/text4.txt",
-                "demo/dataset1/test1.txt",
-                "demo/dataset1/test2.txt",
-                "demo/dataset1/text3.txt",
-                "demo/dataset1/text4.txt",
-                "demo/dataset1/test1.txt",
-                "demo/dataset1/test2.txt",
-                "demo/dataset1/text3.txt",
-                "demo/dataset1/text4.txt",
-                "demo/dataset1/test1.txt",
-                "demo/dataset1/test2.txt",
-                "demo/dataset1/text3.txt",
-                "demo/dataset1/text4.txt",
-                "demo/dataset1/test1.txt",
-                "demo/dataset1/test2.txt",
-                "demo/dataset1/text3.txt",
-                "demo/dataset1/text4.txt"
+                "demo/dataset1/data1.txt",
+                "demo/dataset1/data2.txt",
+                "demo/dataset1/data3.txt",
+                "demo/dataset1/data4.txt",
+                "demo/dataset1/data1.txt",
+                "demo/dataset1/data2.txt",
+                "demo/dataset1/data3.txt",
+                "demo/dataset1/data4.txt",
+                "demo/dataset1/data1.txt",
+                "demo/dataset1/data2.txt",
+                "demo/dataset1/data3.txt",
+                "demo/dataset1/data4.txt",
+                "demo/dataset1/data1.txt",
+                "demo/dataset1/data2.txt",
+                "demo/dataset1/data3.txt",
+                "demo/dataset1/data4.txt",
+                "demo/dataset1/data1.txt",
+                "demo/dataset1/data2.txt",
+                "demo/dataset1/data3.txt",
+                "demo/dataset1/data4.txt",
+                "demo/dataset1/data1.txt",
+                "demo/dataset1/data2.txt",
+                "demo/dataset1/data3.txt",
+                "demo/dataset1/data4.txt"
         };
 
         String[] fileNames2 = {
-                "demo/dataset2/test1.txt",
-                "demo/dataset2/test2.txt",
-                "demo/dataset2/text3.txt",
-                "demo/dataset2/text4.txt",
-                "demo/dataset2/test1.txt",
-                "demo/dataset2/test2.txt",
-                "demo/dataset2/text3.txt",
-                "demo/dataset2/text4.txt",
-                "demo/dataset2/test1.txt",
-                "demo/dataset2/test2.txt",
-                "demo/dataset2/text3.txt",
-                "demo/dataset2/text4.txt",
-                "demo/dataset2/test1.txt",
-                "demo/dataset2/test2.txt",
-                "demo/dataset2/text3.txt",
-                "demo/dataset2/text4.txt",
-                "demo/dataset2/test1.txt",
-                "demo/dataset2/test2.txt",
-                "demo/dataset2/text3.txt",
-                "demo/dataset2/text4.txt",
-                "demo/dataset2/test1.txt",
-                "demo/dataset2/test2.txt",
-                "demo/dataset2/text3.txt",
-                "demo/dataset2/text4.txt"
+                "demo/dataset2/data1.txt",
+                "demo/dataset2/data2.txt",
+                "demo/dataset2/data3.txt",
+                "demo/dataset2/data4.txt",
+                "demo/dataset2/data1.txt",
+                "demo/dataset2/data2.txt",
+                "demo/dataset2/data3.txt",
+                "demo/dataset2/data4.txt",
+                "demo/dataset2/data1.txt",
+                "demo/dataset2/data2.txt",
+                "demo/dataset2/data3.txt",
+                "demo/dataset2/data4.txt",
+                "demo/dataset2/data1.txt",
+                "demo/dataset2/data2.txt",
+                "demo/dataset2/data3.txt",
+                "demo/dataset2/data4.txt",
+                "demo/dataset2/data1.txt",
+                "demo/dataset2/data2.txt",
+                "demo/dataset2/data3.txt",
+                "demo/dataset2/data4.txt",
+                "demo/dataset2/data1.txt",
+                "demo/dataset2/data2.txt",
+                "demo/dataset2/data3.txt",
+                "demo/dataset2/data4.txt"
         };
 
         Dataset dataset1 = new Dataset(fileNames1);
@@ -105,7 +105,7 @@ public class Demo {
             network.optimize(new double[]{-100000, 10, 100, 10, 100}, i + 1);
         }
 
-        // Test
+        // data
         dataset1.shuffle();
         for (int i = 0; i < dataset1.getDataset().length; i++) {
             System.out.println("Test " + i);
