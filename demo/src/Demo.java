@@ -21,6 +21,7 @@
 import javai.Dataset;
 import javai.Layer;
 import javai.Network;
+import javai.Node;
 
 import java.util.Arrays;
 

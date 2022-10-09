@@ -18,7 +18,7 @@
  Email info@javai.org for technical support and/or special permission to use this framework.
 ----------------------------------------------------------------------------------------------------*/
 
-package javai;
+package javai.core;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public class Layer {
      * This constructs a comprehensive layer by parametrically setting its dimension. The powers
      * and comprehensive functions of the layer is automatically configured by the Node object.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension) { for (int i = 0; i < dimension; i++) { this.nodes.add(new Node()); } }
 
@@ -46,7 +46,7 @@ public class Layer {
      * functions. The functionName is a scalar-string; therefore, every node in the layer is assigned the same
      * comprehensive function. The powers of the layer is automatically configured by the Node object.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, String functionName) { this.functionName = functionName;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
@@ -58,7 +58,7 @@ public class Layer {
      * a specific comprehensive function. The powers of this layer is automatically configured by the
      * Node object.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (Integer dimension, ArrayList<String> functionNameVec) { this.functionNameVec = functionNameVec;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i))); }
@@ -70,7 +70,7 @@ public class Layer {
      * power. The comprehensive functions of the layer is automatically configured by the Node
      * object.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, double power) { this.power = power;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.power)); }
@@ -82,7 +82,7 @@ public class Layer {
      * power. The comprehensive functions of the layer is automatically configured by the Node
      * object.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, ArrayList<Double> powerVec) { this.powerVec = powerVec;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.powerVec.get(i))); }
@@ -94,7 +94,7 @@ public class Layer {
      * respectively; therefore, every node in the layer is assigned the same power and comprehensive
      * function.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, String functionName, double power) { this.functionName = functionName; this.power = power;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.power)); }
@@ -106,7 +106,7 @@ public class Layer {
      * respectively; therefore, every node in the layer is assigned the same power, but specific
      * comprehensive function.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, ArrayList<String> functionNameVec, double power) {
         this.functionNameVec = functionNameVec; this.power = power;
@@ -119,7 +119,7 @@ public class Layer {
      * respectively; therefore,every node in the layer is assigned the same comprehensive function,
      * but specific power.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, String functionName, ArrayList<Double> powerVec) {
         this.functionName = functionName; this.powerVec = powerVec;
@@ -132,7 +132,7 @@ public class Layer {
      * respectively; therefore, every node in the layer is assigned a specific power and comprehensive
      * function.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (Integer dimension, ArrayList<Double> powerVec, ArrayList<String> functionNameVec) {
         this.functionNameVec = functionNameVec; this.powerVec = powerVec;
@@ -145,7 +145,7 @@ public class Layer {
      * layer is assigned the same minimum and maximum power. The comprehensive functions of the layer
      * is automatically configured by the Node object.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, double minPower, double maxPower) { this.minPower = minPower; this.maxPower = maxPower;
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.minPower, this.maxPower)); }
@@ -157,7 +157,7 @@ public class Layer {
      * in the layer is assigned a specific minimum and maximum power. The comprehensive functions
      * of the layer is automatically configured by the Node object.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec) {
         this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
@@ -170,7 +170,7 @@ public class Layer {
      * are all scalars; therefore, every node in the layer is assigned the same comprehensive function,
      * and minimum and maximum power.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, String functionName, double minPower, double maxPower) {
         this.functionName = functionName; this.minPower = minPower; this.maxPower = maxPower;
@@ -183,7 +183,7 @@ public class Layer {
      * are vector, scalar, and scalar, respectively; therefore, every node in the layer is assigned
      * a special comprehensive function, but the same minimum and maximum power.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, ArrayList<String> functionNameVec, double minPower, double maxPower) {
         this.functionNameVec = functionNameVec; this.minPower = minPower; this.maxPower = maxPower;
@@ -198,7 +198,7 @@ public class Layer {
      * are all scalars; therefore, every node in the layer is assigned the same comprehensive function,
      * and minimum and maximum power.
      *
-     * @see javai.Node
+     * @see Node
      */
     public Layer (int dimension, String functionName, ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec) {
         this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
