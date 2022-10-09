@@ -26,23 +26,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Data {
-    private double[] data;
+    private Double[] data;
 
-    public Data(double[] data) { this.data = data; }
+    public Data(Double[] data) { this.data = data; }
 
     public Data (String fileName) throws IOException {
         Path path = Paths.get(fileName);
         byte[] data = Files.readAllBytes(path);
-        this.data = new double[data.length];
+        this.data = new Double[data.length];
         for (int i = 0; i < this.data.length; i++)
-        { this.data[i] = data[i]; }
+        { this.data[i] = (double) data[i]; }
     }
 
-    public double[] getData() { return this.data; }
+    public Double[] getData() { return this.data; }
 
     public double getDatum (int index) { return this.data[index]; }
 
-    public void setData(double[] data) { this.data = data; }
+    public void setData(Double[] data) { this.data = data; }
 
     public double[][] divide (int[] groupSizes) {
         double[][] groups = new double[groupSizes.length][];

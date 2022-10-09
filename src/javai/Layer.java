@@ -28,10 +28,9 @@ import java.util.ArrayList;
 public class Layer {
     private ArrayList<Node> nodes = new ArrayList<>();
     private String functionName; private ArrayList<String> functionNameVec = new ArrayList<>();
-    private double power; private ArrayList<Double> powerVec = new ArrayList<>();
-    private double minPower; private double maxPower;
-    private ArrayList<Double> minPowerVec = new ArrayList<>();
-    private ArrayList<Double> maxPowerVec = new ArrayList<>();
+    private double minPower, maxPower, power;
+    private ArrayList<Double> minPowerVec = new ArrayList<>(),
+            maxPowerVec = new ArrayList<>(), powerVec = new ArrayList<>();
 
     /**
      * This constructs a comprehensive layer by parametrically setting its dimension. The powers
@@ -312,27 +311,23 @@ public class Layer {
         return meanErrorVec;
     }
 
-    public double[] getHypothesisVec() {
-        double[] hypothesisVec = new double[this.nodes.size()];
+    public Double[] getHypothesisVec() {
+        Double[] hypothesisVec = new Double[this.nodes.size()];
         for (int i = 0; i < hypothesisVec.length; i++) { hypothesisVec[i] = nodes.get(i).getHypothesis(); }
         return hypothesisVec;
     }
 
-    public double[] getThesisVec() {
-        double[] thesisVec = new double[this.nodes.size()];
+    public Double[] getThesisVec() {
+        Double[] thesisVec = new Double[this.nodes.size()];
         for (int i = 0; i < thesisVec.length; i++) { thesisVec[i] = nodes.get(i).getThesis(); }
         return thesisVec;
     }
 
-    public void activate (double parameter) { // Activate all layer neurons.
-        for (Node node : this.nodes) { node.activate(parameter); }
-    }
-
-    public void activate (double... parameters) { // Activate all layer neurons.
+    public void activate (Double... parameters) { // Activate all layer neurons.
         for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(parameters[i]); }
     }
 
-    public void activate (double[]... parameters) { // Activate all layer neurons.
+    public void activate (Double[]... parameters) { // Activate all layer neurons.
         for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(parameters[i]); }
     }
 

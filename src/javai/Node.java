@@ -24,11 +24,13 @@ package javai;
  * Node class consist of functions and methods for operations on a comprehensive node.
  */
 public class Node {
-    private String functionName; private double power;
-    private double hypothesis; private double thesis;
+    private String functionName;
+    private Double hypothesis, thesis, power;
     private double meanError = 0.0; // Default
     private double minPower = -1.0; // Default
     private double maxPower = 1.0; // Default
+    private Double[] parameters = new Double[]{0.0};
+    private double[] meanParameters = new double[]{0.0};
 
     /**
      * This constructs a comprehensive node without manually setting its parameters.
@@ -85,12 +87,12 @@ public class Node {
     /**
      * This returns the node hypothesis.
      */
-    public double getHypothesis() { return this.hypothesis; }
+    public Double getHypothesis() { return this.hypothesis; }
 
     /**
      * This returns the node thesis.
      */
-    public double getThesis() { return this.thesis; }
+    public Double getThesis() { return this.thesis; }
 
     /**
      * This returns the node rule.
@@ -147,29 +149,19 @@ public class Node {
     }
 
     /**
-     * This prompts the node to produce its hypothesis and thesis upon a scalar argument. The result of the
-     * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
-     * meanError from that hypothesis.
-     *
-     * @see CFunction
-     */
-    public void activate (double parameter) {
-        CFunction cFunction = new CFunction(this.functionName, parameter);
-        this.hypothesis = cFunction.getValue();
-        this.thesis = this.hypothesis - this.meanError;
-    }
-
-    /**
      * This prompts the node to produce its hypothesis and thesis upon a vector argument. The result of the
      * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
      * meanError from that hypothesis.
      *
      * @see CFunction
      */
-    public void activate (double... parameters) {
-        CFunction cFunction = new CFunction(this.functionName, parameters);
-        this.hypothesis = cFunction.getValue();
-        this.thesis = this.hypothesis - this.meanError;
+    public void activate (Double... parameters) {
+        this.parameters = parameters;
+        if (!isOutlier(this.parameters)) {
+            CFunction cFunction = new CFunction(this.functionName, this.parameters);
+            this.hypothesis = cFunction.getValue();
+            this.thesis = this.hypothesis - this.meanError;
+        } else { this.hypothesis = null; this.thesis = null; }
     }
 
     /**
@@ -177,8 +169,12 @@ public class Node {
      * an intermediate error is calculated, and this error is used to update the node meanError.
      */
     public void optimize (double objective, int iteration) {
-        double error = this.thesis - objective;
-        this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+        if (!isOutlier(this.parameters)) {
+            double error = this.thesis - objective;
+            this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+            this.meanParameters = this.dynamicPowerMean(this.meanParameters, this.parameters,
+                    this.power, iteration);
+        }
     }
 
     /**
@@ -186,11 +182,24 @@ public class Node {
      * are used to update the node meanError.
      */
     public void optimize (int iteration, double error) {
-        this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+        if (!isOutlier(this.parameters)) {
+            this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+            this.meanParameters = this.dynamicPowerMean(this.meanParameters, this.parameters,
+                    this.power, iteration);
+        }
     }
 
-    private double dynamicPowerMean(double m, double d, double p, int t) {
+    private boolean isOutlier (Double[] parameters) {
+        return false;
+    }
+
+    private double dynamicPowerMean (double m, double d, double p, int t) {
         m = (Math.pow((1.0 / (t)) * (Math.pow(d, p) + (Math.pow(m, p) * (t - 1))), 1.0 / p));
+        return m;
+    }
+
+    private double[] dynamicPowerMean (double[] m, Double[] d, double p, int t) {
+        for (int i = 0; i < d.length; i++) { m[i] = this.dynamicPowerMean(m[i], d[i], p, t); }
         return m;
     }
 }

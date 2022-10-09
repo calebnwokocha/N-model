@@ -25,11 +25,11 @@ import java.util.ArrayList;
 public class Network {
     private ArrayList<Layer> layers = new ArrayList<>();
     private int width; private ArrayList<Integer> widthVec;
-    private String functionName; private ArrayList<String> functionNameVec; private ArrayList<ArrayList<String>> functionNameMat;
-    private double power; private ArrayList<Double> powerVec; private ArrayList<ArrayList<Double>> powerMat;
-    private double minPower; private double maxPower;
-    private ArrayList<Double> minPowerVec; private ArrayList<Double> maxPowerVec;
-    private ArrayList<ArrayList<Double>> minPowerMat; private ArrayList<ArrayList<Double>> maxPowerMat;
+    private String functionName; private ArrayList<String> functionNameVec;
+    private ArrayList<ArrayList<String>> functionNameMat;
+    private double power, minPower, maxPower;
+    private ArrayList<Double> powerVec, minPowerVec, maxPowerVec;
+    private ArrayList<ArrayList<Double>> powerMat, minPowerMat, maxPowerMat;
 
     // Construct network.
     public Network (int width, int length) {
@@ -552,31 +552,27 @@ public class Network {
         return meanErrorMat;
     }
 
-    public double[][] getHypothesisMat() {
-        double[][] hypothesisMat = new double[this.layers.size()][];
+    public Double[][] getHypothesisMat() {
+        Double[][] hypothesisMat = new Double[this.layers.size()][];
         for (int i = 0; i < hypothesisMat.length; i++) { hypothesisMat[i] = layers.get(i).getHypothesisVec(); }
         return hypothesisMat;
     }
 
-    public double[][] getThesisMat() {
-        double[][] thesisMat = new double[this.layers.size()][];
+    public Double[][] getThesisMat() {
+        Double[][] thesisMat = new Double[this.layers.size()][];
         for (int i = 0; i < thesisMat.length; i++) { thesisMat[i] = layers.get(i).getThesisVec(); }
         return thesisMat;
     }
 
-    public void activate (double parameter) { // Activate all perceptron layers.
-        for (Layer layer : this.layers) { layer.activate(parameter); }
-    }
-
-    public void activate (double... parameters) { // Activate all perceptron layers.
+    public void activate (Double... parameters) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
     }
 
-    public void activate (double[]... parameters) { // Activate all perceptron layers.
+    public void activate (Double[]... parameters) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
     }
 
-    public void activate (double[][]... parameters) { // Activate all perceptron layers.
+    public void activate (Double[][]... parameters) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
     }
 

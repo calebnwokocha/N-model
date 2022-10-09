@@ -30,7 +30,7 @@ public class CFunction {
      * This constructs a comprehensive function with only one parameter.
      * It requires the function name.
      */
-    public CFunction(String functionName, double parameter) {
+    public CFunction(String functionName, Double parameter) {
         switch (functionName) { // Configure function according to function name.
             case "sum" -> this.sum(parameter);
             case "cubic volume" -> this.cubicVolume(parameter);
@@ -41,7 +41,7 @@ public class CFunction {
      * This constructs a comprehensive function with multiple parameters.
      * It requires the function name.
      */
-    public CFunction(String functionName, double... parameters) {
+    public CFunction(String functionName, Double... parameters) {
         switch (functionName) { // Configure function according to function name.
             case "sum" -> this.sum(parameters);
             case "force" -> this.force(parameters[0], parameters[1]);
@@ -55,11 +55,11 @@ public class CFunction {
 
     // Below are methods for comprehensive functions.
 
-    private void cubicVolume (double s) { this.value = Math.pow(s, 3); }
+    private void cubicVolume (Double s) { this.value = Math.pow(s, 3); }
 
-    private void force (double m, double a) { this.value = m * a /*(m + a) - ((m * a) * (1 + m + a - (m * a)))*/; }
+    private void force (Double m, Double a) { this.value = m * a /*(m + a) - ((m * a) * (1 + m + a - (m * a)))*/; }
 
-    private void sum (double... X) {
+    private void sum (Double... X) {
         double s = 0;
         for (double x : X) { s += x; }
         this.value =  s;

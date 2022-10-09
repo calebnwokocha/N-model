@@ -25,29 +25,29 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Dataset {
-    private double[][] dataset;
+    private Double[][] dataset;
 
-    public Dataset(double[][] dataset) { this.dataset = dataset; }
+    public Dataset(Double[][] dataset) { this.dataset = dataset; }
 
     public Dataset (String... fileNames) throws IOException {
         Data[] dataset = new Data[fileNames.length];
-        this.dataset = new double[dataset.length][];
+        this.dataset = new Double[dataset.length][];
         for (int i = 0; i < this.dataset.length; i++) {
             dataset[i] = new Data(fileNames[i]);
             this.dataset[i] = dataset[i].getData();
         }
     }
 
-    public double[][] getDataset() { return this.dataset; }
+    public Double[][] getDataset() { return this.dataset; }
 
-    public double[] getDataset (int index) { return this.dataset[index]; }
+    public Double[] getDataset (int index) { return this.dataset[index]; }
 
-    public void setDataset(double[]... dataset) { this.dataset = dataset; }
+    public void setDataset(Double[]... dataset) { this.dataset = dataset; }
 
     public void shuffle () { Collections.shuffle(Arrays.asList(this.dataset)); }
 
     public void saveDataset () {
-        for (double[] d : this.dataset) {
+        for (Double[] d : this.dataset) {
             Data data = new Data(d);
             data.saveData();
         }
