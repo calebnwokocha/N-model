@@ -18,7 +18,7 @@
  Email info@javai.org for technical support and/or special permission to use this framework.
 ----------------------------------------------------------------------------------------------------*/
 
-package javai.core;
+package javai;
 
 /**
  * Node class consist of functions and methods for operations on a comprehensive node.

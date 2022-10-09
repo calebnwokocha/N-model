@@ -19,8 +19,8 @@
 ----------------------------------------------------------------------------------------------------*/
 
 import javai.Dataset;
-import javai.core.Layer;
-import javai.core.Network;
+import javai.Layer;
+import javai.Network;
 
 import java.util.Arrays;
 

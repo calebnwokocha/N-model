@@ -18,7 +18,7 @@
  Email info@javai.org for technical support and/or special permission to use this framework.
 ----------------------------------------------------------------------------------------------------*/
 
-package javai.core;
+package javai;
 
 /**
  * CFunction class consist of comprehensive functions used by the Node class.
