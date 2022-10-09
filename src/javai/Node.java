@@ -136,10 +136,11 @@ public class Node {
     public void setPower(double power) { this.power = power; }
 
     /**
-     * This configures the node actual power to a stochastic power p, where minPower => p < 0.0 or 0.0 < p <= maxPower.
-     * By default, minPower = -1.0 and maxPower = 1.0, in accordance to the Pythagorean means configuration
-     * for the power mean. The following are required by the power mean to produce any of the Pythagorean means:
-     * For harmonic mean, p approaches -1.0; for geometric mean, p approaches 0; and for arithmetic mean, p approaches 1.0.
+     * This configures the node actual power to a stochastic power p, where minPower => p < 0.0 or
+     * 0.0 < p <= maxPower. By default, minPower = -1.0 and maxPower = 1.0, in accordance to the
+     * Pythagorean means configuration for the power mean. The following are required by the power
+     * mean to produce any of the Pythagorean means: For harmonic mean, p approaches -1.0; for
+     * geometric mean, p approaches 0; and for arithmetic mean, p approaches 1.0.
      */
     public void setPower() {
         this.power = ((Math.random() * ((this.maxPower - 1.0) - this.minPower + 1)) + this.minPower) + 0.1;

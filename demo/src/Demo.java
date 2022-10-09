@@ -95,7 +95,6 @@ public class Demo {
                 else {
                     network.getLayers().get(j).activate(network.getLayers().get(j - 1).getThesisVec());
                 }
-                Layer layer = new Layer(7);
 
                 //System.out.println("Layer " + j);
                 //System.out.println(Arrays.toString(network.getLayers().get(j).getThesisVec()));
@@ -116,7 +115,6 @@ public class Demo {
                 else {
                     network.getLayers().get(j).activate(network.getLayers().get(j - 1).getThesisVec());
                 }
-                Layer layer = new Layer(7);
 
                 //System.out.println("Layer " + j);
                 //System.out.println(Arrays.toString(network.getLayers().get(j).getThesisVec()));

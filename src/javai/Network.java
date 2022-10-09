@@ -44,32 +44,46 @@ public class Network {
 
     public Network (int width, int length, String functionName) {
         this.width = width; this.functionName = functionName;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionName)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionName));
+        }
     }
 
     public Network (int width, int length, ArrayList<String> functionNameVec) {
         this.width = width; this.functionNameVec = functionNameVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionNameVec)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionNameVec));
+        }
     }
 
     public Network (Integer width, Integer length, ArrayList<ArrayList<String>> functionNameMat) {
         this.width = width; this.functionNameMat = functionNameMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionNameMat.get(i))); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionNameMat.get(i)));
+        }
     }
 
     public Network (ArrayList<Integer> widthVec, int length, String functionName) {
         this.widthVec = widthVec; this.functionName = functionName;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionName)); }
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i),
+                this.functionName));
+        }
     }
 
     public Network (ArrayList<Integer> widthVec, int length, ArrayList<String> functionNameVec) {
         this.widthVec = widthVec; this.functionNameVec = functionNameVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionNameVec)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionNameVec));
+        }
     }
 
-    public Network (ArrayList<ArrayList<String>> functionNameMat, ArrayList<Integer> widthVec, int length) {
+    public Network (ArrayList<ArrayList<String>> functionNameMat, ArrayList<Integer> widthVec,
+                    int length)
+    {
         this.widthVec = widthVec; this.functionNameMat = functionNameMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionNameMat.get(i))); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionNameMat.get(i)));
+        }
     }
 
     public Network (int width, int length, double power) {
@@ -94,206 +108,382 @@ public class Network {
 
     public Network (ArrayList<Integer> widthVec, Integer length, ArrayList<Double> powerVec) {
         this.widthVec = widthVec; this.powerVec = powerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.powerVec)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.powerVec));
+        }
     }
 
     public Network (Integer length, ArrayList<Integer> widthVec, ArrayList<ArrayList<Double>> powerMat) {
         this.widthVec = widthVec; this.powerMat = powerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.powerMat.get(i))); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.powerMat.get(i)));
+        }
     }
 
     public Network (int width, int length, String functionName, double power) {
         this.width = width; this.functionName = functionName; this.power = power;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionName, this.power)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionName, this.power));
+        }
     }
 
     public Network (int width, int length, ArrayList<String> functionNameVec, double power) {
         this.width = width; this.functionNameVec = functionNameVec; this.power = power;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionNameVec, this.power)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionNameVec, this.power));
+        }
     }
 
     public Network (int width, int length, String functionName, ArrayList<Double> powerVec) {
         this.width = width; this.functionName = functionName; this.powerVec = powerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionName, this.powerVec)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionName, this.powerVec));
+        }
     }
 
     public Network (int width, int length, ArrayList<String> functionNameVec, ArrayList<Double> powerVec) {
         this.width = width; this.functionNameVec = functionNameVec; this.powerVec = powerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.powerVec, this.functionNameVec)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.powerVec, this.functionNameVec));
+        }
     }
 
     public Network (int width, Integer length, ArrayList<ArrayList<String>> functionNameMat, double power) {
         this.width = width; this.functionNameMat = functionNameMat; this.power = power;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionNameMat.get(i), this.power)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionNameMat.get(i), this.power));
+        }
     }
 
     public Network (int width, int length, ArrayList<ArrayList<Double>> powerMat, String functionName) {
         this.width = width; this.functionName = functionName; this.powerMat = powerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionName, this.powerMat.get(i))); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionName, this.powerMat.get(i)));
+        }
     }
 
-    public Network (ArrayList<ArrayList<String>> functionNameMat, int width, int length, ArrayList<Double> powerVec) {
+    public Network (ArrayList<ArrayList<String>> functionNameMat, int width, int length,
+                    ArrayList<Double> powerVec)
+    {
         this.width = width; this.functionNameMat = functionNameMat; this.powerVec = powerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.powerVec, this.functionNameMat.get(i))); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.powerVec, this.functionNameMat.get(i)));
+        }
     }
 
-    public Network (Integer width, int length, ArrayList<String> functionNameVec, ArrayList<ArrayList<Double>> powerMat) {
+    public Network (Integer width, int length, ArrayList<String> functionNameVec,
+                    ArrayList<ArrayList<Double>> powerMat)
+    {
         this.width = width; this.functionNameVec = functionNameVec; this.powerMat = powerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.powerMat.get(i), this.functionNameVec)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.powerMat.get(i), this.functionNameVec));
+        }
     }
 
-    public Network (int width, Integer length, ArrayList<ArrayList<String>> functionNameMat, ArrayList<ArrayList<Double>> powerMat) {
+    public Network (int width, Integer length, ArrayList<ArrayList<String>> functionNameMat,
+                    ArrayList<ArrayList<Double>> powerMat)
+    {
         this.width = width; this.functionNameMat = functionNameMat; this.powerMat = powerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.powerMat.get(i), this.functionNameMat.get(i))); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.powerMat.get(i), this.functionNameMat.get(i)));
+        }
     }
 
     public Network (ArrayList<Integer> widthVec, int length, String functionName, double power) {
         this.widthVec = widthVec; this.functionName = functionName; this.power = power;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionName, this.power)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionName, this.power));
+        }
     }
 
-    public Network (ArrayList<Integer> widthVec, int length, ArrayList<String> functionNameVec, double power) {
+    public Network (ArrayList<Integer> widthVec, int length, ArrayList<String> functionNameVec,
+                    double power)
+    {
         this.widthVec = widthVec; this.functionNameVec = functionNameVec; this.power = power;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionNameVec, this.power)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionNameVec, this.power));
+        }
     }
 
-    public Network (ArrayList<Integer> widthVec, int length, String functionName, ArrayList<Double> powerVec) {
+    public Network (ArrayList<Integer> widthVec, int length, String functionName,
+                    ArrayList<Double> powerVec)
+    {
         this.widthVec = widthVec; this.functionName = functionName; this.powerVec = powerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionName, this.powerVec)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionName, this.powerVec));
+        }
     }
 
-    public Network (ArrayList<Integer> widthVec, int length, ArrayList<String> functionNameVec, ArrayList<Double> powerVec) {
+    public Network (ArrayList<Integer> widthVec, int length, ArrayList<String> functionNameVec,
+                    ArrayList<Double> powerVec)
+    {
         this.widthVec = widthVec; this.functionNameVec = functionNameVec; this.powerVec = powerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.powerVec, this.functionNameVec)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.powerVec, this.functionNameVec));
+        }
     }
 
-    public Network (int length, ArrayList<Integer> widthVec, ArrayList<ArrayList<String>> functionNameMat, double power) {
+    public Network (int length, ArrayList<Integer> widthVec, ArrayList<ArrayList<String>>
+            functionNameMat, double power)
+    {
         this.widthVec = widthVec; this.functionNameMat = functionNameMat; this.power = power;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionNameMat.get(i), this.power)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionNameMat.get(i), this.power));
+        }
     }
 
-    public Network (ArrayList<Integer> widthVec, Integer length, String functionName, ArrayList<ArrayList<Double>> powerMat) {
+    public Network (ArrayList<Integer> widthVec, Integer length, String functionName,
+                    ArrayList<ArrayList<Double>> powerMat)
+    {
         this.widthVec = widthVec; this.functionName = functionName; this.powerMat = powerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionName, this.powerMat.get(i))); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionName, this.powerMat.get(i)));
+        }
     }
 
-    public Network (int length, ArrayList<Integer> widthVec, ArrayList<ArrayList<String>> functionNameMat, ArrayList<Double> powerVec) {
+    public Network (int length, ArrayList<Integer> widthVec, ArrayList<ArrayList<String>> functionNameMat,
+                    ArrayList<Double> powerVec)
+    {
         this.widthVec = widthVec; this.functionNameMat = functionNameMat; this.powerVec = powerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.powerVec, this.functionNameMat.get(i))); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.powerVec, this.functionNameMat.get(i)));
+        }
     }
 
-    public Network (ArrayList<Integer> widthVec, Integer length, ArrayList<String> functionNameVec, ArrayList<ArrayList<Double>> powerMat) {
+    public Network (ArrayList<Integer> widthVec, Integer length, ArrayList<String> functionNameVec,
+                    ArrayList<ArrayList<Double>> powerMat)
+    {
         this.widthVec = widthVec; this.functionNameVec = functionNameVec; this.powerMat = powerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.powerMat.get(i), this.functionNameVec)); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.powerMat.get(i), this.functionNameVec));
+        }
     }
 
-    public Network (Integer length, ArrayList<Integer> widthVec, ArrayList<ArrayList<String>> functionNameMat, ArrayList<ArrayList<Double>> powerMat) {
+    public Network (Integer length, ArrayList<Integer> widthVec,
+                    ArrayList<ArrayList<String>> functionNameMat, ArrayList<ArrayList<Double>> powerMat)
+    {
         this.widthVec = widthVec; this.functionNameMat = functionNameMat; this.powerMat = powerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.powerMat.get(i), this.functionNameMat.get(i))); }
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.powerMat.get(i),
+                    this.functionNameMat.get(i)));
+        }
     }
 
     public Network (int width, int length, String functionName, double minPower, double maxPower) {
-        this.width = width; this.functionName = functionName; this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionName, this.minPower, this.maxPower)); }
+        this.width = width; this.functionName = functionName; this.minPower = minPower;
+        this.maxPower = maxPower;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionName, this.minPower, this.maxPower));
+        }
     }
 
-    public Network (int width, int length, ArrayList<String> functionNameVec, double minPower, double maxPower) {
-        this.width = width; this.functionNameVec = functionNameVec; this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionNameVec, this.minPower, this.maxPower)); }
+    public Network (int width, int length, ArrayList<String> functionNameVec,
+                    double minPower, double maxPower)
+    {
+        this.width = width; this.functionNameVec = functionNameVec;
+        this.minPower = minPower; this.maxPower = maxPower;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionNameVec, this.minPower, this.maxPower));
+        }
     }
 
-    public Network (int width, int length, String functionName, ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec) {
-        this.width = width; this.functionName = functionName; this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionName, this.minPowerVec.get(i), this.maxPowerVec.get(i))); }
+    public Network (int width, int length, String functionName, ArrayList<Double> minPowerVec,
+                    ArrayList<Double> maxPowerVec)
+    {
+        this.width = width; this.functionName = functionName; this.minPowerVec = minPowerVec;
+        this.maxPowerVec = maxPowerVec;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionName,
+                    this.minPowerVec.get(i), this.maxPowerVec.get(i)));
+        }
     }
 
-    public Network (int width, int length, ArrayList<String> functionNameVec, ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec) {
-        this.width = width; this.functionNameVec = functionNameVec; this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionNameVec, this.minPowerVec.get(i), this.maxPowerVec.get(i))); }
+    public Network (int width, int length, ArrayList<String> functionNameVec,
+                    ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec)
+    {
+        this.width = width; this.functionNameVec = functionNameVec;
+        this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionNameVec,
+                    this.minPowerVec.get(i), this.maxPowerVec.get(i)));
+        }
     }
 
-    public Network (int width, int length, double minPower, double maxPower, ArrayList<ArrayList<String>> functionNameMat) {
-        this.width = width; this.functionNameMat = functionNameMat; this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionNameMat.get(i), this.minPower, this.maxPower)); }
+    public Network (int width, int length, double minPower, double maxPower,
+                    ArrayList<ArrayList<String>> functionNameMat)
+    {
+        this.width = width; this.functionNameMat = functionNameMat;
+        this.minPower = minPower; this.maxPower = maxPower;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionNameMat.get(i),
+                    this.minPower, this.maxPower));
+        }
     }
 
-    public Network (int width, int length, ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat, String functionName) {
-        this.width = width; this.functionName = functionName; this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionName, this.minPowerMat.get(i), this.maxPowerMat.get(i))); }
+    public Network (int width, int length, ArrayList<ArrayList<Double>> minPowerMat,
+                    ArrayList<ArrayList<Double>> maxPowerMat, String functionName)
+    {
+        this.width = width; this.functionName = functionName; this.minPowerMat = minPowerMat;
+        this.maxPowerMat = maxPowerMat;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionName,
+                    this.minPowerMat.get(i), this.maxPowerMat.get(i)));
+        }
     }
 
-    public Network (Integer width, int length, ArrayList<ArrayList<String>> functionNameMat, ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec) {
-        this.width = width; this.functionNameMat = functionNameMat; this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionNameMat.get(i), this.minPowerVec.get(i), this.maxPowerVec.get(i))); }
+    public Network (Integer width, int length, ArrayList<ArrayList<String>> functionNameMat,
+                    ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec)
+    {
+        this.width = width; this.functionNameMat = functionNameMat;this.minPowerVec = minPowerVec;
+        this.maxPowerVec = maxPowerVec;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionNameMat.get(i),
+                    this.minPowerVec.get(i), this.maxPowerVec.get(i)));
+        }
     }
 
-    public Network (int width, Integer length, ArrayList<String> functionNameVec, ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat) {
-        this.width = width; this.functionNameVec = functionNameVec; this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionNameVec, this.minPowerMat.get(i), this.maxPowerMat.get(i))); }
+    public Network (int width, Integer length, ArrayList<String> functionNameVec,
+                    ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat)
+    {
+        this.width = width; this.functionNameVec = functionNameVec;
+        this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionNameVec,
+                    this.minPowerMat.get(i), this.maxPowerMat.get(i)));
+        }
     }
 
-    public Network (Integer width, Integer length, ArrayList<ArrayList<String>> functionNameMat, ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat) {
-        this.width = width; this.functionNameMat = functionNameMat; this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width, this.functionNameMat.get(i), this.minPowerMat.get(i), this.maxPowerMat.get(i))); }
+    public Network (Integer width, Integer length, ArrayList<ArrayList<String>> functionNameMat,
+                    ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat)
+    {
+        this.width = width; this.functionNameMat = functionNameMat;
+        this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.width, this.functionNameMat.get(i),
+                    this.minPowerMat.get(i), this.maxPowerMat.get(i)));
+        }
     }
 
-    public Network (ArrayList<Integer> widthVec, int length, String functionName, double minPower, double maxPower) {
-        this.widthVec = widthVec; this.functionName = functionName; this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionName, this.minPower, this.maxPower)); }
+    public Network (ArrayList<Integer> widthVec, int length, String functionName,
+                    double minPower, double maxPower)
+    {
+        this.widthVec = widthVec; this.functionName = functionName;
+        this.minPower = minPower; this.maxPower = maxPower;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionName,
+                    this.minPower, this.maxPower));
+        }
     }
 
-    public Network (ArrayList<Integer> widthVec, int length, ArrayList<String> functionNameVec, double minPower, double maxPower) {
-        this.widthVec = widthVec; this.functionNameVec = functionNameVec; this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionNameVec, this.minPower, this.maxPower)); }
+    public Network (ArrayList<Integer> widthVec, int length, ArrayList<String> functionNameVec,
+                    double minPower, double maxPower)
+    {
+        this.widthVec = widthVec; this.functionNameVec = functionNameVec;
+        this.minPower = minPower; this.maxPower = maxPower;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionNameVec,
+                    this.minPower, this.maxPower)); }
     }
 
-    public Network (ArrayList<Integer> widthVec, int length, String functionName, ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec) {
-        this.widthVec = widthVec; this.functionName = functionName; this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionName, this.minPowerVec.get(i), this.maxPowerVec.get(i))); }
+    public Network (ArrayList<Integer> widthVec, int length, String functionName,
+                    ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec)
+    {
+        this.widthVec = widthVec; this.functionName = functionName;
+        this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionName,
+                    this.minPowerVec.get(i), this.maxPowerVec.get(i))); }
     }
 
-    public Network (ArrayList<Integer> widthVec, int length, ArrayList<String> functionNameVec, ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec) {
-        this.widthVec = widthVec; this.functionNameVec = functionNameVec; this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionNameVec, this.minPowerVec.get(i), this.maxPowerVec.get(i))); }
+    public Network (ArrayList<Integer> widthVec, int length, ArrayList<String> functionNameVec,
+                    ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec)
+    {
+        this.widthVec = widthVec; this.functionNameVec = functionNameVec;
+        this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionNameVec,
+                    this.minPowerVec.get(i), this.maxPowerVec.get(i)));
+        }
     }
 
-    public Network (int length, ArrayList<Integer> widthVec, ArrayList<ArrayList<String>> functionNameMat, double minPower, double maxPower) {
-        this.widthVec = widthVec; this.functionNameMat = functionNameMat; this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionNameMat.get(i), this.minPower, this.maxPower)); }
+    public Network (int length, ArrayList<Integer> widthVec, ArrayList<ArrayList<String>> functionNameMat,
+                    double minPower, double maxPower)
+    {
+        this.widthVec = widthVec; this.functionNameMat = functionNameMat;
+        this.minPower = minPower; this.maxPower = maxPower;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionNameMat.get(i),
+                    this.minPower, this.maxPower)); }
     }
 
-    public Network (int length, ArrayList<Integer> widthVec, String functionName, ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat) {
-        this.widthVec = widthVec; this.functionName = functionName; this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionName, this.minPowerMat.get(i), this.maxPowerMat.get(i))); }
+    public Network (int length, ArrayList<Integer> widthVec, String functionName,
+                    ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat)
+    {
+        this.widthVec = widthVec; this.functionName = functionName;
+        this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionName,
+                    this.minPowerMat.get(i), this.maxPowerMat.get(i)));
+        }
     }
 
-    public Network (ArrayList<Integer> widthVec, Integer length, ArrayList<ArrayList<String>> functionNameMat, ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec) {
-        this.widthVec = widthVec; this.functionNameMat = functionNameMat; this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionNameMat.get(i), this.minPowerVec.get(i), maxPowerVec.get(i))); }
+    public Network (ArrayList<Integer> widthVec, Integer length, ArrayList<ArrayList<String>> functionNameMat,
+                    ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec)
+    {
+        this.widthVec = widthVec; this.functionNameMat = functionNameMat;
+        this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionNameMat.get(i),
+                    this.minPowerVec.get(i), maxPowerVec.get(i)));
+        }
     }
 
-    public Network (Integer length, ArrayList<Integer> widthVec, ArrayList<String> functionNameVec, ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat) {
-        this.widthVec = widthVec; this.functionNameVec = functionNameVec; this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionNameVec, this.minPowerMat.get(i), this.maxPowerMat.get(i))); }
+    public Network (Integer length, ArrayList<Integer> widthVec, ArrayList<String> functionNameVec,
+                    ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat)
+    {
+        this.widthVec = widthVec; this.functionNameVec = functionNameVec;
+        this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionNameVec,
+                    this.minPowerMat.get(i), this.maxPowerMat.get(i)));
+        }
     }
 
-    public Network (int length, ArrayList<Integer> widthVec, ArrayList<ArrayList<String>> functionNameMat, ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat) {
-        this.widthVec = widthVec; this.functionNameMat = functionNameMat; this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i), this.functionNameMat.get(i), this.minPowerMat.get(i), this.maxPowerMat.get(i))); }
+    public Network (int length, ArrayList<Integer> widthVec, ArrayList<ArrayList<String>> functionNameMat,
+                    ArrayList<ArrayList<Double>> minPowerMat, ArrayList<ArrayList<Double>> maxPowerMat)
+    {
+        this.widthVec = widthVec; this.functionNameMat = functionNameMat;
+        this.minPowerMat = minPowerMat; this.maxPowerMat = maxPowerMat;
+        for (int i = 0; i < length; i++) {
+            this.layers.add(new Layer(this.widthVec.get(i), this.functionNameMat.get(i),
+                    this.minPowerMat.get(i), this.maxPowerMat.get(i)));
+        }
     }
 
     public ArrayList<Layer> getLayers () { return this.layers; }
 
-    public void setLayers (ArrayList<Layer> layers) { this.layers = layers; }
+    public void setLayers (ArrayList<Layer> layers) { this.layers = layers;
+        this.functionNameMat = new ArrayList<>(); this.powerMat = new ArrayList<>();
+        this.minPowerMat = new ArrayList<>(); this.maxPowerMat = new ArrayList<>();
+        for (Layer layer : this.layers) { this.functionNameMat.add(layer.getFunctionNameVec());
+            this.powerMat.add(layer.getPowerVec()); this.minPowerMat.add(layer.getMinPowerVec());
+            this.maxPowerMat.add(layer.getMaxPowerVec());
+        }
+    }
 
-    public void addLayer (Layer layer) { this.layers.add(layer); }
+    public void addLayer (Layer layer) { this.layers.add(layer);
+        this.functionNameMat.add(layer.getFunctionNameVec()); this.powerMat.add(layer.getPowerVec());
+        this.minPowerMat.add(layer.getMinPowerVec()); this.maxPowerMat.add(layer.getMaxPowerVec());
+    }
     
     public int getLength () { return this.layers.size(); }
     
     public void setWidth (int width) { this.width = width; }
     
     public int getWidth () { return this.width; }
-    
+
+    public int getWidth (int index) { return this.widthVec.get(index); }
+
     public void setWidthVec (ArrayList<Integer> widthVec) { this.widthVec = widthVec; }
     
     public ArrayList<Integer> getWidthVec () { return this.widthVec; }
@@ -302,17 +492,27 @@ public class Network {
 
     public String getFunctionName() { return this.functionName; }
 
+    public String getFunctionName (int index) { return this.functionNameVec.get(index); }
+
+    public String getFunctionName (int indexI, int indexJ) { return this.functionNameMat.get(indexI).get(indexJ); }
+
     public void setFunctionNameVec(ArrayList<String> functionNameVec) { this.functionNameVec = functionNameVec; }
 
     public ArrayList<String> getFunctionNameVec() { return this.functionNameVec; }
 
-    public void setFunctionNameMat(ArrayList<ArrayList<String>> functionNameMat) { this.functionNameMat = functionNameMat; }
+    public void setFunctionNameMat(ArrayList<ArrayList<String>> functionNameMat) {
+        this.functionNameMat = functionNameMat;
+    }
 
     public ArrayList<ArrayList<String>> getFunctionNameMat() { return this.functionNameMat; }
 
     public void setPower (double power) { this.power = power; }
 
     public double getPower () { return this.power; }
+
+    public double getPower (int index) { return this.powerVec.get(index); }
+
+    public double getPower (int indexI, int indexJ) { return this.powerMat.get(indexI).get(indexJ); }
 
     public void setPowerVec (ArrayList<Double> powerVec) { this.powerVec = powerVec; }
 
