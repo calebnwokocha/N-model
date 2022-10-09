@@ -1,5 +1,7 @@
 package javai;
 
+import javai.core.Network;
+
 public class Multitask {
     private int taskCount;
     private Network[] networks;
