@@ -584,7 +584,7 @@ public class Network {
         for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).optimize(objective[i], iteration); }
     }
 
-    public void optimize (int iteration, double[]... error) {
-        for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).optimize(iteration, error[i]); }
+    public void optimize (int iteration, double error) {
+        for (Layer layer : this.layers) { layer.optimize(iteration, error); }
     }
 }

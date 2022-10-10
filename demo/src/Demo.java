@@ -83,11 +83,16 @@ public class Demo {
         Dataset dataset1 = new Dataset(fileNames1);
         Dataset dataset2 = new Dataset(fileNames2);
 
+        dataset2 = new Dataset();
+        dataset2.setDataset(new Double[][] {
+                {114343.0, 234353.0, 234231.5, 1343.0, 1354153.12}
+        });
+
         Network network = new Network(5, 10, 1);
 
         // Train
         for (int i = 0; i < dataset1.getDataset().length; i++) {
-            //System.out.println("Example " + i);
+            System.out.println("Example " + i);
             for (int j = 0; j < network.getLayers().size(); j++) {
                 if (j == 0) {
                     network.getLayers().get(j).activate(dataset1.getDataset()[i]);

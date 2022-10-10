@@ -20,17 +20,21 @@
 
 package javai;
 
+import java.util.Arrays;
+
 /**
  * Node class consist of functions and methods for operations on a comprehensive node.
  */
 public class Node {
     private String functionName;
-    private Double hypothesis, thesis, power;
-    private double meanError = 0.0; // Default
+    private Double hypothesis = null, thesis = null, power;
+    private Double meanError = 0.0; // Default
     private double minPower = -1.0; // Default
     private double maxPower = 1.0; // Default
     private Double[] parameters = new Double[]{0.0};
-    private double[] meanParameters = new double[]{0.0};
+    private Double[] parametersUpperBound;
+    private Double[] parametersLowerBound;
+    private boolean isActive = false;
 
     /**
      * This constructs a comprehensive node without manually setting its parameters.
@@ -155,13 +159,17 @@ public class Node {
      *
      * @see CFunction
      */
-    public void activate (Double... parameters) {
-        this.parameters = parameters;
-        if (!isOutlier(this.parameters)) {
+    public void activate (Double... parameter) {
+        if (!this.isOutlier(parameter, null)) {
+            this.isActive = true;
+            this.parameters = parameter;
             CFunction cFunction = new CFunction(this.functionName, this.parameters);
             this.hypothesis = cFunction.getValue();
             this.thesis = this.hypothesis - this.meanError;
-        } else { this.hypothesis = null; this.thesis = null; }
+        }
+        System.out.println("Thesis is " + this.thesis);
+        System.out.println();
+
     }
 
     /**
@@ -169,11 +177,11 @@ public class Node {
      * an intermediate error is calculated, and this error is used to update the node meanError.
      */
     public void optimize (double objective, int iteration) {
-        if (!isOutlier(this.parameters)) {
-            double error = this.thesis - objective;
-            this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
-            this.meanParameters = this.dynamicPowerMean(this.meanParameters, this.parameters,
-                    this.power, iteration);
+        if (!this.isOutlier(this.parameters, iteration)) {
+            try {
+                double error = this.thesis - objective;
+                this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+            } catch (NullPointerException e) { this.meanError = null; }
         }
     }
 
@@ -182,24 +190,68 @@ public class Node {
      * are used to update the node meanError.
      */
     public void optimize (int iteration, double error) {
-        if (!isOutlier(this.parameters)) {
+        if (this.isOutlier(this.parameters, iteration)) {
             this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
-            this.meanParameters = this.dynamicPowerMean(this.meanParameters, this.parameters,
-                    this.power, iteration);
         }
     }
 
-    private boolean isOutlier (Double[] parameters) {
-        return false;
+    private boolean isOutlier (Double[] parameters, Integer iteration) {
+        System.out.println("parameter is " + Arrays.toString(parameters));
+
+        if (iteration == null) {
+            if (!this.isActive) {
+                this.parametersUpperBound = parameters;
+                this.parametersLowerBound = parameters;
+            }
+        } else { double[] meanParameters = this.dynamicPowerMean(new double[]{0.0},
+                parameters, this.power, iteration);
+            double[] parametersStd = this.standardDeviation(parameters, meanParameters);
+            for (int i = 0; i < parametersStd.length; i++) {
+                this.parametersUpperBound[i] = meanParameters[i] + (3 * parametersStd[i]);
+                this.parametersLowerBound[i] = meanParameters[i] - (3 * parametersStd[i]);
+                System.out.println("Upper limit- is " + parametersUpperBound[i]);
+                System.out.println("Lower limit- is " + parametersLowerBound[i]);
+            }
+        }
+
+        for (int i = 0; i < this.parameters.length; i++) {
+            System.out.println("Upper limit is " + parametersUpperBound[i] + " parameter is " + parameters[i]);
+            System.out.println("Lower limit is " + parametersLowerBound[i] + " parameter is " + parameters[i]);
+
+            if (parameters[i] <= this.parametersUpperBound[i] &&
+                    parameters[i] >= this.parametersLowerBound[i])
+            { return false; }
+        } return true;
     }
 
-    private double dynamicPowerMean (double m, double d, double p, int t) {
-        m = (Math.pow((1.0 / (t)) * (Math.pow(d, p) + (Math.pow(m, p) * (t - 1))), 1.0 / p));
-        return m;
+    private double dynamicPowerMean (double mean, double datum, double power, int time) {
+        mean = (Math.pow((1.0 / (time)) * (Math.pow(datum, power) +
+                (Math.pow(mean, power) * (time - 1))), 1.0 / power));
+        return mean;
     }
 
-    private double[] dynamicPowerMean (double[] m, Double[] d, double p, int t) {
-        for (int i = 0; i < d.length; i++) { m[i] = this.dynamicPowerMean(m[i], d[i], p, t); }
-        return m;
+    private double[] dynamicPowerMean (double[] mean, Double[] data, double power, int time) {
+        for (int i = 0; i < data.length; i++) {
+            mean[i] = this.dynamicPowerMean(mean[i], data[i], power, time);
+        } return mean;
+    }
+
+    private double variance (Double[] data, double expectedValue) {
+        double squaredSum = 0.0;
+        double variance;
+        for (double datum : data) { squaredSum += Math.pow(datum - expectedValue, 2); }
+        variance = squaredSum / (data.length - 1);
+        return variance;
+    }
+
+    private double standardDeviation (Double[] data, double expectedValue) {
+        return Math.sqrt(this.variance(data, expectedValue));
+    }
+
+    private double[] standardDeviation (Double[] data, double[] expectedValue) {
+        double[] stds = new double[expectedValue.length];
+        for (int i = 0; i < stds.length; i++) {
+            stds[i] = standardDeviation(data, expectedValue[i]);
+        } return stds;
     }
 }

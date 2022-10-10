@@ -335,7 +335,7 @@ public class Layer {
         for (int i = 0; i < nodes.size(); i++) { nodes.get(i).optimize(objectives[i], iteration); }
     }
 
-    public void optimize (int iteration, double... errors) { // Optimize all layer neurons.
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).optimize(iteration, errors[i]); }
+    public void optimize (int iteration, double error) { // Optimize all layer neurons.
+        for (Node node : nodes) { node.optimize(iteration, node.getThesis() / error); }
     }
 }
