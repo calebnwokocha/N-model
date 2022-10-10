@@ -1,5 +1,7 @@
-/*--------------------------------------------------------------------------------------------------
- Javai is open-source framework for comprehensive learning.
+/*------------------------------------------------------------------------------
+ Javai is open-source framework for comprehensive learning, produced and
+ maintained by Javai Foundation.
+
  Copyright (C) 2022 Javai Foundation
 
  This program is free software: you can redistribute it and/or modify
@@ -15,8 +17,9 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 
- Email info@javai.org for technical support and/or special permission to use this framework.
-----------------------------------------------------------------------------------------------------*/
+ Email info@javai.org for technical support and/or special permission
+ to use this framework.
+---------------------------------------------------------------------------- */
 
 package javai;
 
