@@ -27,7 +27,7 @@ public class Network {
     private int width; private ArrayList<Integer> widthVec;
     private String functionName; private ArrayList<String> functionNameVec;
     private ArrayList<ArrayList<String>> functionNameMat;
-    private double power, minPower, maxPower;
+    private double power, minPower, maxPower; boolean isInputLayer;
     private ArrayList<Double> powerVec, minPowerVec, maxPowerVec;
     private ArrayList<ArrayList<Double>> powerMat, minPowerMat, maxPowerMat;
 
@@ -565,26 +565,43 @@ public class Network {
     }
 
     public void activate (Double... parameters) { // Activate all perceptron layers.
-        for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
+        for (int i = 0; i < this.layers.size(); i++) {
+            if (i == 0) { this.isInputLayer = true;
+                this.layers.get(i).activate(isInputLayer, parameters);
+            } else { this.isInputLayer = false;
+                this.layers.get(i).activate(isInputLayer, this.layers.get(i - 1).getThesisVec());
+            }
+        }
     }
 
     public void activate (Double[]... parameters) { // Activate all perceptron layers.
-        for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
-    }
-
-    public void activate (Double[][]... parameters) { // Activate all perceptron layers.
-        for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).activate(parameters[i]); }
+        for (int i = 0; i < this.layers.size(); i++) {
+            if (i == 0) { this.isInputLayer = true;
+                this.layers.get(i).activate(isInputLayer, parameters);
+            } else { this.isInputLayer = false;
+                this.layers.get(i).activate(isInputLayer, this.layers.get(i - 1).getThesisVec());
+            }
+        }
     }
 
     public void optimize (double[] objective, int iteration) {
-        for (Layer layer : this.layers) { layer.optimize(objective, iteration); }
+        for (int i = 0; i < this.layers.size(); i++) {
+            this.isInputLayer = i == 0;
+            this.layers.get(i).optimize(objective, iteration, this.isInputLayer);
+        }
     }
 
     public void optimize (double[][] objective, int iteration) {
-        for (int i = 0; i < this.layers.size(); i++) { this.layers.get(i).optimize(objective[i], iteration); }
+        for (int i = 0; i < this.layers.size(); i++) {
+            this.isInputLayer = i == 0;
+            this.layers.get(i).optimize(objective[i], iteration, this.isInputLayer);
+        }
     }
 
     public void optimize (int iteration, double error) {
-        for (Layer layer : this.layers) { layer.optimize(iteration, error); }
+        for (int i = 0; i < this.layers.size(); i++) {
+            this.isInputLayer = i == 0;
+            this.layers.get(i).optimize(iteration, error, this.isInputLayer);
+        }
     }
 }

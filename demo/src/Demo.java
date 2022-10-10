@@ -83,49 +83,25 @@ public class Demo {
         Dataset dataset1 = new Dataset(fileNames1);
         Dataset dataset2 = new Dataset(fileNames2);
 
-        dataset2 = new Dataset();
+        /*dataset2 = new Dataset();
         dataset2.setDataset(new Double[][] {
-                {114343.0, 234353.0, 234231.5, 1343.0, 1354153.12}
+                {1143438888888.0, 234358888888883.0, 2348888888888231.5, 1343.0, 1354153.12}
         });
-
+*/
         Network network = new Network(5, 10, 1);
 
         // Train
         for (int i = 0; i < dataset1.getDataset().length; i++) {
             System.out.println("Example " + i);
-            for (int j = 0; j < network.getLayers().size(); j++) {
-                if (j == 0) {
-                    network.getLayers().get(j).activate(dataset1.getDataset()[i]);
-                }
-                else {
-                    network.getLayers().get(j).activate(network.getLayers().get(j - 1).getThesisVec());
-                }
-
-                //System.out.println("Layer " + j);
-                //System.out.println(Arrays.toString(network.getLayers().get(j).getThesisVec()));
-                //System.out.println();
-            }
-
+            network.activate(dataset1.getDataset()[i]);
             network.optimize(new double[]{-100000, 10, 100, 10, 100}, i + 1);
         }
 
         // Test
         dataset1.shuffle();
-        for (int i = 0; i < dataset1.getDataset().length; i++) {
+        for (int i = 0; i < dataset2.getDataset().length; i++) {
             System.out.println("Test " + i);
-            for (int j = 0; j < network.getLayers().size(); j++) {
-                if (j == 0) {
-                    network.getLayers().get(j).activate(dataset1.getDataset()[i]);
-                }
-                else {
-                    network.getLayers().get(j).activate(network.getLayers().get(j - 1).getThesisVec());
-                }
-
-                //System.out.println("Layer " + j);
-                //System.out.println(Arrays.toString(network.getLayers().get(j).getThesisVec()));
-                //System.out.println();
-            }
-
+            network.activate(dataset2.getDataset()[i]);
             System.out.println(Arrays.toString(network.getLayers().get(network.getLayers().size() - 1).getThesisVec()));
             System.out.println();
         }

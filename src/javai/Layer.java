@@ -323,19 +323,19 @@ public class Layer {
         return thesisVec;
     }
 
-    public void activate (Double... parameters) { // Activate all layer neurons.
-        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(parameters[i]); }
+    public void activate (boolean isInputLayer, Double... parameters) { // Activate all layer neurons.
+        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(isInputLayer, parameters[i]); }
     }
 
-    public void activate (Double[]... parameters) { // Activate all layer neurons.
-        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(parameters[i]); }
+    public void activate (boolean isInputLayer, Double[]... parameters) { // Activate all layer neurons.
+        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(isInputLayer, parameters[i]); }
     }
 
-    public void optimize (double[] objectives, int iteration) { // Optimize all layer neurons.
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).optimize(objectives[i], iteration); }
+    public void optimize (double[] objectives, int iteration, boolean isInputLayer) { // Optimize all layer neurons.
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).optimize(objectives[i], iteration, isInputLayer); }
     }
 
-    public void optimize (int iteration, double error) { // Optimize all layer neurons.
-        for (Node node : nodes) { node.optimize(iteration, node.getThesis() / error); }
+    public void optimize (int iteration, double error, boolean isInputLayer) { // Optimize all layer neurons.
+        for (Node node : nodes) { node.optimize(iteration, node.getThesis() / error, isInputLayer); }
     }
 }

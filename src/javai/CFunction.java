@@ -24,7 +24,7 @@ package javai;
  * CFunction class consist of comprehensive functions used by the Node class.
  */
 public class CFunction {
-    private double value;
+    private Double value;
 
     /**
      * This constructs a comprehensive function with only one parameter.
@@ -51,7 +51,7 @@ public class CFunction {
     /**
      * This returns the result of a comprehensive function operation.
      */
-    public double getValue() { return this.value; }
+    public Double getValue() { return this.value; }
 
     // Below are methods for comprehensive functions.
 
@@ -61,7 +61,7 @@ public class CFunction {
 
     private void sum (Double... X) {
         double s = 0;
-        for (double x : X) { s += x; }
-        this.value =  s;
+        try { for (double x : X) { s += x; } this.value =  s;}
+        catch (NullPointerException e) { this.value = null; }
     }
 }

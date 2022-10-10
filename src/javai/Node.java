@@ -27,14 +27,11 @@ import java.util.Arrays;
  */
 public class Node {
     private String functionName;
-    private Double hypothesis = null, thesis = null, power;
-    private Double meanError = 0.0; // Default
-    private double minPower = -1.0; // Default
-    private double maxPower = 1.0; // Default
-    private Double[] parameters = new Double[]{0.0};
-    private Double[] parametersUpperBound;
-    private Double[] parametersLowerBound;
-    private boolean isActive = false;
+    private Double hypothesis, thesis, power, meanError = 0.0;
+    private double minPower = -1.0, maxPower = 1.0;
+    private Double[] parameters, parametersUpperBound, parametersLowerBound;
+    double[] meanParameters = new double[]{0.0};
+    private boolean wasActive = false;
 
     /**
      * This constructs a comprehensive node without manually setting its parameters.
@@ -159,69 +156,95 @@ public class Node {
      *
      * @see CFunction
      */
-    public void activate (Double... parameter) {
-        if (!this.isOutlier(parameter, null)) {
-            this.isActive = true;
+    public void activate(boolean isInputLayer, Double... parameter) {
+        if (isInputLayer) {
             this.parameters = parameter;
+            this.setParametersBounds(this.parameters, null);
+            if (!this.isOutlier(this.parameters)) {
+                this.wasActive = true;
+                CFunction cFunction = new CFunction(this.functionName, this.parameters);
+                this.hypothesis = cFunction.getValue();
+                try { this.thesis = this.hypothesis - this.meanError; }
+                catch (NullPointerException e) { this.thesis = null; }
+            } else { this.thesis = null; }
+        } else {
             CFunction cFunction = new CFunction(this.functionName, this.parameters);
-            this.hypothesis = cFunction.getValue();
-            this.thesis = this.hypothesis - this.meanError;
+            try { this.thesis = this.hypothesis - this.meanError; }
+            catch (NullPointerException e) { this.thesis = null; }
         }
-        System.out.println("Thesis is " + this.thesis);
-        System.out.println();
 
+     /*   System.out.println("Thesis is " + this.thesis);
+        System.out.println();*/
     }
 
     /**
      * This prompts the node to update its meanError. Given the two arguments: objective and iteration,
      * an intermediate error is calculated, and this error is used to update the node meanError.
      */
-    public void optimize (double objective, int iteration) {
-        if (!this.isOutlier(this.parameters, iteration)) {
-            try {
-                double error = this.thesis - objective;
-                this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
-            } catch (NullPointerException e) { this.meanError = null; }
-        }
+    public void optimize (double objective, int iteration, boolean isInputLayer) {
+        System.out.println();
+        System.out.println("Optimization");
+        if (isInputLayer) { this.setParametersBounds(this.parameters, iteration); }
+        try { double error = this.thesis - objective;
+            this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+        } catch (NullPointerException e) { this.meanError = null; }
     }
 
     /**
      * This prompts the node to update its meanError. The two arguments: iteration and error,
      * are used to update the node meanError.
      */
-    public void optimize (int iteration, double error) {
-        if (this.isOutlier(this.parameters, iteration)) {
-            this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+    public void optimize (int iteration, double error, boolean isInputLayer) {
+        if (isInputLayer) { this.setParametersBounds(this.parameters, iteration); }
+        try { this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+        } catch (NullPointerException e) { this.meanError = null; }
+    }
+
+    private boolean isOutlier (Double[] parameters) {
+        for (int i = 0; i < parameters.length; i++) {
+            try { if (this.isBetween(parameters[i], this.parametersLowerBound[i],
+                    this.parametersUpperBound[i])) {
+                System.out.println(parameters[i] + " is not outlier"); return false; }
+            } catch (NullPointerException e) { System.out.println(parameters[i] + " is outlier"); return true; }
+        }
+
+        System.out.println(Arrays.toString(parameters) + " is outlier");
+        System.out.println("parameters upper bound is " + Arrays.toString(this.parametersUpperBound));
+        System.out.println("parameters lower bound is " + Arrays.toString(this.parametersLowerBound));
+        System.out.println();
+        return true;
+    }
+
+    private void setParametersBounds (Double[] parameters, Integer iteration) {
+        if (iteration == null) {
+            if (!this.wasActive) {
+                System.out.println("parameter is " + Arrays.toString(parameters));
+                this.parametersUpperBound = parameters;
+                this.parametersLowerBound = parameters;
+                System.out.println("parameters upper bound is " + Arrays.toString(this.parametersUpperBound));
+                System.out.println("parameters lower bound is " + Arrays.toString(this.parametersLowerBound));
+                System.out.println();
+            }
+        } else { try { this.meanParameters = this.dynamicPowerMean(this.meanParameters,
+                        parameters, this.power, iteration + 1);
+                System.out.println("mean parameter is " + Arrays.toString(meanParameters));
+                this.parametersUpperBound = new Double[meanParameters.length];
+                this.parametersLowerBound = new Double[meanParameters.length];
+                for (int i = 0; i < meanParameters.length; i++) {
+                    double parameterStd = this.standardDeviation(parameters, meanParameters[i]);
+                    System.out.println("parameter std is " + parameterStd);
+                    this.parametersUpperBound[i] = meanParameters[i] + (3 * parameterStd);
+                    this.parametersLowerBound[i] = meanParameters[i] - (3 * parameterStd);
+                    System.out.println("parameter upper bound is " + this.parametersUpperBound[i]);
+                    System.out.println("parameter lower bound is " + this.parametersLowerBound[i]);
+                } } catch (NullPointerException e) { this.parametersUpperBound = null;
+                this.parametersLowerBound = null;
+            }
         }
     }
 
-    private boolean isOutlier (Double[] parameters, Integer iteration) {
-        System.out.println("parameter is " + Arrays.toString(parameters));
-
-        if (iteration == null) {
-            if (!this.isActive) {
-                this.parametersUpperBound = parameters;
-                this.parametersLowerBound = parameters;
-            }
-        } else { double[] meanParameters = this.dynamicPowerMean(new double[]{0.0},
-                parameters, this.power, iteration);
-            double[] parametersStd = this.standardDeviation(parameters, meanParameters);
-            for (int i = 0; i < parametersStd.length; i++) {
-                this.parametersUpperBound[i] = meanParameters[i] + (3 * parametersStd[i]);
-                this.parametersLowerBound[i] = meanParameters[i] - (3 * parametersStd[i]);
-                System.out.println("Upper limit- is " + parametersUpperBound[i]);
-                System.out.println("Lower limit- is " + parametersLowerBound[i]);
-            }
-        }
-
-        for (int i = 0; i < this.parameters.length; i++) {
-            System.out.println("Upper limit is " + parametersUpperBound[i] + " parameter is " + parameters[i]);
-            System.out.println("Lower limit is " + parametersLowerBound[i] + " parameter is " + parameters[i]);
-
-            if (parameters[i] <= this.parametersUpperBound[i] &&
-                    parameters[i] >= this.parametersLowerBound[i])
-            { return false; }
-        } return true;
+    private boolean isBetween (Double data, Double minimum, Double maximum) {
+        return minimum <= data && data <= maximum;
     }
 
     private double dynamicPowerMean (double mean, double datum, double power, int time) {
@@ -240,18 +263,12 @@ public class Node {
         double squaredSum = 0.0;
         double variance;
         for (double datum : data) { squaredSum += Math.pow(datum - expectedValue, 2); }
-        variance = squaredSum / (data.length - 1);
+        if (squaredSum == 0 || (data.length - 1) == 0) { variance = squaredSum; }
+        else { variance = squaredSum / (data.length - 1); }
         return variance;
     }
 
     private double standardDeviation (Double[] data, double expectedValue) {
         return Math.sqrt(this.variance(data, expectedValue));
-    }
-
-    private double[] standardDeviation (Double[] data, double[] expectedValue) {
-        double[] stds = new double[expectedValue.length];
-        for (int i = 0; i < stds.length; i++) {
-            stds[i] = standardDeviation(data, expectedValue[i]);
-        } return stds;
     }
 }
