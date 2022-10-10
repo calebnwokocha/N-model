@@ -226,7 +226,7 @@ public class Node {
                 this.parametersLowerBound = parameters;
                 System.out.println("parameters upper bound is " + Arrays.toString(this.parametersUpperBound));
                 System.out.println("parameters lower bound is " + Arrays.toString(this.parametersLowerBound));
-                System.out.println(); //
+                System.out.println();
             }
         } else { try { this.meanParameters = this.dynamicPowerMean(this.meanParameters,
                         parameters, this.power, iteration + 1);
