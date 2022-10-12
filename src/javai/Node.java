@@ -29,7 +29,7 @@ package javai;
 public class Node {
     private String functionName;
     private Double hypothesis, thesis, power, meanError = 0.0,
-    area = null; private double minPower = -1.0, maxPower = 1.0;
+    coverage = null; private double minPower = -1.0, maxPower = 1.0;
     private Double[] parametersUpperBound, parametersLowerBound;
     double[] meanParameters = new double[]{0.0};
 
@@ -149,9 +149,9 @@ public class Node {
         this.power = ((Math.random() * ((this.maxPower - 1.0) - this.minPower + 1)) + this.minPower) + 0.1;
     }
 
-    public void coverage (Double area) { this.area = area; }
+    public void setCoverage (Double coverage) { this.coverage = coverage; }
 
-    public Double getArea() { return this.area; }
+    public Double getCoverage() { return this.coverage; }
 
     /**
      * This prompts the node to produce its hypothesis and thesis upon a vector argument. The result of the
@@ -173,7 +173,7 @@ public class Node {
      * an intermediate error is calculated, and this error is used to update the node meanError.
      */
     public void train (int iteration, double objective, Double... parameter) {
-        if (this.area != null) { this.setParametersBounds(parameter, iteration); }
+        if (this.coverage != null) { this.setParametersBounds(parameter, iteration); }
         CFunction cFunction = new CFunction(this.functionName, parameter);
         this.hypothesis = cFunction.getValue();
         this.thesis = this.hypothesis - this.meanError;
@@ -186,7 +186,7 @@ public class Node {
      * are used to update the node meanError.
      */
     public void train (double error, int iteration, Double... parameter) {
-        if (this.area != null) { this.setParametersBounds(parameter, iteration); }
+        if (this.coverage != null) { this.setParametersBounds(parameter, iteration); }
         this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
         CFunction cFunction = new CFunction(this.functionName, parameter);
         this.hypothesis = cFunction.getValue();
@@ -208,8 +208,8 @@ public class Node {
         this.parametersLowerBound = new Double[meanParameters.length];
         for (int i = 0; i < meanParameters.length; i++) {
             double parameterStd = this.standardDeviation(parameters, meanParameters[i]);
-            this.parametersUpperBound[i] = meanParameters[i] + (this.area * parameterStd);
-            this.parametersLowerBound[i] = meanParameters[i] - (this.area * parameterStd);
+            this.parametersUpperBound[i] = meanParameters[i] + (this.coverage * parameterStd);
+            this.parametersLowerBound[i] = meanParameters[i] - (this.coverage * parameterStd);
         }
     }
 

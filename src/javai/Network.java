@@ -567,12 +567,12 @@ public class Network {
         return thesisMat;
     }
 
-    public void coverage (Double area) { for (Layer layer : layers) {layer.coverage(area); } }
+    public void coverage (Double coverage) { for (Layer layer : layers) {layer.coverage(coverage); } }
 
-    public Double[][] getArea () {
-        Double[][] area = new Double[this.layers.size()][];
-        for (int i = 0; i < area.length; i++) { area[i] = this.layers.get(i).getArea(); }
-        return area;
+    public Double[][] getCoverage () {
+        Double[][] coverage = new Double[this.layers.size()][];
+        for (int i = 0; i < coverage.length; i++) { coverage[i] = this.layers.get(i).getCoverage(); }
+        return coverage;
     }
 
     public void test (Double... parameters) { // Activate all perceptron layers.

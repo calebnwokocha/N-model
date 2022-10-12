@@ -326,12 +326,12 @@ public class Layer {
         return thesisVec;
     }
 
-    public void coverage (Double area) { for (Node node : this.nodes) { node.coverage(area); } }
+    public void coverage (Double coverage) { for (Node node : this.nodes) { node.setCoverage(coverage); } }
 
-    public Double[] getArea () {
-        Double[] area = new Double[this.nodes.size()];
-        for (int i = 0; i < area.length; i++) { area[i] = this.nodes.get(i).getArea(); }
-        return area;
+    public Double[] getCoverage () {
+        Double[] coverage = new Double[this.nodes.size()];
+        for (int i = 0; i < coverage.length; i++) { coverage[i] = this.nodes.get(i).getCoverage(); }
+        return coverage;
     }
 
     public void test (Double... parameters) { // Activate all layer neurons.
