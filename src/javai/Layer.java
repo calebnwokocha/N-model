@@ -326,7 +326,7 @@ public class Layer {
         return thesisVec;
     }
 
-    public void focus (Double area) { for (Node node : this.nodes) { node.focus(area); } }
+    public void coverage (Double area) { for (Node node : this.nodes) { node.coverage(area); } }
 
     public Double[] getArea () {
         Double[] area = new Double[this.nodes.size()];

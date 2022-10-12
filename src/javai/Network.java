@@ -567,7 +567,7 @@ public class Network {
         return thesisMat;
     }
 
-    public void focus (Double area) { for (Layer layer : layers) {layer.focus(area); } }
+    public void coverage (Double area) { for (Layer layer : layers) {layer.coverage(area); } }
 
     public Double[][] getArea () {
         Double[][] area = new Double[this.layers.size()][];

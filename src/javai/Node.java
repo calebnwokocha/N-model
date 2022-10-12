@@ -149,7 +149,7 @@ public class Node {
         this.power = ((Math.random() * ((this.maxPower - 1.0) - this.minPower + 1)) + this.minPower) + 0.1;
     }
 
-    public void focus (Double area) { this.area = area; }
+    public void coverage (Double area) { this.area = area; }
 
     public Double getArea() { return this.area; }
 
@@ -187,8 +187,10 @@ public class Node {
      */
     public void train (double error, int iteration, Double... parameter) {
         if (this.area != null) { this.setParametersBounds(parameter, iteration); }
-        try { this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
-        } catch (NullPointerException e) { this.meanError = null; }
+        this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+        CFunction cFunction = new CFunction(this.functionName, parameter);
+        this.hypothesis = cFunction.getValue();
+        this.thesis = this.hypothesis - this.meanError;
     }
 
     private boolean isOutlier (Double[] parameters) {

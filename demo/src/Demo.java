@@ -91,7 +91,7 @@ public class Demo {
         });
 
         Network network = new Network(5, 10, 1);
-        network.focus(7.0);
+        network.coverage(7.0);
 
         // Train
         for (int i = 0; i < dataset1.getDataset().length; i++) {
