@@ -326,19 +326,31 @@ public class Layer {
         return thesisVec;
     }
 
-    public void activate (boolean isInputLayer, Double... parameters) { // Activate all layer neurons.
-        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(isInputLayer, parameters[i]); }
+    public void focus (Double area) { for (Node node : this.nodes) { node.focus(area); } }
+
+    public Double[] getArea () {
+        Double[] area = new Double[this.nodes.size()];
+        for (int i = 0; i < area.length; i++) { area[i] = this.nodes.get(i).getArea(); }
+        return area;
     }
 
-    public void activate (boolean isInputLayer, Double[]... parameters) { // Activate all layer neurons.
-        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).activate(isInputLayer, parameters[i]); }
+    public void test (Double... parameters) { // Activate all layer neurons.
+        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).test(parameters[i]); }
     }
 
-    public void optimize (double[] objectives, int iteration, boolean isInputLayer) { // Optimize all layer neurons.
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).optimize(objectives[i], iteration, isInputLayer); }
+    public void test (Double[]... parameters) { // Activate all layer neurons.
+        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).test(parameters[i]); }
     }
 
-    public void optimize (int iteration, double error, boolean isInputLayer) { // Optimize all layer neurons.
-        for (Node node : nodes) { node.optimize(iteration, node.getThesis() / error, isInputLayer); }
+    public void train (int iteration, double[] objectives, Double... parameters) { // Optimize all layer neurons.
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(iteration, objectives[i], parameters[i]); }
+    }
+
+    /*public void train (int iteration, double[] objectives, Double[]... parameters) { // Optimize all layer neurons.
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(iteration, objectives[i], parameters[i]); }
+    }*/
+
+    public void train (int iteration, double error) { // Optimize all layer neurons.
+        for (Node node : nodes) { node.train(iteration, node.getThesis() / error); }
     }
 }

@@ -30,7 +30,7 @@ public class Network {
     private int width; private ArrayList<Integer> widthVec;
     private String functionName; private ArrayList<String> functionNameVec;
     private ArrayList<ArrayList<String>> functionNameMat;
-    private double power, minPower, maxPower; boolean isInputLayer;
+    private double power, minPower, maxPower;
     private ArrayList<Double> powerVec, minPowerVec, maxPowerVec;
     private ArrayList<ArrayList<Double>> powerMat, minPowerMat, maxPowerMat;
 
@@ -567,44 +567,43 @@ public class Network {
         return thesisMat;
     }
 
-    public void activate (Double... parameters) { // Activate all perceptron layers.
+    public void focus (Double area) { for (Layer layer : layers) {layer.focus(area); } }
+
+    public Double[][] getArea () {
+        Double[][] area = new Double[this.layers.size()][];
+        for (int i = 0; i < area.length; i++) { area[i] = this.layers.get(i).getArea(); }
+        return area;
+    }
+
+    public void test (Double... parameters) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) { this.isInputLayer = true;
-                this.layers.get(i).activate(isInputLayer, parameters);
-            } else { this.isInputLayer = false;
-                this.layers.get(i).activate(isInputLayer, this.layers.get(i - 1).getThesisVec());
-            }
+            if (i == 0) { this.layers.get(i).test(parameters); }
+            else { this.layers.get(i).test(this.layers.get(i - 1).getThesisVec()); }
         }
     }
 
-    public void activate (Double[]... parameters) { // Activate all perceptron layers.
+    public void test (Double[]... parameters) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) { this.isInputLayer = true;
-                this.layers.get(i).activate(isInputLayer, parameters);
-            } else { this.isInputLayer = false;
-                this.layers.get(i).activate(isInputLayer, this.layers.get(i - 1).getThesisVec());
-            }
+            if (i == 0) {this.layers.get(i).test(parameters); }
+            else { this.layers.get(i).test(this.layers.get(i - 1).getThesisVec()); }
         }
     }
 
-    public void optimize (double[] objective, int iteration) {
+    public void train (int iteration, double[] objective, Double... parameters) {
         for (int i = 0; i < this.layers.size(); i++) {
-            this.isInputLayer = i == 0;
-            this.layers.get(i).optimize(objective, iteration, this.isInputLayer);
+            if (i == 0) { this.layers.get(i).train(iteration, objective, parameters); }
+            else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesisVec()); }
         }
     }
 
-    public void optimize (double[][] objective, int iteration) {
+    public void train (int iteration, double[][] objective, Double... parameters) {
         for (int i = 0; i < this.layers.size(); i++) {
-            this.isInputLayer = i == 0;
-            this.layers.get(i).optimize(objective[i], iteration, this.isInputLayer);
+            if (i == 0) { this.layers.get(i).train(iteration, objective[i], parameters); }
+            else { this.layers.get(i).train(iteration, objective[i], this.layers.get(i - 1).getThesisVec()); }
         }
     }
 
-    public void optimize (int iteration, double error) {
-        for (int i = 0; i < this.layers.size(); i++) {
-            this.isInputLayer = i == 0;
-            this.layers.get(i).optimize(iteration, error, this.isInputLayer);
-        }
+    public void train (int iteration, double error) {
+        for (Layer layer : this.layers) { layer.train(iteration, error); }
     }
 }
