@@ -23,6 +23,8 @@
 
 package javai;
 
+import java.util.Arrays;
+
 /**
  * Node class consist of functions and methods for operations on a comprehensive node.
  */
@@ -31,7 +33,7 @@ public class Node {
     private Double hypothesis, thesis, power, meanError = 0.0,
     coverage = null; private double minPower = -1.0, maxPower = 1.0;
     private Double[] parametersUpperBound, parametersLowerBound;
-    double[] meanParameters = new double[]{0.0};
+    double[] meanParameters;
 
     /**
      * This constructs a comprehensive node without manually setting its parameters.
@@ -153,19 +155,9 @@ public class Node {
 
     public Double getCoverage() { return this.coverage; }
 
-    /**
-     * This prompts the node to produce its hypothesis and thesis upon a vector argument. The result of the
-     * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
-     * meanError from that hypothesis.
-     *
-     * @see CFunction
-     */
     public void test (Double... parameter) {
         if (this.isOutlier(parameter)) { this.thesis = null; }
-        else { CFunction cFunction = new CFunction(this.functionName, parameter);
-            this.hypothesis = cFunction.getValue();
-            this.thesis = this.hypothesis - this.meanError;
-        }
+        else { this.activate(parameter); }
     }
 
     /**
@@ -173,10 +165,9 @@ public class Node {
      * an intermediate error is calculated, and this error is used to update the node meanError.
      */
     public void train (int iteration, double objective, Double... parameter) {
+        if (iteration == 1) { this.meanParameters = new double[parameter.length]; }
         if (this.coverage != null) { this.setParametersBounds(parameter, iteration); }
-        CFunction cFunction = new CFunction(this.functionName, parameter);
-        this.hypothesis = cFunction.getValue();
-        this.thesis = this.hypothesis - this.meanError;
+        this.activate(parameter);
         double error = this.thesis - objective;
         this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
     }
@@ -186,8 +177,21 @@ public class Node {
      * are used to update the node meanError.
      */
     public void train (double error, int iteration, Double... parameter) {
+        if (iteration == 1) { this.meanParameters = new double[parameter.length]; }
         if (this.coverage != null) { this.setParametersBounds(parameter, iteration); }
         this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+        this.activate(parameter);
+    }
+
+
+    /**
+     * This prompts the node to produce its hypothesis and thesis upon a vector argument. The result of the
+     * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
+     * meanError from that hypothesis.
+     *
+     * @see CFunction
+     */
+    private void activate (Double... parameter) {
         CFunction cFunction = new CFunction(this.functionName, parameter);
         this.hypothesis = cFunction.getValue();
         this.thesis = this.hypothesis - this.meanError;
