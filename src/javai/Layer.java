@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
  Javai is open-source framework for comprehensive learning, produced and
- maintained by Javai Foundation.
+ maintained by the Javai Foundation.
 
  Copyright (C) 2022 Javai Foundation
 
@@ -54,6 +54,16 @@ public class Layer {
         for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
     }
 
+    public Layer (Object functionName, int dimension) {
+        if (functionName.getClass().getComponentType().isPrimitive()) {
+            this.functionName = (String) functionName;
+            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
+        } else if (functionName.getClass().getComponentType().isArray()) {
+            this.functionNameVec = (ArrayList<String>) functionName;
+            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i))); }
+        }
+    }
+
     /**
      * This constructs a comprehensive layer by parametrically setting its dimension and comprehensive
      * functions. The functionNameVec is a vector-string; therefore, every node in the layer is assigned
@@ -75,8 +85,17 @@ public class Layer {
      *
      * @see Node
      */
-    public Layer (int dimension, double power) { this.power = power;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.power)); }
+    public Layer (int dimension, double power) { this.functionName = power;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
+    }
+
+    public Layer (int dimension, Object power) {
+        if (power.getClass().getComponentType().isPrimitive()) { this.power = (Double) power;
+            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.power)); }
+        } else if (power.getClass().getComponentType().isArray()) {
+            this.powerVec = (ArrayList<Double>) power;
+            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.powerVec.get(i))); }
+        }
     }
 
     /**
@@ -100,8 +119,8 @@ public class Layer {
      * @see Node
      */
     public Layer (int dimension, String functionName, double power) {
-        this.functionName = functionName; this.power = power;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.power)); }
+        this.functionName = functionName; this.functionName = power;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.functionName)); }
     }
 
     /**
@@ -113,8 +132,23 @@ public class Layer {
      * @see Node
      */
     public Layer (int dimension, ArrayList<String> functionNameVec, double power) {
-        this.functionNameVec = functionNameVec; this.power = power;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i), this.power)); }
+        this.functionNameVec = functionNameVec; this.functionName = power;
+        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i), this.functionName)); }
+    }
+
+    public Layer (int dimension, Object functionName, Object power) {
+        if (functionName.getClass().getComponentType().isPrimitive()) {
+            this.functionName = (String) functionName;
+            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
+        } else if (functionName.getClass().getComponentType().isArray()) {
+            this.functionNameVec = (ArrayList<String>) functionName;
+            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i))); }
+        } if (power.getClass().getComponentType().isPrimitive()) { this.power = (Double) power;
+            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.power)); }
+        } else if (power.getClass().getComponentType().isArray()) {
+            this.powerVec = (ArrayList<Double>) power;
+            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.powerVec.get(i))); }
+        }
     }
 
     /**
@@ -287,10 +321,10 @@ public class Layer {
         for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setPower(this.maxPowerVec.get(i)); }
     }
 
-    public double getPower() { return this.power; }
+    public double getPower() { return this.functionName; }
 
-    public void setPower(double power) { this.power = power;
-        for (Node node : nodes) { node.setPower(this.power); }
+    public void setPower(double power) { this.functionName = power;
+        for (Node node : nodes) { node.setPower(this.functionName); }
     }
 
     public ArrayList<String> getFunctionNameVec() { return this.functionNameVec; }
@@ -308,10 +342,10 @@ public class Layer {
         for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setPower(this.powerVec.get(i)); }
     }
 
-    public double[] getMeanErrorVec() {
-        double[] meanErrorVec = new double[this.nodes.size()];
-        for (int i = 0; i < meanErrorVec.length; i++) { meanErrorVec[i] = nodes.get(i).getMeanError(); }
-        return meanErrorVec;
+    public double[] getErrorMeanVec() {
+        double[] errorMeanVec = new double[this.nodes.size()];
+        for (int i = 0; i < errorMeanVec.length; i++) { errorMeanVec[i] = nodes.get(i).getErrorMean(); }
+        return errorMeanVec;
     }
 
     public Double[] getHypothesisVec() {
@@ -334,20 +368,20 @@ public class Layer {
         return coverage;
     }
 
-    public void test (Double... parameters) { // Activate all layer neurons.
-        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).test(parameters[i]); }
+    public void test (Double... input) { // Activate all layer neurons.
+        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).test(input[i]); }
     }
 
-    public void test (Double[]... parameters) { // Activate all layer neurons.
-        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).test(parameters[i]); }
+    public void test (Double[]... input) { // Activate all layer neurons.
+        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).test(input[i]); }
     }
 
-    public void train (int iteration, double[] objectives, Double... parameters) { // Optimize all layer neurons.
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(iteration, objectives[i], parameters[i]); }
+    public void train (int iteration, double[] objectives, Double... input) { // Optimize all layer neurons.
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(iteration, objectives[i], input[i]); }
     }
 
-    /*public void train (int iteration, double[] objectives, Double[]... parameters) { // Optimize all layer neurons.
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(iteration, objectives[i], parameters[i]); }
+    /*public void train (int iteration, double[] objectives, Double[]... input) { // Optimize all layer neurons.
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(iteration, objectives[i], input[i]); }
     }*/
 
     public void train (int iteration, double error) { // Optimize all layer neurons.

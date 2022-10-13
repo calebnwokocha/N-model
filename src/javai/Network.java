@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
  Javai is open-source framework for comprehensive learning, produced and
- maintained by Javai Foundation.
+ maintained by the Javai Foundation.
 
  Copyright (C) 2022 Javai Foundation
 
@@ -549,10 +549,10 @@ public class Network {
 
     public ArrayList<ArrayList<Double>> getMaxPowerMat () { return this.maxPowerMat; }
 
-    public double[][] getMeanErrorMat() {
-        double[][] meanErrorMat = new double[this.layers.size()][];
-        for (int i = 0; i < meanErrorMat.length; i++) { meanErrorMat[i] = layers.get(i).getMeanErrorVec(); }
-        return meanErrorMat;
+    public double[][] getErrorMeanMat() {
+        double[][] errorMeanMat = new double[this.layers.size()][];
+        for (int i = 0; i < errorMeanMat.length; i++) { errorMeanMat[i] = layers.get(i).getErrorMeanVec(); }
+        return errorMeanMat;
     }
 
     public Double[][] getHypothesisMat() {
@@ -575,30 +575,30 @@ public class Network {
         return coverage;
     }
 
-    public void test (Double... parameters) { // Activate all perceptron layers.
+    public void test (Double... input) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) { this.layers.get(i).test(parameters); }
+            if (i == 0) { this.layers.get(i).test(input); }
             else { this.layers.get(i).test(this.layers.get(i - 1).getThesisVec()); }
         }
     }
 
-    public void test (Double[]... parameters) { // Activate all perceptron layers.
+    public void test (Double[]... input) { // Activate all perceptron layers.
         for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) {this.layers.get(i).test(parameters); }
+            if (i == 0) {this.layers.get(i).test(input); }
             else { this.layers.get(i).test(this.layers.get(i - 1).getThesisVec()); }
         }
     }
 
-    public void train (int iteration, double[] objective, Double... parameters) {
+    public void train (int iteration, double[] objective, Double... input) {
         for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) { this.layers.get(i).train(iteration, objective, parameters); }
+            if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
             else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesisVec()); }
         }
     }
 
-    public void train (int iteration, double[][] objective, Double... parameters) {
+    public void train (int iteration, double[][] objective, Double... input) {
         for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) { this.layers.get(i).train(iteration, objective[i], parameters); }
+            if (i == 0) { this.layers.get(i).train(iteration, objective[i], input); }
             else { this.layers.get(i).train(iteration, objective[i], this.layers.get(i - 1).getThesisVec()); }
         }
     }

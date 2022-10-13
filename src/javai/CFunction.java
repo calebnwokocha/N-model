@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
  Javai is open-source framework for comprehensive learning, produced and
- maintained by Javai Foundation.
+ maintained by the Javai Foundation.
 
  Copyright (C) 2022 Javai Foundation
 
@@ -27,7 +27,7 @@ package javai;
  * CFunction class consist of comprehensive functions used by the Node class.
  */
 public class CFunction {
-    private Double value;
+    private double value;
 
     /**
      * This constructs a comprehensive function with only one parameter.
@@ -54,7 +54,7 @@ public class CFunction {
     /**
      * This returns the result of a comprehensive function operation.
      */
-    public Double getValue() { return this.value; }
+    public double getValue() { return this.value; }
 
     // Below are methods for comprehensive functions.
 
@@ -64,7 +64,6 @@ public class CFunction {
 
     private void sum (Double... X) {
         double s = 0;
-        try { for (double x : X) { s += x; } this.value =  s;}
-        catch (NullPointerException e) { this.value = null; }
+        for (double x : X) { s += x; } this.value =  s;
     }
 }

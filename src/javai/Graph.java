@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
  Javai is open-source framework for comprehensive learning, produced and
- maintained by Javai Foundation.
+ maintained by the Javai Foundation.
 
  Copyright (C) 2022 Javai Foundation
 

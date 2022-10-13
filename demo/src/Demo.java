@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
  Javai is open-source framework for comprehensive learning, produced and
- maintained by Javai Foundation.
+ maintained by the Javai Foundation.
 
  Copyright (C) 2022 Javai Foundation
 
@@ -91,7 +91,7 @@ public class Demo {
         });
 
         Network network = new Network(5, 10, 1);
-        network.coverage(7.0);
+        network.coverage(3.0);
 
         // Train
         for (int i = 0; i < dataset1.getDataset().length; i++) {

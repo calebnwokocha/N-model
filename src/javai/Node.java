@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
  Javai is open-source framework for comprehensive learning, produced and
- maintained by Javai Foundation.
+ maintained by the Javai Foundation.
 
  Copyright (C) 2022 Javai Foundation
 
@@ -23,20 +23,17 @@
 
 package javai;
 
-import java.util.Arrays;
-
 /**
  * Node class consist of functions and methods for operations on a comprehensive node.
  */
 public class Node {
     private String functionName;
-    private Double hypothesis, thesis, power, meanError = 0.0,
-    coverage = null; private double minPower = -1.0, maxPower = 1.0;
-    private Double[] parametersUpperBound, parametersLowerBound;
-    double[] meanParameters;
+    private Double hypothesis, thesis, coverage = null;
+    private double minPower = -1.0, maxPower = 1.0, power, errorMean = 0.0;
+    private double[] upperBound, lowerBound, inputMean;
 
     /**
-     * This constructs a comprehensive node without manually setting its parameters.
+     * This constructs a comprehensive node without manually setting its input.
      * The node comprehensive function is automatically set to "sum", and the
      * power of the node is automatically configured by setPower().
      */
@@ -101,14 +98,14 @@ public class Node {
      * This returns the node rule.
      */
     public String getRule () {
-        double probability = this.thesis / (this.thesis + this.meanError);
+        double probability = this.thesis / (this.thesis + this.errorMean);
         return this.functionName + " at probability " + probability;
     }
 
     /**
      * This returns the node mean error.
      */
-    public double getMeanError() { return this.meanError; }
+    public double getErrorMean() { return this.errorMean; }
 
     /**
      * This returns the node minimum power.
@@ -155,32 +152,32 @@ public class Node {
 
     public Double getCoverage() { return this.coverage; }
 
-    public void test (Double... parameter) {
-        if (this.isOutlier(parameter)) { this.thesis = null; }
-        else { this.activate(parameter); }
+    public void test (Double... input) {
+        if (this.isOutlier(input)) { this.thesis = null; }
+        else { this.activate(input); }
     }
 
     /**
      * This prompts the node to update its meanError. Given the two arguments: objective and iteration,
      * an intermediate error is calculated, and this error is used to update the node meanError.
      */
-    public void train (int iteration, double objective, Double... parameter) {
-        if (iteration == 1) { this.meanParameters = new double[parameter.length]; }
-        if (this.coverage != null) { this.setParametersBounds(parameter, iteration); }
-        this.activate(parameter);
+    public void train (int iteration, double objective, Double... input) {
+        if (iteration == 1) { this.inputMean = new double[input.length]; }
+        if (this.coverage != null) { this.setInputBounds(input, iteration); }
+        this.activate(input);
         double error = this.thesis - objective;
-        this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
+        this.errorMean = this.dynamicPowerMean(this.errorMean, error, this.power, iteration);
     }
 
     /**
      * This prompts the node to update its meanError. The two arguments: iteration and error,
      * are used to update the node meanError.
      */
-    public void train (double error, int iteration, Double... parameter) {
-        if (iteration == 1) { this.meanParameters = new double[parameter.length]; }
-        if (this.coverage != null) { this.setParametersBounds(parameter, iteration); }
-        this.meanError = this.dynamicPowerMean(this.meanError, error, this.power, iteration);
-        this.activate(parameter);
+    public void train (double error, int iteration, Double... input) {
+        if (iteration == 1) { this.inputMean = new double[input.length]; }
+        if (this.coverage != null) { this.setInputBounds(input, iteration); }
+        this.errorMean = this.dynamicPowerMean(this.errorMean, error, this.power, iteration);
+        this.activate(input);
     }
 
 
@@ -190,30 +187,31 @@ public class Node {
      * meanError from that hypothesis.
      *
      * @see CFunction
+     * @param input
      */
-    private void activate (Double... parameter) {
-        CFunction cFunction = new CFunction(this.functionName, parameter);
+    private void activate (Double[] input) {
+        CFunction cFunction = new CFunction(this.functionName, input);
         this.hypothesis = cFunction.getValue();
-        this.thesis = this.hypothesis - this.meanError;
+        this.thesis = this.hypothesis - this.errorMean;
     }
 
-    private boolean isOutlier (Double[] parameters) {
-        for (int i = 0; i < parameters.length; i++) {
-            try { if (this.isBetween(parameters[i], this.parametersLowerBound[i],
-                    this.parametersUpperBound[i])) { return false; }
+    private boolean isOutlier (Double[] input) {
+        for (int i = 0; i < input.length; i++) {
+            try { if (this.isBetween(input[i], this.lowerBound[i],
+                    this.upperBound[i])) { return false; }
             } catch (NullPointerException e) { return true; }
         } return true;
     }
 
-    private void setParametersBounds (Double[] parameters, Integer iteration) {
-        this.meanParameters = this.dynamicPowerMean(this.meanParameters,
-                parameters, this.power, iteration + 1);
-        this.parametersUpperBound = new Double[meanParameters.length];
-        this.parametersLowerBound = new Double[meanParameters.length];
-        for (int i = 0; i < meanParameters.length; i++) {
-            double parameterStd = this.standardDeviation(parameters, meanParameters[i]);
-            this.parametersUpperBound[i] = meanParameters[i] + (this.coverage * parameterStd);
-            this.parametersLowerBound[i] = meanParameters[i] - (this.coverage * parameterStd);
+    private void setInputBounds (Double[] input, Integer iteration) {
+        this.inputMean = this.dynamicPowerMean(this.inputMean,
+                input, this.power, iteration + 1);
+        this.upperBound = new double[inputMean.length];
+        this.lowerBound = new double[inputMean.length];
+        for (int i = 0; i < inputMean.length; i++) {
+            double inputStd = this.standardDeviation(input, inputMean[i]);
+            this.upperBound[i] = inputMean[i] + (this.coverage * inputStd);
+            this.lowerBound[i] = inputMean[i] - (this.coverage * inputStd);
         }
     }
 
@@ -221,7 +219,7 @@ public class Node {
         return minimum <= data && data <= maximum;
     }
 
-    private double dynamicPowerMean (double mean, double datum, double power, int time) {
+    private double dynamicPowerMean (double mean, Double datum, double power, int time) {
         mean = (Math.pow((1.0 / (time)) * (Math.pow(datum, power) +
                 (Math.pow(mean, power) * (time - 1))), 1.0 / power));
         return mean;
