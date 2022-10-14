@@ -30,10 +30,9 @@ import java.util.ArrayList;
  */
 public class Layer {
     private ArrayList<Node> nodes = new ArrayList<>();
-    private String functionName; private ArrayList<String> functionNameVec = new ArrayList<>();
-    private double minPower, maxPower, power;
-    private ArrayList<Double> minPowerVec = new ArrayList<>(),
-            maxPowerVec = new ArrayList<>(), powerVec = new ArrayList<>();
+    private String functionName; private ArrayList<String> functionNameVec;
+    private double minPower, maxPower, power, coverage;
+    private ArrayList<Double> minPowerVec, maxPowerVec, powerVec, coverageVec;
 
     /**
      * This constructs a comprehensive layer by parametrically setting its dimension. The powers
@@ -43,250 +42,22 @@ public class Layer {
      */
     public Layer (int dimension) { for (int i = 0; i < dimension; i++) { this.nodes.add(new Node()); } }
 
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension and comprehensive
-     * functions. The functionName is a scalar-string; therefore, every node in the layer is assigned the same
-     * comprehensive function. The powers of the layer is automatically configured by the Node object.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, String functionName) { this.functionName = functionName;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
-    }
-
-    public Layer (Object functionName, int dimension) {
-        if (functionName.getClass().getComponentType().isPrimitive()) {
-            this.functionName = (String) functionName;
-            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
-        } else if (functionName.getClass().getComponentType().isArray()) {
-            this.functionNameVec = (ArrayList<String>) functionName;
-            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i))); }
-        }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension and comprehensive
-     * functions. The functionNameVec is a vector-string; therefore, every node in the layer is assigned
-     * a specific comprehensive function. The powers of this layer is automatically configured by the
-     * Node object.
-     *
-     * @see Node
-     */
-    public Layer (Integer dimension, ArrayList<String> functionNameVec) {
-        this.functionNameVec = functionNameVec;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i))); }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension and powers.
-     * The power argument is a scalar; therefore, every node in the layer is assigned the same
-     * power. The comprehensive functions of the layer is automatically configured by the Node
-     * object.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, double power) { this.functionName = power;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
-    }
-
-    public Layer (int dimension, Object power) {
-        if (power.getClass().getComponentType().isPrimitive()) { this.power = (Double) power;
-            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.power)); }
-        } else if (power.getClass().getComponentType().isArray()) {
-            this.powerVec = (ArrayList<Double>) power;
-            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.powerVec.get(i))); }
-        }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension and powers.
-     * The powerVec argument is a vector; therefore, every node in the layer is assigned a specific
-     * power. The comprehensive functions of the layer is automatically configured by the Node
-     * object.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, ArrayList<Double> powerVec) { this.powerVec = powerVec;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.powerVec.get(i))); }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension, comprehensive
-     * functions, and powers. The power and functionName arguments are a scalar and scalar-string,
-     * respectively; therefore, every node in the layer is assigned the same power and comprehensive
-     * function.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, String functionName, double power) {
-        this.functionName = functionName; this.functionName = power;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.functionName)); }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension, comprehensive
-     * functions, and powers. The power and functionNameVec arguments are a scalar and vector-string,
-     * respectively; therefore, every node in the layer is assigned the same power, but specific
-     * comprehensive function.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, ArrayList<String> functionNameVec, double power) {
-        this.functionNameVec = functionNameVec; this.functionName = power;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i), this.functionName)); }
-    }
-
-    public Layer (int dimension, Object functionName, Object power) {
-        if (functionName.getClass().getComponentType().isPrimitive()) {
-            this.functionName = (String) functionName;
-            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName)); }
-        } else if (functionName.getClass().getComponentType().isArray()) {
-            this.functionNameVec = (ArrayList<String>) functionName;
-            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionNameVec.get(i))); }
-        } if (power.getClass().getComponentType().isPrimitive()) { this.power = (Double) power;
-            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.power)); }
-        } else if (power.getClass().getComponentType().isArray()) {
-            this.powerVec = (ArrayList<Double>) power;
-            for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.powerVec.get(i))); }
-        }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension, comprehensive
-     * functions, and powers. The powerVec and functionName arguments are a vector and scalar-string,
-     * respectively; therefore,every node in the layer is assigned the same comprehensive function,
-     * but specific power.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, String functionName, ArrayList<Double> powerVec) {
-        this.functionName = functionName; this.powerVec = powerVec;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.functionName, this.powerVec.get(i))); }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension, comprehensive
-     * functions, and powers. The powerVec and functionNameVec arguments are a vector and vector-string,
-     * respectively; therefore, every node in the layer is assigned a specific power and comprehensive
-     * function.
-     *
-     * @see Node
-     */
-    public Layer (Integer dimension, ArrayList<Double> powerVec, ArrayList<String> functionNameVec) {
-        this.functionNameVec = functionNameVec; this.powerVec = powerVec;
-        for (int i = 0; i < dimension; i++) {
-            this.nodes.add(new Node(this.functionNameVec.get(i), this.powerVec.get(i)));
-        }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension, minimum and
-     * maximum powers. The minPower and maxPower arguments are scalars; therefore,every node in the
-     * layer is assigned the same minimum and maximum power. The comprehensive functions of the layer
-     * is automatically configured by the Node object.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, double minPower, double maxPower) {
-        this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < dimension; i++) { this.nodes.add(new Node(this.minPower, this.maxPower)); }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension, minimum and
-     * maximum powers. The minPowerVec and maxPowerVec arguments are vectors; therefore, every node
-     * in the layer is assigned a specific minimum and maximum power. The comprehensive functions
-     * of the layer is automatically configured by the Node object.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, ArrayList<Double> minPowerVec, ArrayList<Double> maxPowerVec) {
-        this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < dimension; i++) {
-            this.nodes.add(new Node(this.minPowerVec.get(i), this.maxPowerVec.get(i)));
-        }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension, comprehensive
-     * functions, minimum and maximum powers. The functionName, minPower, and maxPower arguments
-     * are all scalars; therefore, every node in the layer is assigned the same comprehensive function,
-     * and minimum and maximum power.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, String functionName, double minPower, double maxPower) {
-        this.functionName = functionName; this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < dimension; i++) {
-            this.nodes.add(new Node(this.functionName, this.minPower, this.maxPower));
-        }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension, comprehensive
-     * functions, minimum and maximum powers. The functionNameVec, minPower, and maxPower arguments
-     * are vector, scalar, and scalar, respectively; therefore, every node in the layer is assigned
-     * a special comprehensive function, but the same minimum and maximum power.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, ArrayList<String> functionNameVec, double minPower, double maxPower) {
-        this.functionNameVec = functionNameVec; this.minPower = minPower; this.maxPower = maxPower;
-        for (int i = 0; i < dimension; i++) {
-            this.nodes.add(new Node(this.functionNameVec.get(i), this.minPower, this.maxPower));
-        }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension, comprehensive
-     * functions, minimum and maximum powers. The functionName, minPowerVec, and maxPowerVec arguments
-     * are scalar, vector, and vector, respectively; therefore, every node in the layer is assigned the
-     * same comprehensive function, but specific minimum and maximum power.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, String functionName, ArrayList<Double> minPowerVec,
-                  ArrayList<Double> maxPowerVec)
-    {
-        this.minPowerVec = minPowerVec; this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < dimension; i++) {
-            this.nodes.add(new Node(this.functionName, this.minPowerVec.get(i), this.maxPowerVec.get(i)));
-        }
-    }
-
-    /**
-     * This constructs a comprehensive layer by parametrically setting its dimension, comprehensive
-     * functions, minimum and maximum powers. The functionNameVec, minPowerVec, and maxPowerVec arguments
-     * are all vectors; therefore, every node in the layer is assigned a specific comprehensive function,
-     * minimum and maximum power.
-     *
-     * @see Node
-     */
-    public Layer (int dimension, ArrayList<String> functionNameVec, ArrayList<Double> minPowerVec,
-                  ArrayList<Double> maxPowerVec)
-    {
-        this.functionNameVec = functionNameVec; this.minPowerVec = minPowerVec;
-        this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < dimension; i++) {
-            this.nodes.add(new Node(this.functionNameVec.get(i),
-                    this.minPowerVec.get(i), this.maxPowerVec.get(i)));
-        }
-    }
-
     public ArrayList<Node> getNodes() { return this.nodes; }
 
     public void setNodes (ArrayList<Node> nodes) { this.nodes = nodes;
         this.functionNameVec = new ArrayList<>(); this.powerVec = new ArrayList<>();
         this.minPowerVec = new ArrayList<>(); this.maxPowerVec = new ArrayList<>();
+        this.coverageVec = new ArrayList<>();
         for (Node node : this.nodes) { this.functionNameVec.add(node.getFunctionName());
             this.powerVec.add(node.getPower()); this.minPowerVec.add(node.getMinPower());
-            this.maxPowerVec.add(node.getMaxPower());
+            this.maxPowerVec.add(node.getMaxPower()); this.coverageVec.add(node.getCoverage());
         }
     }
 
     public void addNode(Node node) { this.nodes.add(node);
         this.functionNameVec.add(node.getFunctionName()); this.powerVec.add(node.getPower());
         this.minPowerVec.add(node.getMinPower()); this.maxPowerVec.add(node.getMaxPower());
+        this.coverageVec.add(node.getCoverage());
     }
 
     public int getDimension () { return this.nodes.size(); }
@@ -321,10 +92,10 @@ public class Layer {
         for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setPower(this.maxPowerVec.get(i)); }
     }
 
-    public double getPower() { return this.functionName; }
+    public double getPower() { return this.power; }
 
-    public void setPower(double power) { this.functionName = power;
-        for (Node node : nodes) { node.setPower(this.functionName); }
+    public void setPower(double power) { this.power = power;
+        for (Node node : nodes) { node.setPower(this.power); }
     }
 
     public ArrayList<String> getFunctionNameVec() { return this.functionNameVec; }
@@ -342,30 +113,31 @@ public class Layer {
         for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setPower(this.powerVec.get(i)); }
     }
 
-    public double[] getErrorMeanVec() {
-        double[] errorMeanVec = new double[this.nodes.size()];
+    public void setCoverage (Double coverage) { this.coverage = coverage;
+        for (Node node : this.nodes) { node.setCoverage(this.coverage); }
+    }
+
+    public Double getCoverage () { return this.coverage; }
+
+    public void setCoverageVec (ArrayList<Double> coverageVec) { this.coverageVec = coverageVec;
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setCoverage(this.coverageVec.get(i)); }
+    }
+
+    public ArrayList<Double> getCoverageVec () { return this.coverageVec; }
+
+    public double[] getErrorMeanVec() { double[] errorMeanVec = new double[this.nodes.size()];
         for (int i = 0; i < errorMeanVec.length; i++) { errorMeanVec[i] = nodes.get(i).getErrorMean(); }
         return errorMeanVec;
     }
 
-    public Double[] getHypothesisVec() {
-        Double[] hypothesisVec = new Double[this.nodes.size()];
+    public Double[] getHypothesisVec() { Double[] hypothesisVec = new Double[this.nodes.size()];
         for (int i = 0; i < hypothesisVec.length; i++) { hypothesisVec[i] = nodes.get(i).getHypothesis(); }
         return hypothesisVec;
     }
 
-    public Double[] getThesisVec() {
-        Double[] thesisVec = new Double[this.nodes.size()];
+    public Double[] getThesisVec() { Double[] thesisVec = new Double[this.nodes.size()];
         for (int i = 0; i < thesisVec.length; i++) { thesisVec[i] = nodes.get(i).getThesis(); }
         return thesisVec;
-    }
-
-    public void coverage (Double coverage) { for (Node node : this.nodes) { node.setCoverage(coverage); } }
-
-    public Double[] getCoverage () {
-        Double[] coverage = new Double[this.nodes.size()];
-        for (int i = 0; i < coverage.length; i++) { coverage[i] = this.nodes.get(i).getCoverage(); }
-        return coverage;
     }
 
     public void test (Double... input) { // Activate all layer neurons.
@@ -377,14 +149,16 @@ public class Layer {
     }
 
     public void train (int iteration, double[] objectives, Double... input) { // Optimize all layer neurons.
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(iteration, objectives[i], input[i]); }
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(objectives[i], iteration, input[i]); }
     }
 
-    /*public void train (int iteration, double[] objectives, Double[]... input) { // Optimize all layer neurons.
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(iteration, objectives[i], input[i]); }
-    }*/
+    public void train (int iteration, double[] objectives, Double[]... input) { // Optimize all layer neurons.
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(objectives[i], iteration, input[i]); }
+    }
 
-    public void train (int iteration, double error) { // Optimize all layer neurons.
-        for (Node node : nodes) { node.train(iteration, node.getThesis() / error); }
+    public void train (int iteration, double error, Double[]... input) { // Optimize all layer neurons.
+        for (int i = 0; i < nodes.size(); i++) { double nodeError = nodes.get(i).getThesis() / error;
+            nodes.get(i).train(nodeError, iteration, input[i]);
+        }
     }
 }

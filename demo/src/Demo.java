@@ -90,14 +90,19 @@ public class Demo {
                 {1143438888888.0, 234358888888883.0, 2348888888888231.5, 1343.0, 1354153.12}
         });
 
-        Network network = new Network(5, 10, 1);
-        network.coverage(3.0);
+        Network network = new Network(5, 10);
+        network.setFunctionName("sum");
+        network.setPower(1.0);
+        network.setCoverage(6.0);
 
         // Train
         for (int i = 0; i < dataset1.getDataset().length; i++) {
             System.out.println("Example " + i);
             network.train(i + 1, new double[]{-100000, 10, 100, 10, 100}, dataset1.getDataset()[i]);
         }
+
+        //network.train(1, new double[]{-100000, 10, 100, 10, 100}, dataset1.getDataset());
+
 
         // Test
         dataset1.shuffle();
@@ -107,5 +112,8 @@ public class Demo {
             System.out.println(Arrays.toString(network.getLayers().get(network.getLayers().size() - 1).getThesisVec()));
             System.out.println();
         }
+
+        //network.test(dataset1.getDataset());
+        //System.out.println(Arrays.toString(network.getLayers().get(network.getLayers().size() - 1).getThesisVec()));
     }
 }

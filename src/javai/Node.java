@@ -29,50 +29,15 @@ package javai;
 public class Node {
     private String functionName;
     private Double hypothesis, thesis, coverage = null;
-    private double minPower = -1.0, maxPower = 1.0, power, errorMean = 0.0;
-    private double[] upperBound, lowerBound, inputMean;
+    private double minPower, maxPower, power, errorMean = 0.0;
+    private double[] inputMean, upperBound, lowerBound;
 
     /**
      * This constructs a comprehensive node without manually setting its input.
      * The node comprehensive function is automatically set to "sum", and the
      * power of the node is automatically configured by setPower().
      */
-    public Node () { this.functionName = "sum"; this.setPower(); }
-
-    /**
-     * This constructs a comprehensive node by parametrically setting its comprehensive function.
-     * The node power is automatically configured by setPower().
-     */
-    public Node (String functionName) { this.functionName = functionName; this.setPower(); }
-
-    /**
-     * This constructs a comprehensive node by parametrically setting its power.
-     * The node comprehensive function is automatically set to "sum".
-     */
-    public Node (double power) { this.functionName = "sum"; this.power = power; }
-
-    /**
-     * This constructs a comprehensive node by parametrically setting its minimum and maximum power.
-     * The actual power of the node is automatically configure by setPower(), and the comprehensive
-     * function of the node is automatically set to "sum".
-     */
-    public Node (double minPower, double maxPower) {
-        this.functionName = "sum"; this.minPower = minPower; this.maxPower = maxPower; this.setPower();
-    }
-
-    /**
-     * This constructs a comprehensive node by parametrically setting its comprehensive function,
-     * and minimum and maximum power. The power of the constructed node is automatically configure
-     * by setPower().
-     */
-    public Node (String functionName, double minPower, double maxPower) {
-        this.functionName = functionName; this.minPower = minPower; this.maxPower = maxPower; this.setPower();
-    }
-
-    /**
-     * This constructs a comprehensive node by parametrically setting its comprehensive function and power.
-     */
-    public Node(String functionName, double power) { this.functionName = functionName; this.power = power; }
+    public Node () {}
 
     /**
      * This returns the node comprehensive function name.
@@ -137,17 +102,6 @@ public class Node {
      */
     public void setPower(double power) { this.power = power; }
 
-    /**
-     * This configures the node actual power to a stochastic power p, where minPower => p < 0.0 or
-     * 0.0 < p <= maxPower. By default, minPower = -1.0 and maxPower = 1.0, in accordance to the
-     * Pythagorean configuration for the power mean. The following are required by the power mean
-     * to produce any of the Pythagorean means: For harmonic mean, p approaches -1.0; for geometric
-     * mean, p approaches 0; and for arithmetic mean, p approaches 1.0.
-     */
-    public void setPower() {
-        this.power = ((Math.random() * ((this.maxPower - 1.0) - this.minPower + 1)) + this.minPower) + 0.1;
-    }
-
     public void setCoverage (Double coverage) { this.coverage = coverage; }
 
     public Double getCoverage() { return this.coverage; }
@@ -161,7 +115,7 @@ public class Node {
      * This prompts the node to update its meanError. Given the two arguments: objective and iteration,
      * an intermediate error is calculated, and this error is used to update the node meanError.
      */
-    public void train (int iteration, double objective, Double... input) {
+    public void train (double objective, int iteration, Double... input) {
         if (iteration == 1) { this.inputMean = new double[input.length]; }
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
         this.activate(input);
@@ -173,13 +127,13 @@ public class Node {
      * This prompts the node to update its meanError. The two arguments: iteration and error,
      * are used to update the node meanError.
      */
-    public void train (double error, int iteration, Double... input) {
+    public void train (int iteration, Double error, Double... input) {
         if (iteration == 1) { this.inputMean = new double[input.length]; }
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
-        this.errorMean = this.dynamicPowerMean(this.errorMean, error, this.power, iteration);
+        if (error == null) { this.errorMean = 0.0; } // Unsupervised learning
+        else { this.errorMean = this.dynamicPowerMean(this.errorMean, error, this.power, iteration); }
         this.activate(input);
     }
-
 
     /**
      * This prompts the node to produce its hypothesis and thesis upon a vector argument. The result of the
@@ -209,9 +163,9 @@ public class Node {
         this.upperBound = new double[inputMean.length];
         this.lowerBound = new double[inputMean.length];
         for (int i = 0; i < inputMean.length; i++) {
-            double inputStd = this.standardDeviation(input, inputMean[i]);
-            this.upperBound[i] = inputMean[i] + (this.coverage * inputStd);
-            this.lowerBound[i] = inputMean[i] - (this.coverage * inputStd);
+            double inputDeviation = this.standardDeviation(input, inputMean[i]);
+            this.upperBound[i] = inputMean[i] + (this.coverage * inputDeviation);
+            this.lowerBound[i] = inputMean[i] - (this.coverage * inputDeviation);
         }
     }
 
