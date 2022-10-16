@@ -22,6 +22,7 @@
 ---------------------------------------------------------------------------- */
 
 import javai.Dataset;
+import javai.Layer;
 import javai.Network;
 
 import java.util.Arrays;
@@ -85,20 +86,24 @@ public class Demo {
         Dataset dataset1 = new Dataset(fileNames1);
         Dataset dataset2 = new Dataset(fileNames2);
 
-        dataset2 = new Dataset();
+/*        dataset2 = new Dataset();
         dataset2.setDataset(new Double[][] {
                 {1143438888888.0, 234358888888883.0, 2348888888888231.5, 1343.0, 1354153.12}
-        });
+        });*/
 
         Network network = new Network(5, 10);
         network.setFunctionName("sum");
         network.setPower(1.0);
-        network.setCoverage(6.0);
+        network.setCoverage(7.0);
 
         // Train
         for (int i = 0; i < dataset1.getDataset().length; i++) {
             System.out.println("Example " + i);
-            network.train(i + 1, new double[]{-100000, 10, 100, 10, 100}, dataset1.getDataset()[i]);
+            network.train(i + 1, new double[]{100000, 10, 100, 10, 100}, dataset1.getDataset()[i]);
+            for (Layer layer : network.getLayers()) {
+                System.out.println(Arrays.toString(layer.getThesisVec()));
+                System.out.println();
+            }
         }
 
         //network.train(1, new double[]{-100000, 10, 100, 10, 100}, dataset1.getDataset());
@@ -106,9 +111,9 @@ public class Demo {
 
         // Test
         dataset1.shuffle();
-        for (int i = 0; i < dataset1.getDataset().length; i++) {
+        for (int i = 0; i < dataset2.getDataset().length; i++) {
             System.out.println("Test " + i);
-            network.test(dataset1.getDataset()[i]);
+            network.test(dataset2.getDataset()[i]);
             System.out.println(Arrays.toString(network.getLayers().get(network.getLayers().size() - 1).getThesisVec()));
             System.out.println();
         }

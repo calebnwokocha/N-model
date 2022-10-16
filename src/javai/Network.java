@@ -30,7 +30,7 @@ public class Network {
     private int width; private ArrayList<Integer> widthVec;
     private String functionName; private ArrayList<String> functionNameVec;
     private ArrayList<ArrayList<String>> functionNameMat;
-    private double power, minPower, maxPower, coverage;
+    private double power, minPower, maxPower; private Double coverage;
     private ArrayList<Double> powerVec, minPowerVec, maxPowerVec, coverageVec;
     private ArrayList<ArrayList<Double>> powerMat, minPowerMat, maxPowerMat, coverageMat;
 

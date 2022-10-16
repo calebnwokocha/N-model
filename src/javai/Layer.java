@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class Layer {
     private ArrayList<Node> nodes = new ArrayList<>();
     private String functionName; private ArrayList<String> functionNameVec;
-    private double minPower, maxPower, power, coverage;
+    private double minPower, maxPower, power; private Double coverage;
     private ArrayList<Double> minPowerVec, maxPowerVec, powerVec, coverageVec;
 
     /**

@@ -107,8 +107,11 @@ public class Node {
     public Double getCoverage() { return this.coverage; }
 
     public void test (Double... input) {
-        if (this.isOutlier(input)) { this.thesis = null; }
-        else { this.activate(input); }
+        if (coverage == null) { this.activate(input); }
+        else {
+            if (this.isOutlier(input)) { this.thesis = null; }
+            else { this.activate(input); }
+        }
     }
 
     /**
