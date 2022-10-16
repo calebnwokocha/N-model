@@ -64,6 +64,6 @@ public class CFunction {
 
     private void sum (Double... X) {
         double s = 0;
-        for (double x : X) { s += x; } this.value =  Math.pow(s, -0.8);
+        for (double x : X) { s += x; } this.value =  s;
     }
 }
