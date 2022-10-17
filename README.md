@@ -1,4 +1,5 @@
-# Javai
+# Javai = Java + Intelligence 
+
 Open-source framework for comprehensive learning.
 
 Find documentation at https://javai.org
