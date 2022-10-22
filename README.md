@@ -1,6 +1,3 @@
-# Javai
-Open-source framework for comprehensive learning.
+# Comprehensive Learning 
 
-Find documentation at https://nmodel.org
-
-Email info@nmodel.org for technical support or any other inquiry.
+Comprehensive learning is a subfield of machine learning. Learn about comprehensive learning at {put link}
