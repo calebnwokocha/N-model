@@ -1,7 +1,3 @@
-# Javai = Java + Intelligence 
+# Comprehensive Learning 
 
-Open-source framework for comprehensive learning.
-
-Find documentation at https://javai.org
-
-Email info@javai.org for technical support or any other inquiry.
+Comprehensive learning is a subfield of machine learning. Learn about comprehensive learning at {put link}
