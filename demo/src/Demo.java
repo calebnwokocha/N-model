@@ -17,12 +17,14 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 
- Email info@javai.org for technical support and/or special permission
+ Email info@nmodel.org for technical support and/or special permission
  to use this framework.
 ---------------------------------------------------------------------------- */
 
-import javai.Dataset;
-import javai.Layer;
+import nmodel.Dataset;
+import nmodel.Layer;
+
+import java.util.Arrays;
 
 public class Demo {
     public static void main(String[] args) throws Exception {
@@ -90,9 +92,9 @@ public class Demo {
         int[] y = new int[100];
         Double[][] dset = new Double[100][2];
         for (int i = 0; i < 100; i++) {
-            x1[i] = Math.random();
-            x2[i] = Math.random();
-            y[i] = (int) Math.round((x1[i] + x2[i]) - (2 * x1[i] + x2[i]));
+            x1[i] = Math.random() + 300;
+            x2[i] = Math.random() + 300;
+            y[i] = 100; /*(int) Math.round((x1[i] + x2[i]) - (2 * x1[i] + x2[i]))*/;
         }
 
         for (int i = 0; i < 100; i++) {
@@ -103,25 +105,39 @@ public class Demo {
         dataset3.setDataset(dset);
 
 
-        Layer[] layer = new Layer[10];
+        Layer[] layer = new Layer[3];
         for (int i = 0; i < layer.length; i++) {
             if (i == layer.length - 1) {
                 layer[i] = new Layer(1);
-            } else { layer[i] = new Layer(1); }
+            } else {
+                layer[i] = new Layer(1);
+            }
             layer[i].setFunctionName("sum");
             layer[i].setPower(1.0);
             layer[i].setCoverage(7.0);
         }
+
+        double[] layer1Error = new double[100];
+        double[] layer2Error = new double[100];
+        double[] layer3Error = new double[100];
+
 
         // Train
         for (int i = 0; i < dataset3.getDataset().length; i++) {
             for (int j = 0; j < layer.length; j++) {
                 if (j == 0) {
                     layer[j].train(i + 1, new double[]{y[i]}, dataset3.getDataset()[i]);
-                } else {
+                    layer1Error[i] = layer[j].getErrorMeanVec()[0];
+                } else if (j == 1) {
                     layer[j].train(i + 1, new double[]{y[i]}, layer[j - 1].getThesisVec());
+                    layer2Error[i] = layer[j].getErrorMeanVec()[0];
+
+                } else if (j == 2) {
+                    layer[j].train(i + 1, new double[]{y[i]}, layer[j - 1].getThesisVec());
+                    layer3Error[i] = layer[j].getErrorMeanVec()[0];
                 }
-            }
+
+
 
             /*System.out.println("Example " + i);
             System.out.println("Input is " + Arrays.toString(dataset3.getDataset()[i]));
@@ -130,8 +146,26 @@ public class Demo {
             System.out.println("Network error is " + Arrays.toString(layer[layer.length - 1].getErrorMeanVec()));
             System.out.println();*/
 
-            System.out.println(layer[layer.length - 1].getErrorMeanVec()[0]);
+                System.out.println(layer[layer.length - 1].getErrorMeanVec()[0]);
+                System.out.println(Arrays.toString(layer[layer.length - 1].getThesisVec()));
+            }
         }
+        System.out.println("----------------------------------------------------");
+
+        for (double v : layer1Error) {
+            System.out.println(v);
+        }
+        System.out.println("----------------------------------------------------");
+        for (double v : layer2Error) {
+            System.out.println(v);
+        }
+        System.out.println("----------------------------------------------------");
+        for (double v : layer3Error) {
+            System.out.println(v);
+        }
+
+
+
 
 /*        dataset2 = new Dataset();
         dataset2.setDataset(new Double[][] {
@@ -169,5 +203,6 @@ public class Demo {
 
         //network1.test(dataset1.getDataset());
         //System.out.println(Arrays.toString(network1.getLayers().get(network1.getLayers().size() - 1).getThesisVec()));
+
     }
 }

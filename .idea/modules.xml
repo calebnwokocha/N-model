@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/comprehensive_learning.iml" filepath="$PROJECT_DIR$/.idea/comprehensive_learning.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/javai.iml" filepath="$PROJECT_DIR$/.idea/javai.iml" />
     </modules>
   </component>
 </project>

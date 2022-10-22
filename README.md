@@ -1,6 +1,6 @@
 # Javai
 Open-source framework for comprehensive learning.
 
-Find documentation at https://javai.org
+Find documentation at https://nmodel.org
 
-Email info@javai.org for technical support or any other inquiry.
+Email info@nmodel.org for technical support or any other inquiry.
