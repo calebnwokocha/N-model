@@ -35,12 +35,12 @@ public class Layer {
     private ArrayList<Double> minPowerVec, maxPowerVec, powerVec, coverageVec;
 
     /**
-     * This constructs a comprehensive layer by parametrically setting its dimension. The powers
+     * This constructs a comprehensive layer by parametrically setting its width. The powers
      * and comprehensive functions of the layer is automatically configured by the Node object.
      *
      * @see Node
      */
-    public Layer (int dimension) { for (int i = 0; i < dimension; i++) { this.nodes.add(new Node()); } }
+    public Layer (int width) { for (int i = 0; i < width; i++) { this.nodes.add(new Node()); } }
 
     public ArrayList<Node> getNodes() { return this.nodes; }
 
@@ -60,7 +60,7 @@ public class Layer {
         this.coverageVec.add(node.getCoverage());
     }
 
-    public int getDimension () { return this.nodes.size(); }
+    public int getWidth () { return this.nodes.size(); }
 
     public String getFunctionName() { return this.functionName; }
 

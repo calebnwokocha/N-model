@@ -21,14 +21,51 @@
  to use this framework.
 ---------------------------------------------------------------------------- */
 
-import nmodel.Dataset;
-import nmodel.Layer;
+import nmodel.Network;
 
 import java.util.Arrays;
 
 public class Demo {
     public static void main(String[] args) throws Exception {
-        String[] fileNames1 = {
+        double[] x1 = new double[10];
+        for (int i = 0; i < 10; i++) {
+            x1[i] = Math.random() + 10;
+        }
+
+        Network network = new Network(30, 1);
+        network.setFunctionName("sum");
+        network.setPower(1);
+        network.setCoverage(null);
+
+        for (int i = 0; i < x1.length; i++) {
+            network.train(i + 1, new double[]{100}, x1[i]);
+            System.out.println("Example " + (i + 1) + ":");
+            System.out.println();
+            System.out.println("Network objective is " + 100);
+            System.out.println();
+            System.out.println("Network input is " + x1[i]);
+            System.out.println();
+            System.out.println("Network hypothesis is " + Arrays.deepToString(network.getHypothesisMat()));
+            System.out.println();
+            System.out.println("Network error mean is " + Arrays.deepToString(network.getErrorMeanMat()));
+            System.out.println();
+            System.out.println("Network thesis is " + Arrays.deepToString(network.getThesisMat()));
+            System.out.println();
+            System.out.println();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        /*String[] fileNames1 = {
                 "demo/dataset1/data1.txt",
                 "demo/dataset1/data2.txt",
                 "demo/dataset1/data3.txt",
@@ -94,7 +131,7 @@ public class Demo {
         for (int i = 0; i < 100; i++) {
             x1[i] = Math.random() + 300;
             x2[i] = Math.random() + 300;
-            y[i] = 100; /*(int) Math.round((x1[i] + x2[i]) - (2 * x1[i] + x2[i]))*/;
+            y[i] = 100; *//*(int) Math.round((x1[i] + x2[i]) - (2 * x1[i] + x2[i]))*//*;
         }
 
         for (int i = 0; i < 100; i++) {
@@ -139,12 +176,12 @@ public class Demo {
 
 
 
-            /*System.out.println("Example " + i);
+            *//*System.out.println("Example " + i);
             System.out.println("Input is " + Arrays.toString(dataset3.getDataset()[i]));
             System.out.println("Objective is " + y[i]);
             System.out.println("Network prediction is " + Arrays.toString(layer[layer.length - 1].getThesisVec()));
             System.out.println("Network error is " + Arrays.toString(layer[layer.length - 1].getErrorMeanVec()));
-            System.out.println();*/
+            System.out.println();*//*
 
                 System.out.println(layer[layer.length - 1].getErrorMeanVec()[0]);
                 System.out.println(Arrays.toString(layer[layer.length - 1].getThesisVec()));
@@ -167,12 +204,12 @@ public class Demo {
 
 
 
-/*        dataset2 = new Dataset();
+*//*        dataset2 = new Dataset();
         dataset2.setDataset(new Double[][] {
                 {1143438888888.0, 234358888888883.0, 2348888888888231.5, 1343.0, 1354153.12}
-        });*/
+        });*//*
 
-/*        Network network1 = new Network(5, 10);
+*//*        Network network1 = new Network(10, 5);
         network1.setFunctionName("sum");
         network1.setPower(1.0);
         network1.setCoverage(7.0);
@@ -185,13 +222,13 @@ public class Demo {
                 System.out.println(Arrays.toString(layer.getThesisVec()));
                 System.out.println();
             }
-        }*/
+        }*//*
 
         //network1.train(1, new double[]{-100000, 10, 100, 10, 100}, dataset1.getDataset());
 
 
         // Test
-/*
+*//*
         dataset1.shuffle();
         for (int i = 0; i < dataset2.getDataset().length; i++) {
             System.out.println("Test " + i);
@@ -199,10 +236,10 @@ public class Demo {
             System.out.println(Arrays.toString(network1.getLayers().get(network1.getLayers().size() - 1).getThesisVec()));
             System.out.println();
         }
-*/
+*//*
 
         //network1.test(dataset1.getDataset());
         //System.out.println(Arrays.toString(network1.getLayers().get(network1.getLayers().size() - 1).getThesisVec()));
-
+*/
     }
 }

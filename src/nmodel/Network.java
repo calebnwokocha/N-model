@@ -35,12 +35,12 @@ public class Network {
     private ArrayList<ArrayList<Double>> powerMat, minPowerMat, maxPowerMat, coverageMat;
 
     // Construct network.
-    public Network (int width, int length) {
+    public Network (int length, int width) {
         this.width = width;
         for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width)); }
     }
 
-    public Network (ArrayList<Integer> widthVec, int length) {
+    public Network (int length, ArrayList<Integer> widthVec) {
         this.widthVec = widthVec;
         for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.widthVec.get(i))); }
     }
@@ -53,7 +53,7 @@ public class Network {
         this.widthVec = new ArrayList<>(); this.coverageMat = new ArrayList<>();
         for (Layer layer : this.layers) { this.functionNameMat.add(layer.getFunctionNameVec());
             this.powerMat.add(layer.getPowerVec()); this.minPowerMat.add(layer.getMinPowerVec());
-            this.maxPowerMat.add(layer.getMaxPowerVec()); this.widthVec.add(layer.getDimension());
+            this.maxPowerMat.add(layer.getMaxPowerVec()); this.widthVec.add(layer.getWidth());
             this.coverageMat.add(layer.getCoverageVec());
         }
     }
@@ -61,7 +61,7 @@ public class Network {
     public void addLayer (Layer layer) { this.layers.add(layer);
         this.functionNameMat.add(layer.getFunctionNameVec()); this.powerMat.add(layer.getPowerVec());
         this.minPowerMat.add(layer.getMinPowerVec()); this.maxPowerMat.add(layer.getMaxPowerVec());
-        this.widthVec.add(layer.getDimension()); this.coverageMat.add(layer.getCoverageVec());
+        this.widthVec.add(layer.getWidth()); this.coverageMat.add(layer.getCoverageVec());
     }
     
     public int getLength () { return this.layers.size(); }
