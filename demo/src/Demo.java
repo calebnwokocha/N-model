@@ -1,8 +1,7 @@
 /*------------------------------------------------------------------------------
- Javai is open-source framework for comprehensive learning, produced and
- maintained by the Javai Foundation.
+ Open-source framework for comprehensive learning.
 
- Copyright (C) 2022 Javai Foundation
+ Copyright (C) 2022 Caleb Princewill Nwokocha
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published
@@ -17,8 +16,8 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 
- Email info@nmodel.org for technical support and/or special permission
- to use this framework.
+ Email calebnwokocha@gmail.com for technical support and/or special
+ permission to use this framework.
 ---------------------------------------------------------------------------- */
 
 import nmodel.Network;

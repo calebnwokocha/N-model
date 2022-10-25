@@ -1,8 +1,7 @@
 /*------------------------------------------------------------------------------
- Javai is open-source framework for comprehensive learning, produced and
- maintained by the Javai Foundation.
+ Open-source framework for comprehensive learning.
 
- Copyright (C) 2022 Javai Foundation
+ Copyright (C) 2022 Caleb Princewill Nwokocha
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published
@@ -17,46 +16,30 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 
- Email info@nmodel.org for technical support and/or special permission
- to use this framework.
+ Email calebnwokocha@gmail.com for technical support and/or special
+ permission to use this framework.
 ---------------------------------------------------------------------------- */
 
 package nmodel;
 
-/**
- * CFunction class consist of comprehensive functions used by the Node class.
- */
 public class CFunction {
     private double value;
 
-    /**
-     * This constructs a comprehensive function with only one parameter.
-     * It requires the function name.
-     */
     public CFunction(String functionName, Double parameter) {
-        switch (functionName) { // Configure function according to function name.
+        switch (functionName) {
             case "sum" -> this.sum(parameter);
             case "cubic volume" -> this.cubicVolume(parameter);
         }
     }
 
-    /**
-     * This constructs a comprehensive function with multiple parameters.
-     * It requires the function name.
-     */
     public CFunction(String functionName, Double... parameters) {
-        switch (functionName) { // Configure function according to function name.
+        switch (functionName) {
             case "sum" -> this.sum(parameters);
             case "force" -> this.force(parameters[0], parameters[1]);
         }
     }
 
-    /**
-     * This returns the result of a comprehensive function operation.
-     */
     public double getValue() { return this.value; }
-
-    // Below are methods for comprehensive functions.
 
     private void cubicVolume (Double s) { this.value = Math.pow(s, 3); }
 

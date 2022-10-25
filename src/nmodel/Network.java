@@ -1,8 +1,7 @@
 /*------------------------------------------------------------------------------
- Javai is open-source framework for comprehensive learning, produced and
- maintained by the Javai Foundation.
+ Open-source framework for comprehensive learning.
 
- Copyright (C) 2022 Javai Foundation
+ Copyright (C) 2022 Caleb Princewill Nwokocha
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published
@@ -17,8 +16,8 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 
- Email info@nmodel.org for technical support and/or special permission
- to use this framework.
+ Email calebnwokocha@gmail.com for technical support and/or special
+ permission to use this framework.
 ---------------------------------------------------------------------------- */
 
 package nmodel;
@@ -34,7 +33,6 @@ public class Network {
     private ArrayList<Double> powerVec, minPowerVec, maxPowerVec, coverageVec;
     private ArrayList<ArrayList<Double>> powerMat, minPowerMat, maxPowerMat, coverageMat;
 
-    // Construct network.
     public Network (int length, int width) {
         this.width = width;
         for (int i = 0; i < length; i++) { this.layers.add(new Layer(this.width)); }
@@ -63,7 +61,9 @@ public class Network {
         this.minPowerMat.add(layer.getMinPowerVec()); this.maxPowerMat.add(layer.getMaxPowerVec());
         this.widthVec.add(layer.getWidth()); this.coverageMat.add(layer.getCoverageVec());
     }
-    
+
+    public void deleteLayer (int index) { this.layers.remove(index); }
+
     public int getLength () { return this.layers.size(); }
     
     public void setWidth (int width) { this.width = width; }
@@ -121,9 +121,7 @@ public class Network {
     public ArrayList<Double> getPowerVec () { return this.powerVec; }
 
     public void setPowerMat (ArrayList<ArrayList<Double>> powerMat) { this.powerMat = powerMat;
-        for (int i = 0; i < layers.size(); i++) {
-            layers.get(i).setPowerVec(this.powerMat.get(i));
-        }
+        for (int i = 0; i < layers.size(); i++) { layers.get(i).setPowerVec(this.powerMat.get(i)); }
     }
 
     public ArrayList<ArrayList<Double>> getPowerMat () { return this.powerMat; }
@@ -134,11 +132,19 @@ public class Network {
 
     public double getMinPower () { return this.minPower; }
 
+    public double getMinPower (int index) { return this.minPowerVec.get(index); }
+
+    public double getMinPower (int indexI, int indexJ) { return this.minPowerMat.get(indexI).get(indexJ); }
+
     public void setMaxPower (double maxPower) { this.maxPower = maxPower;
         for (Layer layer : this.layers) { layer.setMaxPower(this.maxPower); }
     }
 
     public double getMaxPower () { return this.maxPower; }
+
+    public double getMaxPower (int index) { return this.maxPowerVec.get(index); }
+
+    public double getMaxPower (int indexI, int indexJ) { return this.maxPowerMat.get(indexI).get(indexJ); }
 
     public void setMinPowerVec (ArrayList<Double> minPowerVec) { this.minPowerVec = minPowerVec;
         for (Layer layer : this.layers) { layer.setMinPowerVec(this.minPowerVec); }
@@ -154,18 +160,14 @@ public class Network {
 
     public void setMinPowerMat (ArrayList<ArrayList<Double>> minPowerMat) {
         this.minPowerMat = minPowerMat;
-        for (int i = 0; i < layers.size(); i++) {
-            layers.get(i).setMinPowerVec(this.minPowerMat.get(i));
-        }
+        for (int i = 0; i < layers.size(); i++) { layers.get(i).setMinPowerVec(this.minPowerMat.get(i)); }
     }
 
     public ArrayList<ArrayList<Double>> getMinPowerMat () { return this.minPowerMat; }
 
     public void setMaxPowerMat (ArrayList<ArrayList<Double>> maxPowerMat) {
         this.maxPowerMat = maxPowerMat;
-        for (int i = 0; i < layers.size(); i++) {
-            layers.get(i).setMaxPowerVec(this.minPowerMat.get(i));
-        }
+        for (int i = 0; i < layers.size(); i++) { layers.get(i).setMaxPowerVec(this.minPowerMat.get(i)); }
     }
 
     public ArrayList<ArrayList<Double>> getMaxPowerMat () { return this.maxPowerMat; }
@@ -176,6 +178,10 @@ public class Network {
 
     public Double getCoverage () { return this.coverage; }
 
+    public double getCoverage (int index) { return this.coverageVec.get(index); }
+
+    public double getCoverage (int indexI, int indexJ) { return this.coverageMat.get(indexI).get(indexJ); }
+
     public void setCoverageVec (ArrayList<Double> coverageVec) { this.coverageVec = coverageVec;
         for (Layer layer : this.layers) { layer.setCoverageVec(this.coverageVec); }
     }
@@ -183,23 +189,19 @@ public class Network {
     public ArrayList<Double> getCoverageVec () { return this.coverageVec; }
 
     public void setCoverageMat (ArrayList<ArrayList<Double>> coverageMat) { this.coverageMat = coverageMat;
-        for (int i = 0; i < layers.size(); i++) {
-            layers.get(i).setCoverageVec(this.coverageMat.get(i));
-        }
+        for (int i = 0; i < layers.size(); i++) { layers.get(i).setCoverageVec(this.coverageMat.get(i)); }
     }
 
     public ArrayList<ArrayList<Double>> getCoverageMat () { return this.coverageMat; }
 
     public double[][] getErrorMeanMat() { double[][] errorMeanMat = new double[this.layers.size()][];
-        for (int i = 0; i < errorMeanMat.length; i++) {
-            errorMeanMat[i] = layers.get(i).getErrorMeanVec();
-        } return errorMeanMat;
+        for (int i = 0; i < errorMeanMat.length; i++) { errorMeanMat[i] = layers.get(i).getErrorMeanVec(); }
+        return errorMeanMat;
     }
 
     public Double[][] getHypothesisMat() { Double[][] hypothesisMat = new Double[this.layers.size()][];
-        for (int i = 0; i < hypothesisMat.length; i++) {
-            hypothesisMat[i] = layers.get(i).getHypothesisVec();
-        } return hypothesisMat;
+        for (int i = 0; i < hypothesisMat.length; i++) { hypothesisMat[i] = layers.get(i).getHypothesisVec(); }
+        return hypothesisMat;
     }
 
     public Double[][] getThesisMat() { Double[][] thesisMat = new Double[this.layers.size()][];
@@ -207,14 +209,14 @@ public class Network {
         return thesisMat;
     }
 
-    public void test (Double... input) { // Activate all perceptron layers.
+    public void test (Double... input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) { this.layers.get(i).test(input); }
             else { this.layers.get(i).test(this.layers.get(i - 1).getThesisVec()); }
         }
     }
 
-    public void test (Double[]... input) { // Activate all perceptron layers.
+    public void test (Double[]... input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) {this.layers.get(i).test(input); }
             else { this.layers.get(i).test(this.layers.get(i - 1).getThesisVec()); }

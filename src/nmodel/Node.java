@@ -1,8 +1,7 @@
 /*------------------------------------------------------------------------------
- Javai is open-source framework for comprehensive learning, produced and
- maintained by the Javai Foundation.
+ Open-source framework for comprehensive learning.
 
- Copyright (C) 2022 Javai Foundation
+ Copyright (C) 2022 Caleb Princewill Nwokocha
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published
@@ -17,89 +16,45 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 
- Email info@nmodel.org for technical support and/or special permission
- to use this framework.
+ Email calebnwokocha@gmail.com for technical support and/or special
+ permission to use this framework.
 ---------------------------------------------------------------------------- */
 
 package nmodel;
 
-/**
- * Node class consist of functions and methods for operations on a comprehensive node.
- */
 public class Node {
     private String functionName;
     private Double hypothesis, thesis, coverage = null;
     private double minPower, maxPower, power, errorMean = 0.0;
     private double[] inputMean, upperBound, lowerBound;
 
-    /**
-     * This constructs a comprehensive node without manually setting its input.
-     * The node comprehensive function is automatically set to "sum", and the
-     * power of the node is automatically configured by setPower().
-     */
     public Node () {}
 
-    /**
-     * This returns the node comprehensive function name.
-     */
     public String getFunctionName() { return this.functionName; }
 
-    /**
-     * This configures the node comprehensive function name.
-     */
     public void setFunctionName(String functionName) { this.functionName = functionName; }
 
-    /**
-     * This returns the node hypothesis.
-     */
     public Double getHypothesis() { return this.hypothesis; }
 
-    /**
-     * This returns the node thesis.
-     */
     public Double getThesis() { return this.thesis; }
 
-    /**
-     * This returns the node rule.
-     */
     public String getRule () {
         double probability = this.thesis / (this.thesis + this.errorMean);
         return this.functionName + " at probability " + probability;
     }
 
-    /**
-     * This returns the node mean error.
-     */
     public double getErrorMean() { return this.errorMean; }
 
-    /**
-     * This returns the node minimum power.
-     */
     public double getMinPower() { return this.minPower; }
 
-    /**
-     * This configures the node minimum power.
-     */
     public void setMinPower(double minPower) { this.minPower = minPower; }
 
-    /**
-     * This returns the node maximum power.
-     */
     public double getMaxPower() { return this.maxPower; }
 
-    /**
-     * This configures the node maximum power.
-     */
     public void setMaxPower(double maxPower) { this.maxPower = maxPower; }
 
-    /**
-     * This returns the node actual power.
-     */
     public double getPower() { return this.power; }
 
-    /**
-     * This configures the node actual power to the argument.
-     */
     public void setPower(double power) { this.power = power; }
 
     public void setCoverage (Double coverage) { this.coverage = coverage; }
@@ -114,10 +69,6 @@ public class Node {
         }
     }
 
-    /**
-     * This prompts the node to update its meanError. Given the two arguments: objective and iteration,
-     * an intermediate error is calculated, and this error is used to update the node meanError.
-     */
     public void train (double objective, int iteration, Double... input) {
         if (iteration == 1) { this.inputMean = new double[input.length]; }
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
@@ -126,26 +77,15 @@ public class Node {
         this.errorMean = this.dynamicPowerMean(this.errorMean, error, this.power, iteration);
     }
 
-    /**
-     * This prompts the node to update its meanError. The two arguments: iteration and error,
-     * are used to update the node meanError.
-     */
+
     public void train (int iteration, Double error, Double... input) {
         if (iteration == 1) { this.inputMean = new double[input.length]; }
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
-        if (error == null) { this.errorMean = 0.0; } // Unsupervised learning
+        if (error == null) { this.errorMean = 0.0; } // For unsupervised learning
         else { this.errorMean = this.dynamicPowerMean(this.errorMean, error, this.power, iteration); }
         this.activate(input);
     }
 
-    /**
-     * This prompts the node to produce its hypothesis and thesis upon a vector argument. The result of the
-     * node comprehensive function is the node hypothesis, and the node thesis is obtained by subtracting
-     * meanError from that hypothesis.
-     *
-     * @see CFunction
-     * @param input
-     */
     private void activate (Double[] input) {
         CFunction cFunction = new CFunction(this.functionName, input);
         this.hypothesis = cFunction.getValue();
