@@ -25,17 +25,11 @@ package nmodel;
 public class CFunction {
     private double value;
 
-    public CFunction(String functionName, Double parameter) {
-        switch (functionName) {
-            case "sum" -> this.sum(parameter);
-            case "cubic volume" -> this.cubicVolume(parameter);
-        }
-    }
-
     public CFunction(String functionName, Double... parameters) {
         switch (functionName) {
             case "sum" -> this.sum(parameters);
             case "force" -> this.force(parameters[0], parameters[1]);
+            case "exponent" -> this.exponent(parameters[0]);
         }
     }
 
@@ -49,4 +43,6 @@ public class CFunction {
         double s = 0;
         for (double x : X) { s += x; } this.value =  s;
     }
+
+    private void exponent (Double x) { this.value = Math.pow(x, 2); }
 }

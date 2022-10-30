@@ -24,9 +24,10 @@ package nmodel;
 
 public class Node {
     private String functionName;
-    private Double hypothesis, thesis, coverage = null;
-    private double minPower, maxPower, power, errorMean = 0.0;
-    private double[] inputMean, upperBound, lowerBound;
+    private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
+    private double minPower, maxPower, power;
+    private Double[] inputMean, upperBound, lowerBound;
+    private final Mean mean = new Mean();
 
     public Node () {}
 
@@ -70,20 +71,23 @@ public class Node {
     }
 
     public void train (double objective, int iteration, Double... input) {
-        if (iteration == 1) { this.inputMean = new double[input.length]; }
-        if (this.coverage != null) { this.setInputBounds(input, iteration); }
         this.activate(input);
-        double error = this.thesis - objective;
-        this.errorMean = this.dynamicPowerMean(this.errorMean, error, this.power, iteration);
+        Double error = this.thesis - objective;
+        if (iteration == 1) { this.inputMean = new Double[input.length]; this.errorMean = error;}
+        if (iteration > 1) { this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration); }
+        if (this.coverage != null) { this.setInputBounds(input, iteration); }
     }
 
 
     public void train (int iteration, Double error, Double... input) {
-        if (iteration == 1) { this.inputMean = new double[input.length]; }
+        if (iteration == 1) { this.inputMean = new Double[input.length]; this.errorMean = error;}
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
         if (error == null) { this.errorMean = 0.0; } // For unsupervised learning
-        else { this.errorMean = this.dynamicPowerMean(this.errorMean, error, this.power, iteration); }
-        this.activate(input);
+        else {
+            if (iteration > 1) {
+                this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration);
+            }
+        } this.activate(input);
     }
 
     private void activate (Double[] input) {
@@ -101,10 +105,10 @@ public class Node {
     }
 
     private void setInputBounds (Double[] input, Integer iteration) {
-        this.inputMean = this.dynamicPowerMean(this.inputMean,
+        this.inputMean = mean.powerMean(this.inputMean,
                 input, this.power, iteration + 1);
-        this.upperBound = new double[inputMean.length];
-        this.lowerBound = new double[inputMean.length];
+        this.upperBound = new Double[inputMean.length];
+        this.lowerBound = new Double[inputMean.length];
         for (int i = 0; i < inputMean.length; i++) {
             double inputDeviation = this.standardDeviation(input, inputMean[i]);
             this.upperBound[i] = inputMean[i] + (this.coverage * inputDeviation);
@@ -114,18 +118,6 @@ public class Node {
 
     private boolean isBetween (Double data, Double minimum, Double maximum) {
         return minimum <= data && data <= maximum;
-    }
-
-    private double dynamicPowerMean (double mean, Double datum, double power, int time) {
-        mean = (Math.pow((1.0 / (time)) * (Math.pow(datum, power) +
-                (Math.pow(mean, power) * (time - 1))), 1.0 / power));
-        return mean;
-    }
-
-    private double[] dynamicPowerMean (double[] mean, Double[] data, double power, int time) {
-        for (int i = 0; i < data.length; i++) {
-            mean[i] = this.dynamicPowerMean(mean[i], data[i], power, time);
-        } return mean;
     }
 
     private double variance (Double[] data, double expectedValue) {
