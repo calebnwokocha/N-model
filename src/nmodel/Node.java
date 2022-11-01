@@ -25,7 +25,7 @@ package nmodel;
 public class Node {
     private String functionName;
     private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
-    private double minPower, maxPower, power;
+    private double minPower, maxPower, power, objective;
     private Double[] inputMean, upperBound, lowerBound;
     private final Mean mean = new Mean();
 
@@ -44,7 +44,7 @@ public class Node {
         return this.functionName + " at probability " + probability;
     }
 
-    public double getErrorMean() { return this.errorMean; }
+    public double getErrorMean() { return this.squareRoot(this.errorMean); }
 
     public double getMinPower() { return this.minPower; }
 
@@ -71,20 +71,18 @@ public class Node {
     }
 
     public void train (double objective, int iteration, Double... input) {
-        this.activate(input);
-        Double error = this.thesis - objective;
+        this.objective = objective; this.activate(input);
+        Double error = Math.pow(this.thesis - this.objective, 2);
         if (iteration == 1) { this.inputMean = new Double[input.length]; this.errorMean = error;}
         if (iteration > 1) { this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration); }
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
     }
 
-
     public void train (int iteration, Double error, Double... input) {
         if (iteration == 1) { this.inputMean = new Double[input.length]; this.errorMean = error;}
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
         if (error == null) { this.errorMean = 0.0; } // For unsupervised learning
-        else {
-            if (iteration > 1) {
+        else { if (iteration > 1) {
                 this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration);
             }
         } this.activate(input);
@@ -92,8 +90,10 @@ public class Node {
 
     private void activate (Double[] input) {
         CFunction cFunction = new CFunction(this.functionName, input);
-        this.hypothesis = cFunction.getValue();
-        this.thesis = this.hypothesis - this.errorMean;
+        double cValue = cFunction.getValue();
+        this.hypothesis = cValue + (2 * (this.squareRoot(this.errorMean) - cValue)) +
+                this.squareRoot(2 * cValue * this.objective);
+        this.thesis = this.hypothesis - this.squareRoot(this.errorMean);
     }
 
     private boolean isOutlier (Double[] input) {
@@ -115,6 +115,8 @@ public class Node {
             this.lowerBound[i] = inputMean[i] - (this.coverage * inputDeviation);
         }
     }
+
+    private double squareRoot (double data) { return Math.pow(data, 0.5); }
 
     private boolean isBetween (Double data, Double minimum, Double maximum) {
         return minimum <= data && data <= maximum;
