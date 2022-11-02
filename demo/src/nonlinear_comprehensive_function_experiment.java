@@ -10,7 +10,7 @@ public class nonlinear_comprehensive_function_experiment {
         }
 
         Network network = new Network(2, 1);
-        network.setFunctionName("exponent");
+        network.setFunctionName("square");
         network.getLayers().get(0).setPower(0.6);
         network.getLayers().get(1).setPower(6.5);
         network.setCoverage(null);
