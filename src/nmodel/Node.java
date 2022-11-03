@@ -24,8 +24,8 @@ package nmodel;
 
 public class Node {
     private String functionName;
-    private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
-    private double minPower, maxPower, power, objective;
+    private Double hypothesis, thesis, errorMean, coverage = null;
+    private double power, objective;
     private Double[] inputMean, upperBound, lowerBound;
     private final Mean mean = new Mean();
 
@@ -45,14 +45,6 @@ public class Node {
     }
 
     public double getErrorMean() { return this.squareRoot(this.errorMean); }
-
-    public double getMinPower() { return this.minPower; }
-
-    public void setMinPower(double minPower) { this.minPower = minPower; }
-
-    public double getMaxPower() { return this.maxPower; }
-
-    public void setMaxPower(double maxPower) { this.maxPower = maxPower; }
 
     public double getPower() { return this.power; }
 
@@ -116,7 +108,9 @@ public class Node {
         }
     }
 
-    private double squareRoot (double data) { return Math.pow(data, 0.5); }
+    private double squareRoot (Double data) {
+        try { return Math.pow(data, 0.5); } catch (NullPointerException e) { return 0.0; }
+    }
 
     private boolean isBetween (Double data, Double minimum, Double maximum) {
         return minimum <= data && data <= maximum;

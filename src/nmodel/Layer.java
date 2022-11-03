@@ -27,8 +27,8 @@ import java.util.ArrayList;
 public class Layer {
     private ArrayList<Node> nodes = new ArrayList<>();
     private String functionName; private ArrayList<String> functionNameVec;
-    private double minPower, maxPower, power; private Double coverage;
-    private ArrayList<Double> minPowerVec, maxPowerVec, powerVec, coverageVec;
+    private double power; private Double coverage;
+    private ArrayList<Double> powerVec, coverageVec;
 
     public Layer (int width) { for (int i = 0; i < width; i++) { this.nodes.add(new Node()); } }
 
@@ -36,17 +36,14 @@ public class Layer {
 
     public void setNodes (ArrayList<Node> nodes) { this.nodes = nodes;
         this.functionNameVec = new ArrayList<>(); this.powerVec = new ArrayList<>();
-        this.minPowerVec = new ArrayList<>(); this.maxPowerVec = new ArrayList<>();
         this.coverageVec = new ArrayList<>();
         for (Node node : this.nodes) { this.functionNameVec.add(node.getFunctionName());
-            this.powerVec.add(node.getPower()); this.minPowerVec.add(node.getMinPower());
-            this.maxPowerVec.add(node.getMaxPower()); this.coverageVec.add(node.getCoverage());
+            this.powerVec.add(node.getPower()); this.coverageVec.add(node.getCoverage());
         }
     }
 
     public void addNode(Node node) { this.nodes.add(node);
         this.functionNameVec.add(node.getFunctionName()); this.powerVec.add(node.getPower());
-        this.minPowerVec.add(node.getMinPower()); this.maxPowerVec.add(node.getMaxPower());
         this.coverageVec.add(node.getCoverage());
     }
 
@@ -60,34 +57,6 @@ public class Layer {
 
     public void setFunctionName(String functionName) { this.functionName = functionName;
         for (Node node : nodes) { node.setFunctionName(this.functionName); }
-    }
-
-    public double getMinPower() { return this.minPower; }
-
-    public double getMinPower (int index) { return this.minPowerVec.get(index); }
-
-    public void setMinPower(double minPower) { this.minPower = minPower;
-        for (Node node : nodes) { node.setPower(this.minPower); }
-    }
-
-    public double getMaxPower() { return this.maxPower; }
-
-    public double getMaxPower (int index) { return this.maxPowerVec.get(index); }
-
-    public void setMaxPower(double maxPower) { this.maxPower = maxPower;
-        for (Node node : nodes) { node.setPower(this.maxPower); }
-    }
-
-    public ArrayList<Double> getMinPowerVec() { return this.minPowerVec; }
-
-    public void setMinPowerVec(ArrayList<Double> minPowerVec) { this.minPowerVec = minPowerVec;
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setPower(this.minPowerVec.get(i)); }
-    }
-
-    public ArrayList<Double> getMaxPowerVec() { return this.maxPowerVec; }
-
-    public void setMaxPowerVec(ArrayList<Double> maxPowerVec) { this.maxPowerVec = maxPowerVec;
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setPower(this.maxPowerVec.get(i)); }
     }
 
     public double getPower() { return this.power; }

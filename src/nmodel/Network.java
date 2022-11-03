@@ -29,9 +29,9 @@ public class Network {
     private int width; private ArrayList<Integer> widthVec;
     private String functionName; private ArrayList<String> functionNameVec;
     private ArrayList<ArrayList<String>> functionNameMat;
-    private double power, minPower, maxPower; private Double coverage;
-    private ArrayList<Double> powerVec, minPowerVec, maxPowerVec, coverageVec;
-    private ArrayList<ArrayList<Double>> powerMat, minPowerMat, maxPowerMat, coverageMat;
+    private double power; private Double coverage;
+    private ArrayList<Double> powerVec, coverageVec;
+    private ArrayList<ArrayList<Double>> powerMat, coverageMat;
 
     public Network (int length, int width) {
         this.width = width;
@@ -47,18 +47,15 @@ public class Network {
 
     public void setLayers (ArrayList<Layer> layers) { this.layers = layers;
         this.functionNameMat = new ArrayList<>(); this.powerMat = new ArrayList<>();
-        this.minPowerMat = new ArrayList<>(); this.maxPowerMat = new ArrayList<>();
         this.widthVec = new ArrayList<>(); this.coverageMat = new ArrayList<>();
         for (Layer layer : this.layers) { this.functionNameMat.add(layer.getFunctionNameVec());
-            this.powerMat.add(layer.getPowerVec()); this.minPowerMat.add(layer.getMinPowerVec());
-            this.maxPowerMat.add(layer.getMaxPowerVec()); this.widthVec.add(layer.getWidth());
+            this.powerMat.add(layer.getPowerVec()); this.widthVec.add(layer.getWidth());
             this.coverageMat.add(layer.getCoverageVec());
         }
     }
 
     public void addLayer (Layer layer) { this.layers.add(layer);
         this.functionNameMat.add(layer.getFunctionNameVec()); this.powerMat.add(layer.getPowerVec());
-        this.minPowerMat.add(layer.getMinPowerVec()); this.maxPowerMat.add(layer.getMaxPowerVec());
         this.widthVec.add(layer.getWidth()); this.coverageMat.add(layer.getCoverageVec());
     }
 
@@ -125,52 +122,6 @@ public class Network {
     }
 
     public ArrayList<ArrayList<Double>> getPowerMat () { return this.powerMat; }
-
-    public void setMinPower (double minPower) { this.minPower = minPower;
-        for (Layer layer : this.layers) { layer.setMinPower(this.minPower); }
-    }
-
-    public double getMinPower () { return this.minPower; }
-
-    public double getMinPower (int index) { return this.minPowerVec.get(index); }
-
-    public double getMinPower (int indexI, int indexJ) { return this.minPowerMat.get(indexI).get(indexJ); }
-
-    public void setMaxPower (double maxPower) { this.maxPower = maxPower;
-        for (Layer layer : this.layers) { layer.setMaxPower(this.maxPower); }
-    }
-
-    public double getMaxPower () { return this.maxPower; }
-
-    public double getMaxPower (int index) { return this.maxPowerVec.get(index); }
-
-    public double getMaxPower (int indexI, int indexJ) { return this.maxPowerMat.get(indexI).get(indexJ); }
-
-    public void setMinPowerVec (ArrayList<Double> minPowerVec) { this.minPowerVec = minPowerVec;
-        for (Layer layer : this.layers) { layer.setMinPowerVec(this.minPowerVec); }
-    }
-
-    public ArrayList<Double> getMinPowerVec () { return this.minPowerVec; }
-
-    public void setMaxPowerVec (ArrayList<Double> maxPowerVec) { this.maxPowerVec = maxPowerVec;
-        for (Layer layer : this.layers) { layer.setMaxPowerVec(this.maxPowerVec); }
-    }
-
-    public ArrayList<Double> getMaxPowerVec () { return this.maxPowerVec; }
-
-    public void setMinPowerMat (ArrayList<ArrayList<Double>> minPowerMat) {
-        this.minPowerMat = minPowerMat;
-        for (int i = 0; i < layers.size(); i++) { layers.get(i).setMinPowerVec(this.minPowerMat.get(i)); }
-    }
-
-    public ArrayList<ArrayList<Double>> getMinPowerMat () { return this.minPowerMat; }
-
-    public void setMaxPowerMat (ArrayList<ArrayList<Double>> maxPowerMat) {
-        this.maxPowerMat = maxPowerMat;
-        for (int i = 0; i < layers.size(); i++) { layers.get(i).setMaxPowerVec(this.minPowerMat.get(i)); }
-    }
-
-    public ArrayList<ArrayList<Double>> getMaxPowerMat () { return this.maxPowerMat; }
 
     public void setCoverage (Double coverage) { this.coverage = coverage;
         for (Layer layer : this.layers) { layer.setCoverage(this.coverage); }
