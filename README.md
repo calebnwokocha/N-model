@@ -1,6 +1,6 @@
 # Comprehensive Machine Learning (CML)
 
-CML is a subfield of machine learning. Learn about CML via the following weblinks:
+Learn about CML via the following weblinks:
 
 {put links}
 
