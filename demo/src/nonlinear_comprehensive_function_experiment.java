@@ -1,4 +1,4 @@
-import nmodel.Network;
+import cml.Network;
 
 import java.util.Arrays;
 
