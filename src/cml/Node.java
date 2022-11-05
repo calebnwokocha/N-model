@@ -22,6 +22,8 @@
 
 package cml;
 
+import java.util.Arrays;
+
 public class Node {
     private String functionName;
     private Double hypothesis, thesis, errorMean, coverage = null;
@@ -65,13 +67,15 @@ public class Node {
     public void train (double objective, int iteration, Double... input) {
         this.objective = objective; this.activate(input);
         Double error = Math.pow(this.thesis - this.objective, 2);
-        if (iteration == 1) { this.inputMean = new Double[input.length]; this.errorMean = error;}
+        if (iteration == 1) { this.inputMean = new Double[input.length];
+            Arrays.fill(inputMean, 0.0); this.errorMean = error;}
         if (iteration > 1) { this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration); }
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
     }
 
     public void train (int iteration, Double error, Double... input) {
-        if (iteration == 1) { this.inputMean = new Double[input.length]; this.errorMean = error;}
+        if (iteration == 1) { this.inputMean = new Double[input.length];
+            Arrays.fill(inputMean, 0.0); this.errorMean = error;}
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
         if (error == null) { this.errorMean = 0.0; } // For unsupervised learning
         else { if (iteration > 1) {

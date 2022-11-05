@@ -4,9 +4,14 @@ import java.util.Arrays;
 
 public class nonlinear_comprehensive_function_experiment {
     public static void main(String[] args) throws Exception {
-        double[] x1 = new double[100];
-        for (int i = 0; i < x1.length; i++) {
-            x1[i] = Math.random() + 10;
+        double[] trainSet = new double[100];
+        for (int i = 0; i < trainSet.length; i++) {
+            trainSet[i] = Math.random() + 10;
+        }
+
+        double[] testSet = new double[100];
+        for (int i = 0; i < testSet.length; i++) {
+            testSet[i] = Math.random() + 10;
         }
 
         Network network = new Network(2, 1);
@@ -20,13 +25,13 @@ public class nonlinear_comprehensive_function_experiment {
         System.out.println("\nNETWORK TRAINING............................................................................................................................");
         System.out.println();
         System.out.println();
-        for (int i = 0; i < x1.length; i++) {
-            network.train(i + 1, networkObjective, x1[i]);
+        for (int i = 0; i < trainSet.length; i++) {
+            network.train(i + 1, networkObjective, trainSet[i]);
             System.out.println("Example " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
             System.out.println();
-            System.out.println("Network input is " + x1[i]);
+            System.out.println("Network input is " + trainSet[i]);
             System.out.println();
             System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesisMat()[network.getLength() - 1]));
             System.out.println();
@@ -40,13 +45,13 @@ public class nonlinear_comprehensive_function_experiment {
         System.out.println("NETWORK TESTING............................................................................................................................");
         System.out.println();
         System.out.println();
-        for (int i = 0; i < x1.length; i++) {
-            network.test(x1[i]);
+        for (int i = 0; i < testSet.length; i++) {
+            network.test(testSet[i]);
             System.out.println("Test " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
             System.out.println();
-            System.out.println("Network input is " + x1[i]);
+            System.out.println("Network input is " + testSet[i]);
             System.out.println();
             System.out.println("Network thesis is " + Arrays.toString(network.getThesisMat()[network.getLength() - 1]));
             System.out.println();
