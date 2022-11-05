@@ -30,7 +30,7 @@ public class nonlinear_comprehensive_function_experiment {
             System.out.println();
             System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesisMat()[network.getLength() - 1]));
             System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesisMat()[network.getLength() - 1]));
+            System.out.println("Network thesis is " + Arrays.deepToString(network.getThesisMat())/*Arrays.toString(network.getThesisMat()[network.getLength() - 1])*/);
             System.out.println();
             System.out.println("Network error mean is " + Arrays.toString(network.getErrorMeanMat()[network.getLength() - 1]));
             System.out.println();
