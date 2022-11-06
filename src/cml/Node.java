@@ -26,7 +26,7 @@ import java.util.Arrays;
 
 public class Node {
     private String functionName;
-    private Double hypothesis, thesis, errorMean, coverage = null;
+    private Double hypothesis, thesis = 0.0, errorMean, coverage = null;
     private double power, objective;
     private Double[] inputMean, upperBound, lowerBound;
     private final Mean mean = new Mean();

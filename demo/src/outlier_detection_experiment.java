@@ -25,7 +25,7 @@ public class outlier_detection_experiment {
         System.out.println();
         System.out.println();
         for (int i = 0; i < trainSet.length; i++) {
-            network.train(i + 1, networkObjective, trainSet[i]);
+            network.train(i + 1, networkObjective, new Double[]{trainSet[i]});
             System.out.println("Example " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));

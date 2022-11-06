@@ -146,25 +146,20 @@ public class Network {
     public ArrayList<ArrayList<Double>> getCoverageMat () { return this.coverageMat; }
 
     public double[][] getErrorMeanMat() { double[][] errorMeanMat = new double[this.layers.size()][];
-        for (int i = 0; i < errorMeanMat.length; i++) { errorMeanMat[i] = layers.get(i).getErrorMeanVec(); }
-        return errorMeanMat;
+        for (int i = 0; i < errorMeanMat.length; i++) {
+            errorMeanMat[i] = this.layers.get(i).getErrorMeanVec();
+        } return errorMeanMat;
     }
 
     public Double[][] getHypothesisMat() { Double[][] hypothesisMat = new Double[this.layers.size()][];
-        for (int i = 0; i < hypothesisMat.length; i++) { hypothesisMat[i] = layers.get(i).getHypothesisVec(); }
-        return hypothesisMat;
+        for (int i = 0; i < hypothesisMat.length; i++) {
+            hypothesisMat[i] = this.layers.get(i).getHypothesisVec();
+        } return hypothesisMat;
     }
 
     public Double[][] getThesisMat() { Double[][] thesisMat = new Double[this.layers.size()][];
-        for (int i = 0; i < thesisMat.length; i++) { thesisMat[i] = layers.get(i).getThesisVec(); }
+        for (int i = 0; i < thesisMat.length; i++) { thesisMat[i] = this.layers.get(i).getThesisVec(); }
         return thesisMat;
-    }
-
-    public void test (Double... input) {
-        for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) { this.layers.get(i).test(input); }
-            else { this.layers.get(i).test(this.layers.get(i - 1).getThesisVec()); }
-        }
     }
 
     public void test (Double[]... input) {
@@ -174,24 +169,10 @@ public class Network {
         }
     }
 
-    public void train (int iteration, double[] objective, Double... input) {
-        for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
-            else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesisVec()); }
-        }
-    }
-
     public void train (int iteration, double[] objective, Double[]... input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
             else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesisVec()); }
-        }
-    }
-
-    public void train (int iteration, double error, Double... input) {
-        for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) { this.layers.get(i).train(iteration, error, input); }
-            else { this.layers.get(i).train(iteration, error, this.layers.get(i - 1).getThesisVec()); }
         }
     }
 

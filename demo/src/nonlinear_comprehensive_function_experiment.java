@@ -26,7 +26,7 @@ public class nonlinear_comprehensive_function_experiment {
         System.out.println();
         System.out.println();
         for (int i = 0; i < trainSet.length; i++) {
-            network.train(i + 1, networkObjective, trainSet[i]);
+            network.train(i + 1, networkObjective, new Double[]{trainSet[i]});
             System.out.println("Example " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
@@ -46,7 +46,7 @@ public class nonlinear_comprehensive_function_experiment {
         System.out.println();
         System.out.println();
         for (int i = 0; i < testSet.length; i++) {
-            network.test(testSet[i]);
+            network.test(new Double[]{trainSet[i]});
             System.out.println("Test " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));

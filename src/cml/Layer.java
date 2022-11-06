@@ -97,39 +97,38 @@ public class Layer {
     public ArrayList<Double> getCoverageVec () { return this.coverageVec; }
 
     public double[] getErrorMeanVec() { double[] errorMeanVec = new double[this.nodes.size()];
-        for (int i = 0; i < errorMeanVec.length; i++) { errorMeanVec[i] = nodes.get(i).getErrorMean(); }
+        for (int i = 0; i < errorMeanVec.length; i++) { errorMeanVec[i] = this.nodes.get(i).getErrorMean(); }
         return errorMeanVec;
     }
 
     public Double[] getHypothesisVec() { Double[] hypothesisVec = new Double[this.nodes.size()];
-        for (int i = 0; i < hypothesisVec.length; i++) { hypothesisVec[i] = nodes.get(i).getHypothesis(); }
+        for (int i = 0; i < hypothesisVec.length; i++) { hypothesisVec[i] = this.nodes.get(i).getHypothesis(); }
         return hypothesisVec;
     }
 
     public Double[] getThesisVec() { Double[] thesisVec = new Double[this.nodes.size()];
-        for (int i = 0; i < thesisVec.length; i++) { thesisVec[i] = nodes.get(i).getThesis(); }
+        for (int i = 0; i < thesisVec.length; i++) { thesisVec[i] = this.nodes.get(i).getThesis(); }
         return thesisVec;
     }
 
-    public void test (Double... input) {
-        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).test(input[i]); }
-    }
-
     public void test (Double[]... input) {
-        for (int i = 0; i < this.nodes.size(); i++) { this.nodes.get(i).test(input[i]); }
-    }
-
-    public void train (int iteration, double[] objectives, Double... input) {
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(objectives[i], iteration, input[i]); }
+        for (int i = 0; i < this.nodes.size(); i++) {
+            if (input.length > 1) { this.nodes.get(i).test(input[i]); }
+            else { this.nodes.get(i).test(input[0]); }
+        }
     }
 
     public void train (int iteration, double[] objectives, Double[]... input) {
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).train(objectives[i], iteration, input[i]); }
+        for (int i = 0; i < this.nodes.size(); i++) {
+            if (input.length > 1) { this.nodes.get(i).train(objectives[i], iteration, input[i]); }
+            else { this.nodes.get(i).train(objectives[i], iteration, input[0]); }
+        }
     }
 
     public void train (int iteration, double error, Double[]... input) {
-        for (int i = 0; i < nodes.size(); i++) { double nodeError = nodes.get(i).getThesis() / error;
-            nodes.get(i).train(nodeError, iteration, input[i]);
+        for (int i = 0; i < this.nodes.size(); i++) {
+            if (input.length > 1) { nodes.get(i).train(error, iteration, input[i]); }
+            else { nodes.get(i).train(error, iteration, input[0]); }
         }
     }
 }
