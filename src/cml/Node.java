@@ -26,7 +26,7 @@ import java.util.Arrays;
 
 public class Node {
     private String functionName;
-    private Double hypothesis, thesis = 0.0, errorMean, coverage = null;
+    private Double hypothesis, thesis, errorMean, coverage = null;
     private double power, objective;
     private Double[] inputMean, upperBound, lowerBound;
     private final Mean mean = new Mean();
@@ -71,17 +71,6 @@ public class Node {
             Arrays.fill(inputMean, 0.0); this.errorMean = error;}
         if (iteration > 1) { this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration); }
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
-    }
-
-    public void train (int iteration, Double error, Double... input) {
-        if (iteration == 1) { this.inputMean = new Double[input.length];
-            Arrays.fill(inputMean, 0.0); this.errorMean = error;}
-        if (this.coverage != null) { this.setInputBounds(input, iteration); }
-        if (error == null) { this.errorMean = 0.0; } // For unsupervised learning
-        else { if (iteration > 1) {
-                this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration);
-            }
-        } this.activate(input);
     }
 
     private void activate (Double[] input) {

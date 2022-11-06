@@ -120,15 +120,12 @@ public class Layer {
 
     public void train (int iteration, double[] objectives, Double[]... input) {
         for (int i = 0; i < this.nodes.size(); i++) {
-            if (input.length > 1) { this.nodes.get(i).train(objectives[i], iteration, input[i]); }
-            else { this.nodes.get(i).train(objectives[i], iteration, input[0]); }
-        }
-    }
-
-    public void train (int iteration, double error, Double[]... input) {
-        for (int i = 0; i < this.nodes.size(); i++) {
-            if (input.length > 1) { nodes.get(i).train(error, iteration, input[i]); }
-            else { nodes.get(i).train(error, iteration, input[0]); }
+            if (input.length > 1) {
+                try { this.nodes.get(i).train(objectives[i], iteration, input[i]); }
+                catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Make sure layer width is equal to layer input length.");
+                }
+            } else { this.nodes.get(i).train(objectives[i], iteration, input[0]); }
         }
     }
 }

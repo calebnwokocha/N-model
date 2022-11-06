@@ -175,11 +175,4 @@ public class Network {
             else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesisVec()); }
         }
     }
-
-    public void train (int iteration, double error, Double[]... input) {
-        for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) { this.layers.get(i).train(iteration, error, input); }
-            else { this.layers.get(i).train(iteration, error, this.layers.get(i - 1).getThesisVec()); }
-        }
-    }
 }

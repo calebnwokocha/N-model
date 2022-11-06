@@ -17,7 +17,7 @@ public class outlier_detection_experiment {
         Network network = new Network(2, 1);
         network.setFunctionName("sum");
         network.setPower(40);
-        network.setCoverage(7.0);
+        network.setCoverage(5.0);
 
         double[] networkObjective = new double[]{200.0};
 
@@ -45,7 +45,7 @@ public class outlier_detection_experiment {
         System.out.println();
         System.out.println();
         for (int i = 0; i < outlierTestSet.length; i++) {
-            network.test(outlierTestSet[i]);
+            network.test(new Double[]{outlierTestSet[i]});
             System.out.println("Outlier Test " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
