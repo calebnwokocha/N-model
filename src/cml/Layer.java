@@ -113,8 +113,12 @@ public class Layer {
 
     public void test (Double[]... input) {
         for (int i = 0; i < this.nodes.size(); i++) {
-            if (input.length > 1) { this.nodes.get(i).test(input[i]); }
-            else { this.nodes.get(i).test(input[0]); }
+            if (input.length > 1) {
+                try { this.nodes.get(i).test(input[i]); }
+                catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Make sure layer width is equal to layer input length.");
+                }
+            } else { this.nodes.get(i).test(input[0]); }
         }
     }
 
