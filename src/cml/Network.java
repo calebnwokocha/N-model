@@ -166,6 +166,7 @@ public class Network {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) {this.layers.get(i).test(input); }
             else { this.layers.get(i).test(this.layers.get(i - 1).getThesisVec()); }
+            if (this.isNull(this.layers.get(i))) { this.nullifyNetOutput(); break; }
         }
     }
 
@@ -175,4 +176,11 @@ public class Network {
             else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesisVec()); }
         }
     }
+
+    private boolean isNull (Layer layer) {
+        for (Node node : layer.getNodes()) { if (node.getThesis() == null) { return true; } }
+        return false;
+    }
+
+    private void nullifyNetOutput () { this.layers.get(this.getLength() - 1).test(new Double[][]{{null}}); }
 }
