@@ -26,8 +26,8 @@ import java.util.Arrays;
 
 public class Node {
     private String functionName;
-    private Double hypothesis, thesis, errorMean, coverage = null;
-    private double power, objective;
+    private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
+    private double power, objective, degree;
     private Double[] inputMean, upperBound, lowerBound;
     private final Mean mean = new Mean();
 
@@ -56,6 +56,8 @@ public class Node {
 
     public Double getCoverage() { return this.coverage; }
 
+    public double getDegree() { return this.degree; }
+
     public void test (Double... input) {
         if (coverage == null) { this.activate(input); }
         else {
@@ -75,10 +77,12 @@ public class Node {
 
     private void activate (Double[] input) {
         CFunction cFunction = new CFunction(this.functionName, input);
+        this.degree = cFunction.getDegree();
         double cValue = cFunction.getValue();
-        this.hypothesis = cValue + (2 * (this.squareRoot(this.errorMean) - cValue)) +
-                this.squareRoot(2 * cValue * this.objective);
-        this.thesis = this.hypothesis - this.squareRoot(this.errorMean);
+        this.hypothesis = this.removeDegree(cValue, this.degree) +
+                (2 * (this.errorMean - this.removeDegree(cValue, this.degree))) +
+                (2 * this.removeDegree(cValue, this.degree) * this.objective);
+        this.thesis = this.squareRoot(this.hypothesis - this.errorMean);
     }
 
     private boolean isOutlier (Double[] input) {
@@ -100,6 +104,8 @@ public class Node {
             this.lowerBound[i] = inputMean[i] - (this.coverage * inputDeviation);
         }
     }
+
+    private double removeDegree (double cValue, double degree) { return Math.pow(cValue, 1 / degree); }
 
     private double squareRoot (Double data) {
         try { return Math.pow(data, 0.5); } catch (NullPointerException e) { return 0.0; }

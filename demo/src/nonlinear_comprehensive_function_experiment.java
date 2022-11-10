@@ -16,8 +16,7 @@ public class nonlinear_comprehensive_function_experiment {
 
         Network network = new Network(2, 1);
         network.setFunctionName("square");
-        network.getLayers().get(0).setPower(0.6);
-        network.getLayers().get(1).setPower(6.5);
+        network.setPower(-6);
         network.setCoverage(null);
 
         double[] networkObjective = new double[]{200.0};

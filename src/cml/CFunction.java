@@ -24,6 +24,7 @@ package cml;
 
 public class CFunction {
     private double value;
+    private double degree;
 
     public CFunction(String functionName, Double... parameters) {
         switch (functionName) {
@@ -33,16 +34,18 @@ public class CFunction {
         }
     }
 
+    public double getDegree() { return this.degree; }
+
     public double getValue() { return this.value; }
 
-    private void cubicVolume (Double s) { this.value = Math.pow(s, 3); }
+    private void cubicVolume (Double s) { this.degree = 3.0; this.value = Math.pow(s, this.degree); }
 
-    private void force (Double m, Double a) { this.value = m * a /*(m + a) - ((m * a) * (1 + m + a - (m * a)))*/; }
+    private void force (Double m, Double a) { this.degree = 1.0; this.value = m * a; }
 
     private void sum (Double... X) {
-        double s = 0;
+        this.degree = 1.0; double s = 0;
         for (double x : X) { s += x; } this.value =  s;
     }
 
-    private void square (Double x) { this.value = Math.pow(x, 2); }
+    private void square (Double x) { this.degree = 2.0; this.value = Math.pow(x, this.degree); }
 }

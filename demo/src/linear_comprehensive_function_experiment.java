@@ -16,7 +16,7 @@ public class linear_comprehensive_function_experiment {
 
         Network network = new Network(2, 1);
         network.setFunctionName("sum");
-        network.setPower(40);
+        network.setPower(-6);
         network.setCoverage(null);
 
         double[] networkObjective = new double[]{200.0};
