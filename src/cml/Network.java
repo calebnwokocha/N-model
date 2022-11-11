@@ -101,6 +101,16 @@ public class Network {
 
     public ArrayList<ArrayList<String>> getFunctionNameMat() { return this.functionNameMat; }
 
+    public double getDegree(int indexI, int indexJ) { return this.layers.get(indexI).getDegreeVec()[indexJ]; }
+
+    public double[] getDegreeVec(int index) { return this.layers.get(index).getDegreeVec(); }
+
+    public double[][] getDegreeMat() {
+        double[][] degreeMat = new double[this.layers.size()][];
+        for (int i = 0; i < degreeMat.length; i++) { degreeMat[i] = layers.get(i).getDegreeVec(); }
+        return degreeMat;
+    }
+
     public void setPower (double power) { this.power = power;
         for (Layer layer : this.layers) { layer.setPower(this.power); }
     }

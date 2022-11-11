@@ -48,6 +48,8 @@ public class Node {
 
     public double getErrorMean() { return this.squareRoot(this.errorMean); }
 
+    public double getDegree() { return this.degree; }
+
     public double getPower() { return this.power; }
 
     public void setPower(double power) { this.power = power; }
@@ -55,8 +57,6 @@ public class Node {
     public void setCoverage (Double coverage) { this.coverage = coverage; }
 
     public Double getCoverage() { return this.coverage; }
-
-    public double getDegree() { return this.degree; }
 
     public void test (Double... input) {
         if (coverage == null) { this.activate(input); }

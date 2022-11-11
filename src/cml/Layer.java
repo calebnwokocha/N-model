@@ -59,6 +59,8 @@ public class Layer {
         for (Node node : nodes) { node.setFunctionName(this.functionName); }
     }
 
+    public double getDegree(int index) { return this.nodes.get(index).getDegree(); }
+
     public double getPower() { return this.power; }
 
     public double getPower (int index) { return this.powerVec.get(index); }
@@ -74,6 +76,12 @@ public class Layer {
         for (int i = 0; i < nodes.size(); i++) {
             nodes.get(i).setFunctionName(this.functionNameVec.get(i));
         }
+    }
+
+    public double[] getDegreeVec() {
+        double[] degreeVec = new double[this.nodes.size()];
+        for (int i = 0; i < degreeVec.length; i++) { degreeVec[i] = nodes.get(i).getDegree(); }
+        return degreeVec;
     }
 
     public ArrayList<Double> getPowerVec() { return this.powerVec; }
