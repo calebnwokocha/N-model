@@ -23,86 +23,68 @@
 package cml;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 public class Layer {
     private ArrayList<Node> nodes = new ArrayList<>();
-    private String functionName; private ArrayList<String> functionNameVec;
-    private double power; private Double coverage;
-    private ArrayList<Double> powerVec, coverageVec;
 
     public Layer (int width) { for (int i = 0; i < width; i++) { this.nodes.add(new Node()); } }
 
     public ArrayList<Node> getNodes() { return this.nodes; }
 
-    public void setNodes (ArrayList<Node> nodes) { this.nodes = nodes;
-        this.functionNameVec = new ArrayList<>(); this.powerVec = new ArrayList<>();
-        this.coverageVec = new ArrayList<>();
-        for (Node node : this.nodes) { this.functionNameVec.add(node.getFunctionName());
-            this.powerVec.add(node.getPower()); this.coverageVec.add(node.getCoverage());
-        }
-    }
+    public void setNodes (ArrayList<Node> nodes) { this.nodes = nodes; }
 
-    public void addNode(Node node) { this.nodes.add(node);
-        this.functionNameVec.add(node.getFunctionName()); this.powerVec.add(node.getPower());
-        this.coverageVec.add(node.getCoverage());
-    }
+    public void addNode(Node node) { this.nodes.add(node); }
 
     public void deleteNode (int index) { this.nodes.remove(index); }
 
     public int getWidth () { return this.nodes.size(); }
 
-    public String getFunctionName() { return this.functionName; }
-
-    public String getFunctionName (int index) { return this.functionNameVec.get(index); }
-
-    public void setFunctionName(String functionName) { this.functionName = functionName;
-        for (Node node : nodes) { node.setFunctionName(this.functionName); }
+    public void setCFunction (String cFunctionName, double degree, Function<Double[], Double> cFunction) {
+        for (Node node : nodes) { node.setCFunction (cFunctionName, degree, cFunction); }
     }
 
-    public double getDegree(int index) { return this.nodes.get(index).getDegree(); }
+    public void setPower(double power) { for (Node node : nodes) { node.setPower(power); } }
 
-    public double getPower() { return this.power; }
-
-    public double getPower (int index) { return this.powerVec.get(index); }
-
-    public void setPower(double power) { this.power = power;
-        for (Node node : nodes) { node.setPower(this.power); }
+    public String[] getCFunctionNameVec() { String[] cFunctionNameVec = new String[this.nodes.size()];
+        for (int i = 0; i < cFunctionNameVec.length; i++) {
+            cFunctionNameVec[i] = nodes.get(i).getCFunctionName();
+        } return cFunctionNameVec;
     }
 
-    public ArrayList<String> getFunctionNameVec() { return this.functionNameVec; }
-
-    public void setFunctionNameVec(ArrayList<String> functionNameVec) {
-        this.functionNameVec = functionNameVec;
+    public void setCFunctionVec(String[] cFunctionNameVec, double[] degreeVec,
+                                    Function<Double[], Double>[] cFunctionVec) {
         for (int i = 0; i < nodes.size(); i++) {
-            nodes.get(i).setFunctionName(this.functionNameVec.get(i));
+            nodes.get(i).setCFunction(cFunctionNameVec[i], degreeVec[i], cFunctionVec[i]);
         }
     }
 
-    public double[] getDegreeVec() {
-        double[] degreeVec = new double[this.nodes.size()];
+    public double[] getDegreeVec() { double[] degreeVec = new double[this.nodes.size()];
         for (int i = 0; i < degreeVec.length; i++) { degreeVec[i] = nodes.get(i).getDegree(); }
         return degreeVec;
     }
 
-    public ArrayList<Double> getPowerVec() { return this.powerVec; }
-
-    public void setPowerVec(ArrayList<Double> powerVec) { this.powerVec = powerVec;
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setPower(this.powerVec.get(i)); }
+    public double[] getPowerVec() { double[] powerVec = new double[this.nodes.size()];
+        for (int i = 0; i < powerVec.length; i++) { powerVec[i] = nodes.get(i).getPower(); }
+        return powerVec;
     }
 
-    public void setCoverage (Double coverage) { this.coverage = coverage;
-        for (Node node : this.nodes) { node.setCoverage(this.coverage); }
+    public void setPowerVec(double[] powerVec) {
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setPower(powerVec[i]); }
     }
 
-    public Double getCoverage () { return this.coverage; }
-
-    public double getCoverage (int index) { return this.coverageVec.get(index); }
-
-    public void setCoverageVec (ArrayList<Double> coverageVec) { this.coverageVec = coverageVec;
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setCoverage(this.coverageVec.get(i)); }
+    public void setCoverage (Double coverage) {
+        for (Node node : this.nodes) { node.setCoverage(coverage); }
     }
 
-    public ArrayList<Double> getCoverageVec () { return this.coverageVec; }
+    public void setCoverageVec (Double[] coverageVec) {
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setCoverage(coverageVec[i]); }
+    }
+
+    public Double[] getCoverageVec () { Double[] coverageVec = new Double[this.nodes.size()];
+        for (int i = 0; i < coverageVec.length; i++) { coverageVec[i] = nodes.get(i).getCoverage(); }
+        return coverageVec;
+    }
 
     public double[] getErrorMeanVec() { double[] errorMeanVec = new double[this.nodes.size()];
         for (int i = 0; i < errorMeanVec.length; i++) { errorMeanVec[i] = this.nodes.get(i).getErrorMean(); }

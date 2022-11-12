@@ -23,9 +23,10 @@
 package cml;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
 public class Node {
-    private String functionName;
+    private String cFunctionName; private Function<Double[], Double> cFunction;
     private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
     private double power, objective, degree;
     private Double[] inputMean, upperBound, lowerBound;
@@ -33,9 +34,11 @@ public class Node {
 
     public Node () {}
 
-    public String getFunctionName() { return this.functionName; }
+    public void setCFunction (String cFunctionName, double degree, Function<Double[], Double> cFunction) {
+        this.cFunctionName = cFunctionName; this.degree = degree; this.cFunction = cFunction;
+    }
 
-    public void setFunctionName(String functionName) { this.functionName = functionName; }
+    public String getCFunctionName () { return this.cFunctionName; }
 
     public Double getHypothesis() { return this.hypothesis; }
 
@@ -43,7 +46,7 @@ public class Node {
 
     public String getRule () {
         double probability = this.thesis / (this.thesis + this.errorMean);
-        return this.functionName + " at probability " + probability;
+        return this.cFunctionName + " at probability " + probability;
     }
 
     public double getErrorMean() { return this.squareRoot(this.errorMean); }
@@ -76,9 +79,7 @@ public class Node {
     }
 
     private void activate (Double[] input) {
-        CFunction cFunction = new CFunction(this.functionName, input);
-        this.degree = cFunction.getDegree();
-        double cValue = cFunction.getValue();
+        double cValue = this.cFunction.apply(input);
         this.hypothesis = this.degreeRoot(cValue, this.degree) +
                 (2 * (this.errorMean - this.degreeRoot(cValue, this.degree))) +
                 (2 * this.degreeRoot(cValue, this.degree) * this.objective);

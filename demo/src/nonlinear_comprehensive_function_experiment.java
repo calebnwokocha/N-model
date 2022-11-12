@@ -1,9 +1,12 @@
 import cml.Network;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
 public class nonlinear_comprehensive_function_experiment {
     public static void main(String[] args) throws Exception {
+        double[] networkObjective = new double[]{200.0};
+
         double[] trainSet = new double[100];
         for (int i = 0; i < trainSet.length; i++) {
             trainSet[i] = Math.random() + 10;
@@ -14,12 +17,12 @@ public class nonlinear_comprehensive_function_experiment {
             testSet[i] = Math.random() + 10;
         }
 
+        Function<Double[], Double> square = x -> Math.pow(x[0], 2);
+
         Network network = new Network(2, 1);
-        network.setFunctionName("square");
+        network.setCFunction("square", 2, square);
         network.setPower(-6);
         network.setCoverage(null);
-
-        double[] networkObjective = new double[]{200.0};
 
         System.out.println("\nNETWORK TRAINING............................................................................................................................");
         System.out.println();
