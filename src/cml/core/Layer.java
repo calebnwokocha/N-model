@@ -36,7 +36,7 @@ public class Layer {
 
     public void addNode(Node node) { this.nodes.add(node); }
 
-    public void deleteNode (int index) { this.nodes.remove(index); }
+    public void removeNode (int index) { this.nodes.remove(index); }
 
     public int getWidth () { return this.nodes.size(); }
 
@@ -101,17 +101,6 @@ public class Layer {
         return thesisVec;
     }
 
-    public void test (Double[]... input) {
-        for (int i = 0; i < this.nodes.size(); i++) {
-            if (input.length > 1) {
-                try { this.nodes.get(i).test(input[i]); }
-                catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Make sure layer width is equal to layer input length.");
-                }
-            } else { this.nodes.get(i).test(input[0]); }
-        }
-    }
-
     public void train (int iteration, double[] objectives, Double[]... input) {
         for (int i = 0; i < this.nodes.size(); i++) {
             if (input.length > 1) {
@@ -120,6 +109,17 @@ public class Layer {
                     System.out.println("Make sure layer width is equal to layer input length.");
                 }
             } else { this.nodes.get(i).train(objectives[i], iteration, input[0]); }
+        }
+    }
+
+    public void test (Double[]... input) {
+        for (int i = 0; i < this.nodes.size(); i++) {
+            if (input.length > 1) {
+                try { this.nodes.get(i).test(input[i]); }
+                catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Make sure layer width is equal to layer input length.");
+                }
+            } else { this.nodes.get(i).test(input[0]); }
         }
     }
 }

@@ -61,14 +61,6 @@ public class Node {
 
     public Double getCoverage() { return this.coverage; }
 
-    public void test (Double... input) {
-        if (coverage == null) { this.activate(input); }
-        else {
-            if (this.isOutlier(input)) { this.thesis = null; }
-            else { this.activate(input); }
-        }
-    }
-
     public void train (double objective, int iteration, Double... input) {
         this.objective = objective; this.activate(input);
         Double error = Math.pow(this.thesis - this.objective, 2);
@@ -76,6 +68,14 @@ public class Node {
             Arrays.fill(inputMean, 0.0); this.errorMean = error;}
         if (iteration > 1) { this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration); }
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
+    }
+
+    public void test (Double... input) {
+        if (coverage == null) { this.activate(input); }
+        else {
+            if (this.isOutlier(input)) { this.thesis = null; }
+            else { this.activate(input); }
+        }
     }
 
     private void activate (Double[] input) {

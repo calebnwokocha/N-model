@@ -132,18 +132,18 @@ public class Network {
         return thesisMat;
     }
 
+    public void train (int iteration, double[] objective, Double[]... input) {
+        for (int i = 0; i < this.layers.size(); i++) {
+            if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
+            else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesisVec()); }
+        }
+    }
+
     public void test (Double[]... input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) {this.layers.get(i).test(input); }
             else { this.layers.get(i).test(this.layers.get(i - 1).getThesisVec()); }
             if (this.isNull(this.layers.get(i))) { this.nullifyNetOutput(); break; }
-        }
-    }
-
-    public void train (int iteration, double[] objective, Double[]... input) {
-        for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
-            else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesisVec()); }
         }
     }
 
