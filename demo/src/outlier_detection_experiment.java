@@ -41,7 +41,7 @@ public class outlier_detection_experiment {
 
         Function<Double[], Double> sum = x -> {
             double s = 0.0;
-            for (Double aDouble : x) { s += aDouble; }
+            for (Double d : x) { s += d; }
             return s;
         };
 

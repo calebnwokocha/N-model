@@ -42,7 +42,7 @@ public class Network {
 
     public void addLayer (Layer layer) { this.layers.add(layer); }
 
-    public void deleteLayer (int index) { this.layers.remove(index); }
+    public void removeLayer (int index) { this.layers.remove(index); }
 
     public int getLength () { return this.layers.size(); }
 
