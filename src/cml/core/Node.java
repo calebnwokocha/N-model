@@ -49,7 +49,7 @@ public class Node {
         return this.cFunctionName + " at probability " + probability;
     }
 
-    public double getErrorMean() { return this.squareRoot(this.errorMean); }
+    public double getErrorMean() { return Math.sqrt(this.errorMean); }
 
     public double getDegree() { return this.degree; }
 
@@ -83,7 +83,7 @@ public class Node {
         this.hypothesis = this.degreeRoot(cValue, this.degree) +
                 (2 * (this.errorMean - this.degreeRoot(cValue, this.degree))) +
                 (2 * this.degreeRoot(cValue, this.degree) * this.objective);
-        this.thesis = this.squareRoot(this.hypothesis - this.errorMean);
+        this.thesis = Math.sqrt(this.hypothesis - this.errorMean);
     }
 
     private boolean isOutlier (Double[] input) {
@@ -107,8 +107,6 @@ public class Node {
     }
 
     private double degreeRoot(double cValue, double degree) { return Math.pow(cValue, 1 / degree); }
-
-    private double squareRoot (Double data) { return Math.pow(data, 0.5); }
 
     private boolean isBetween (Double data, Double minimum, Double maximum) {
         return minimum <= data && data <= maximum;
