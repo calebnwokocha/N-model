@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------
- Open-source framework for comprehensive learning.
+ Open-source framework for comprehensive machine learning.
 
  Copyright (C) 2022 Caleb Princewill Nwokocha
 
