@@ -1,4 +1,4 @@
-package cml;
+package cml.core;
 
 public class Mean {
     public Mean() {}

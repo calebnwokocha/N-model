@@ -20,7 +20,7 @@
  permission to use this framework.
 ---------------------------------------------------------------------------- */
 
-package cml;
+package cml.core;
 
 import java.io.IOException;
 import java.nio.file.Files;

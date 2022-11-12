@@ -20,7 +20,7 @@
  permission to use this framework.
 ---------------------------------------------------------------------------- */
 
-package cml;
+package cml.core;
 
 public class Multitask {
     private int taskCount;

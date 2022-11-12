@@ -1,4 +1,4 @@
-import cml.Network;
+import cml.core.Network;
 
 import java.util.Arrays;
 import java.util.function.Function;
