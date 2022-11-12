@@ -17,7 +17,11 @@ public class outlier_detection_experiment {
             outlierTestSet[i] = Math.random() + 8;
         }
 
-        Function<Double[], Double> sum = x -> Math.pow(x[0], 2);
+        Function<Double[], Double> sum = x -> {
+            double s = 0.0;
+            for (Double aDouble : x) { s += aDouble; }
+            return s;
+        };
 
         Network network = new Network(2, 1);
         network.setCFunction("sum", 1, sum);
