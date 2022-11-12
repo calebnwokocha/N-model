@@ -79,9 +79,9 @@ public class Node {
         CFunction cFunction = new CFunction(this.functionName, input);
         this.degree = cFunction.getDegree();
         double cValue = cFunction.getValue();
-        this.hypothesis = this.removeDegree(cValue, this.degree) +
-                (2 * (this.errorMean - this.removeDegree(cValue, this.degree))) +
-                (2 * this.removeDegree(cValue, this.degree) * this.objective);
+        this.hypothesis = this.degreeRoot(cValue, this.degree) +
+                (2 * (this.errorMean - this.degreeRoot(cValue, this.degree))) +
+                (2 * this.degreeRoot(cValue, this.degree) * this.objective);
         this.thesis = this.squareRoot(this.hypothesis - this.errorMean);
     }
 
@@ -105,11 +105,9 @@ public class Node {
         }
     }
 
-    private double removeDegree (double cValue, double degree) { return Math.pow(cValue, 1 / degree); }
+    private double degreeRoot(double cValue, double degree) { return Math.pow(cValue, 1 / degree); }
 
-    private double squareRoot (Double data) {
-        try { return Math.pow(data, 0.5); } catch (NullPointerException e) { return 0.0; }
-    }
+    private double squareRoot (Double data) { return Math.pow(data, 0.5); }
 
     private boolean isBetween (Double data, Double minimum, Double maximum) {
         return minimum <= data && data <= maximum;
