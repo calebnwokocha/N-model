@@ -46,8 +46,6 @@ public class Network {
 
     public int getLength () { return this.layers.size(); }
 
-    public int getWidth (int index) { return this.getWidthVec()[index]; }
-
     public int[] getWidthVec () { int[] widthVec = new int[this.layers.size()];
         for (int i = 0; i < widthVec.length; i++) { widthVec[i] = this.layers.get(i).getWidth(); }
         return widthVec;
