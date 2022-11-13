@@ -34,12 +34,6 @@ public class Node {
 
     public Node () {}
 
-    public void setCFunction (String cFunctionName, double degree, Function<Double[], Double> cFunction) {
-        this.cFunctionName = cFunctionName; this.degree = degree; this.cFunction = cFunction;
-    }
-
-    public String getCFunctionName () { return this.cFunctionName; }
-
     public Double getHypothesis() { return this.hypothesis; }
 
     public Double getThesis() { return this.thesis; }
@@ -60,6 +54,12 @@ public class Node {
     public void setCoverage (Double coverage) { this.coverage = coverage; }
 
     public Double getCoverage() { return this.coverage; }
+
+    public String getCFunctionName () { return this.cFunctionName; }
+
+    public void setCFunction (String cFunctionName, double degree, Function<Double[], Double> cFunction) {
+        this.cFunctionName = cFunctionName; this.degree = degree; this.cFunction = cFunction;
+    }
 
     public void train (double objective, int iteration, Double... input) {
         this.objective = objective; this.activate(input);
