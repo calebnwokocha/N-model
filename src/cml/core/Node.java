@@ -10,7 +10,11 @@ import java.util.function.Function;
 
 public class Node {
     private String cFunctionName; private Function<Double[], Double> cFunction;
-    private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
+    private Double hypothesis;
+    private Double thesis;
+
+    private Double errorMean = 0.0;
+    private Double coverage = null;
     private double power, objective, degree;
     private Double[] inputMean, upperBound, lowerBound;
     private final Mean mean = new Mean();
@@ -26,7 +30,9 @@ public class Node {
         return this.cFunctionName + " at probability " + probability;
     }
 
-    public double getErrorMean() { return Math.sqrt(this.errorMean); }
+    public Double getErrorMean() { return Math.sqrt(this.errorMean); }
+
+    public void setErrorMean(Double errorMean) { this.errorMean = errorMean; }
 
     public double getDegree() { return this.degree; }
 

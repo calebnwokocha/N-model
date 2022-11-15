@@ -29,59 +29,63 @@ public class Layer {
 
     public void setPower(double power) { for (Node node : nodes) { node.setPower(power); } }
 
-    public String[] getCFunctionNameVec() { String[] cFunctionNameVec = new String[this.nodes.size()];
-        for (int i = 0; i < cFunctionNameVec.length; i++) {
-            cFunctionNameVec[i] = nodes.get(i).getCFunctionName();
-        } return cFunctionNameVec;
+    public String[] getCFunctionName() { String[] cFunctionName = new String[this.nodes.size()];
+        for (int i = 0; i < cFunctionName.length; i++) {
+            cFunctionName[i] = nodes.get(i).getCFunctionName();
+        } return cFunctionName;
     }
 
-    public void setCFunctionVec(String[] cFunctionNameVec, double[] degreeVec,
-                                    Function<Double[], Double>[] cFunctionVec) {
+    public void setCFunction(String[] cFunctionName, double[] degree,
+                             Function<Double[], Double>[] cFunction) {
         for (int i = 0; i < nodes.size(); i++) {
-            nodes.get(i).setCFunction(cFunctionNameVec[i], degreeVec[i], cFunctionVec[i]);
+            nodes.get(i).setCFunction(cFunctionName[i], degree[i], cFunction[i]);
         }
     }
 
-    public double[] getDegreeVec() { double[] degreeVec = new double[this.nodes.size()];
-        for (int i = 0; i < degreeVec.length; i++) { degreeVec[i] = nodes.get(i).getDegree(); }
-        return degreeVec;
+    public double[] getDegree() { double[] degree = new double[this.nodes.size()];
+        for (int i = 0; i < degree.length; i++) { degree[i] = nodes.get(i).getDegree(); }
+        return degree;
     }
 
-    public double[] getPowerVec() { double[] powerVec = new double[this.nodes.size()];
-        for (int i = 0; i < powerVec.length; i++) { powerVec[i] = nodes.get(i).getPower(); }
-        return powerVec;
+    public double[] getPower() { double[] power = new double[this.nodes.size()];
+        for (int i = 0; i < power.length; i++) { power[i] = nodes.get(i).getPower(); }
+        return power;
     }
 
-    public void setPowerVec(double[] powerVec) {
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setPower(powerVec[i]); }
+    public void setPower(double[] power) {
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setPower(power[i]); }
     }
 
     public void setCoverage (Double coverage) {
         for (Node node : this.nodes) { node.setCoverage(coverage); }
     }
 
-    public void setCoverageVec (Double[] coverageVec) {
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setCoverage(coverageVec[i]); }
+    public void setCoverage (Double[] coverage) {
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setCoverage(coverage[i]); }
     }
 
-    public Double[] getCoverageVec () { Double[] coverageVec = new Double[this.nodes.size()];
-        for (int i = 0; i < coverageVec.length; i++) { coverageVec[i] = nodes.get(i).getCoverage(); }
-        return coverageVec;
+    public Double[] getCoverage () { Double[] coverage = new Double[this.nodes.size()];
+        for (int i = 0; i < coverage.length; i++) { coverage[i] = nodes.get(i).getCoverage(); }
+        return coverage;
     }
 
-    public double[] getErrorMeanVec() { double[] errorMeanVec = new double[this.nodes.size()];
-        for (int i = 0; i < errorMeanVec.length; i++) { errorMeanVec[i] = this.nodes.get(i).getErrorMean(); }
-        return errorMeanVec;
+    public Double[] getErrorMean() { Double[] errorMean = new Double[this.nodes.size()];
+        for (int i = 0; i < errorMean.length; i++) { errorMean[i] = this.nodes.get(i).getErrorMean(); }
+        return errorMean;
     }
 
-    public Double[] getHypothesisVec() { Double[] hypothesisVec = new Double[this.nodes.size()];
-        for (int i = 0; i < hypothesisVec.length; i++) { hypothesisVec[i] = this.nodes.get(i).getHypothesis(); }
-        return hypothesisVec;
+    public void setErrorMean (Double[] errorMean) { 
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setErrorMean(errorMean[i]); } 
     }
 
-    public Double[] getThesisVec() { Double[] thesisVec = new Double[this.nodes.size()];
-        for (int i = 0; i < thesisVec.length; i++) { thesisVec[i] = this.nodes.get(i).getThesis(); }
-        return thesisVec;
+    public Double[] getHypothesis() { Double[] hypothesis = new Double[this.nodes.size()];
+        for (int i = 0; i < hypothesis.length; i++) { hypothesis[i] = this.nodes.get(i).getHypothesis(); }
+        return hypothesis;
+    }
+
+    public Double[] getThesis() { Double[] thesis = new Double[this.nodes.size()];
+        for (int i = 0; i < thesis.length; i++) { thesis[i] = this.nodes.get(i).getThesis(); }
+        return thesis;
     }
 
     public void train (int iteration, double[] objectives, Double[]... input) {

@@ -15,8 +15,8 @@ public class Network {
         for (int i = 0; i < length; i++) { this.layers.add(new Layer(width)); }
     }
 
-    public Network (int length, int[] widthVec) {
-        for (int i = 0; i < length; i++) { this.layers.add(new Layer(widthVec[i])); }
+    public Network (int length, int[] width) {
+        for (int i = 0; i < length; i++) { this.layers.add(new Layer(width[i])); }
     }
 
     public ArrayList<Layer> getLayers () { return this.layers; }
@@ -29,103 +29,107 @@ public class Network {
 
     public int getLength () { return this.layers.size(); }
 
-    public int[] getWidthVec () { int[] widthVec = new int[this.layers.size()];
-        for (int i = 0; i < widthVec.length; i++) { widthVec[i] = this.layers.get(i).getWidth(); }
-        return widthVec;
+    public int[] getWidth () { int[] width = new int[this.layers.size()];
+        for (int i = 0; i < width.length; i++) { width[i] = this.layers.get(i).getWidth(); }
+        return width;
     }
 
     public void setCFunction (String cFunctionName, double degree, Function<Double[], Double> cFunction) {
         for (Layer layer : layers) { layer.setCFunction (cFunctionName, degree, cFunction); }
     }
 
-    public void setCFunctionVec(String[] cFunctionNameVec, double[] degreeVec,
-                                    Function<Double[], Double>[] cFunctionVec) {
+    public void setCFunction(String[] cFunctionName, double[] degree,
+                                    Function<Double[], Double>[] cFunction) {
         for (int i = 0; i < layers.size(); i++) {
-            layers.get(i).setCFunction(cFunctionNameVec[i], degreeVec[i], cFunctionVec[i]);
+            layers.get(i).setCFunction(cFunctionName[i], degree[i], cFunction[i]);
         }
     }
 
-    public void setCFunctionMat(String[][] cFunctionNameMat, double[][] degreeMat,
+    public void setCFunction(String[][] cFunctionName, double[][] degree,
                                     Function<Double[], Double>[][] cFunction) {
         for (int i = 0; i < layers.size(); i++) {
-            layers.get(i).setCFunctionVec(cFunctionNameMat[i], degreeMat[i], cFunction[i]);
+            layers.get(i).setCFunction(cFunctionName[i], degree[i], cFunction[i]);
         }
     }
 
-    public String[][] getCFunctionNameMat() { String[][] cFunctionMat = new String[this.layers.size()][];
-        for (int i = 0; i < cFunctionMat.length; i++) {
-            cFunctionMat[i] = layers.get(i).getCFunctionNameVec();
-        } return cFunctionMat;
+    public String[][] getCFunctionName() { String[][] cFunction = new String[this.layers.size()][];
+        for (int i = 0; i < cFunction.length; i++) {
+            cFunction[i] = layers.get(i).getCFunctionName();
+        } return cFunction;
     }
 
-    public double[][] getDegreeMat() {
-        double[][] degreeMat = new double[this.layers.size()][];
-        for (int i = 0; i < degreeMat.length; i++) { degreeMat[i] = layers.get(i).getDegreeVec(); }
-        return degreeMat;
+    public double[][] getDegree() {
+        double[][] degree = new double[this.layers.size()][];
+        for (int i = 0; i < degree.length; i++) { degree[i] = layers.get(i).getDegree(); }
+        return degree;
     }
 
     public void setPower (double power) { for (Layer layer : this.layers) { layer.setPower(power); } }
 
-    public void setPowerVec (double[] powerVec) {
-        for (Layer layer : this.layers) { layer.setPowerVec(powerVec); }
+    public void setPower (double[] power) {
+        for (Layer layer : this.layers) { layer.setPower(power); }
     }
 
-    public void setPowerMat (double[][] powerMat) {
-        for (int i = 0; i < layers.size(); i++) { layers.get(i).setPowerVec(powerMat[i]); }
+    public void setPower (double[][] power) {
+        for (int i = 0; i < layers.size(); i++) { layers.get(i).setPower(power[i]); }
     }
 
-    public double[][] getPowerMat () {
-        double[][] powerMat = new double[this.layers.size()][];
-        for (int i = 0; i < powerMat.length; i++) { powerMat[i] = layers.get(i).getPowerVec(); }
-        return powerMat;
+    public double[][] getPower () {
+        double[][] power = new double[this.layers.size()][];
+        for (int i = 0; i < power.length; i++) { power[i] = layers.get(i).getPower(); }
+        return power;
     }
 
     public void setCoverage (Double coverage) {
         for (Layer layer : this.layers) { layer.setCoverage(coverage); }
     }
 
-    public void setCoverageVec (Double[] coverageVec) {
-        for (Layer layer : this.layers) { layer.setCoverageVec(coverageVec); }
+    public void setCoverage (Double[] coverage) {
+        for (Layer layer : this.layers) { layer.setCoverage(coverage); }
     }
 
-    public void setCoverageMat (Double[][] coverageMat) {
-        for (int i = 0; i < layers.size(); i++) { layers.get(i).setCoverageVec(coverageMat[i]); }
+    public void setCoverage (Double[][] coverage) {
+        for (int i = 0; i < layers.size(); i++) { layers.get(i).setCoverage(coverage[i]); }
     }
 
-    public Double[][] getCoverageMat () {
-        Double[][] coverageMat = new Double[this.layers.size()][];
-        for (int i = 0; i < coverageMat.length; i++) { coverageMat[i] = layers.get(i).getCoverageVec(); }
-        return coverageMat;
+    public Double[][] getCoverage () {
+        Double[][] coverage = new Double[this.layers.size()][];
+        for (int i = 0; i < coverage.length; i++) { coverage[i] = layers.get(i).getCoverage(); }
+        return coverage;
     }
 
-    public double[][] getErrorMeanMat() { double[][] errorMeanMat = new double[this.layers.size()][];
-        for (int i = 0; i < errorMeanMat.length; i++) {
-            errorMeanMat[i] = this.layers.get(i).getErrorMeanVec();
-        } return errorMeanMat;
+    public Double[][] getErrorMean() { Double[][] errorMean = new Double[this.layers.size()][];
+        for (int i = 0; i < errorMean.length; i++) {
+            errorMean[i] = this.layers.get(i).getErrorMean();
+        } return errorMean;
     }
 
-    public Double[][] getHypothesisMat() { Double[][] hypothesisMat = new Double[this.layers.size()][];
-        for (int i = 0; i < hypothesisMat.length; i++) {
-            hypothesisMat[i] = this.layers.get(i).getHypothesisVec();
-        } return hypothesisMat;
+    public void setErrorMean (Double[][] errorMean) {
+        for (int i = 0; i < layers.size(); i++) { layers.get(i).setErrorMean(errorMean[i]); }
     }
 
-    public Double[][] getThesisMat() { Double[][] thesisMat = new Double[this.layers.size()][];
-        for (int i = 0; i < thesisMat.length; i++) { thesisMat[i] = this.layers.get(i).getThesisVec(); }
-        return thesisMat;
+    public Double[][] getHypothesis() { Double[][] hypothesis = new Double[this.layers.size()][];
+        for (int i = 0; i < hypothesis.length; i++) {
+            hypothesis[i] = this.layers.get(i).getHypothesis();
+        } return hypothesis;
+    }
+
+    public Double[][] getThesis() { Double[][] thesis = new Double[this.layers.size()][];
+        for (int i = 0; i < thesis.length; i++) { thesis[i] = this.layers.get(i).getThesis(); }
+        return thesis;
     }
 
     public void train (int iteration, double[] objective, Double[]... input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
-            else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesisVec()); }
+            else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesis()); }
         }
     }
 
     public void test (Double[]... input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) {this.layers.get(i).test(input); }
-            else { this.layers.get(i).test(this.layers.get(i - 1).getThesisVec()); }
+            else { this.layers.get(i).test(this.layers.get(i - 1).getThesis()); }
             if (this.isNull(this.layers.get(i))) { this.nullifyNetOutput(); break; }
         }
     }

@@ -44,7 +44,6 @@ public class nonlinear_comprehensive_function_experiment {
         Network network = new Network(2, 1);
         network.setCFunction("square", 2, square);
         network.setPower(-6);
-        network.setCoverage(null);
 
         System.out.println("\nNETWORK TRAINING............................................................................................................................");
         System.out.println();
@@ -57,11 +56,11 @@ public class nonlinear_comprehensive_function_experiment {
             System.out.println();
             System.out.println("Network input is " + trainSet[i]);
             System.out.println();
-            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesisMat()[network.getLength() - 1]));
+            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 1]));
             System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesisMat()[network.getLength() - 1]));
+            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
             System.out.println();
-            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMeanMat()[network.getLength() - 1]));
+            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 1]));
             System.out.println();
             System.out.println();
         }
@@ -77,7 +76,7 @@ public class nonlinear_comprehensive_function_experiment {
             System.out.println();
             System.out.println("Network input is " + testSet[i]);
             System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesisMat()[network.getLength() - 1]));
+            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
             System.out.println();
             System.out.println();
         }

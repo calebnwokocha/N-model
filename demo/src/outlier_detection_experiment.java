@@ -61,11 +61,11 @@ public class outlier_detection_experiment {
             System.out.println();
             System.out.println("Network input is " + trainSet[i]);
             System.out.println();
-            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesisMat()[network.getLength() - 1]));
+            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 1]));
             System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesisMat()[network.getLength() - 1]));
+            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
             System.out.println();
-            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMeanMat()[network.getLength() - 1]));
+            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 1]));
             System.out.println();
             System.out.println();
         }
@@ -81,7 +81,7 @@ public class outlier_detection_experiment {
             System.out.println();
             System.out.println("Network input is " + outlierTestSet[i]);
             System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesisMat()[network.getLength() - 1]));
+            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
             System.out.println();
             System.out.println();
         }
