@@ -5,6 +5,7 @@
 
 package cml;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,9 +19,12 @@ public class Data {
     public Data (String fileName) throws IOException {
         Path path = Paths.get(fileName);
         byte[] data = Files.readAllBytes(path);
-        this.data = new Double[data.length];
-        for (int i = 0; i < this.data.length; i++)
-        { this.data[i] = (double) data[i]; }
+        this.data = this.convertByteToDouble(data);
+    }
+
+    public Data (File file) throws IOException {
+        byte[] data = Files.readAllBytes(file.toPath());
+        this.data = this.convertByteToDouble(data);
     }
 
     public Double[] getData() { return this.data; }
@@ -37,6 +41,12 @@ public class Data {
                 groups[i][j] = this.data[k];
             }
         } return groups;
+    }
+
+    private Double[] convertByteToDouble (byte[] byteData) {
+        Double[] doubleData = new Double[byteData.length];
+        for (int i = 0; i < doubleData.length; i++) { doubleData[i] = (double) byteData[i]; }
+        return doubleData;
     }
 
     public void toText () {

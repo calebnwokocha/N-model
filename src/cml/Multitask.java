@@ -14,6 +14,8 @@ public class Multitask {
 
     public Multitask () {}
 
+    public Multitask (ArrayList<Network> networks) { this.networks = networks; }
+
     public int getTaskCount() { return networks.size(); }
 
     public void setNetworks(ArrayList<Network> networks) { this.networks = networks; }
@@ -21,7 +23,7 @@ public class Multitask {
     public ArrayList<Network> getNetworks() { return this.networks; }
 
     public void addNetwork (Network network) {
-        this.transferTo(network);
+        this.transferKnowledgeTo(network);
         this.networks.add(network);
     }
 
@@ -65,7 +67,7 @@ public class Multitask {
 
     public void test (Double[]... input) { for (Network network : this.networks) { network.test(input); } }
 
-    private void transferTo (Network network) {
+    private void transferKnowledgeTo(Network network) {
         if (networks.size() > 0) {
             this.lastNetworkIndex = this.networks.size() - 1;
             Double[][] lastNetworkErrorMean = networks.get(this.lastNetworkIndex).getErrorMean();

@@ -5,6 +5,7 @@
 
 package cml;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +20,17 @@ public class Dataset {
         this.dataset = new Double[dataset.length][];
         for (int i = 0; i < this.dataset.length; i++) {
             dataset[i] = new Data(fileNames[i]);
+            this.dataset[i] = dataset[i].getData();
+        }
+    }
+
+    public Dataset (String folderName) throws IOException {
+        File file = new File(folderName);
+        File[] files = file.listFiles();
+        Data[] dataset = new Data[files.length];
+        this.dataset = new Double[dataset.length][];
+        for (int i = 0; i < this.dataset.length; i++) {
+            dataset[i] = new Data(files[i]);
             this.dataset[i] = dataset[i].getData();
         }
     }
