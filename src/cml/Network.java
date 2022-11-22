@@ -34,18 +34,18 @@ public class Network {
         return width;
     }
 
-    public void setCFunction (String cFunctionName, double degree, Function<Double[], Double> cFunction) {
+    public void setCFunction (String cFunctionName, Double degree, Function<Double[], Double> cFunction) {
         for (Layer layer : layers) { layer.setCFunction (cFunctionName, degree, cFunction); }
     }
 
-    public void setCFunction(String[] cFunctionName, double[] degree,
+    public void setCFunction(String[] cFunctionName, Double[] degree,
                                     Function<Double[], Double>[] cFunction) {
         for (int i = 0; i < layers.size(); i++) {
             layers.get(i).setCFunction(cFunctionName[i], degree[i], cFunction[i]);
         }
     }
 
-    public void setCFunction(String[][] cFunctionName, double[][] degree,
+    public void setCFunction(String[][] cFunctionName, Double[][] degree,
                                     Function<Double[], Double>[][] cFunction) {
         for (int i = 0; i < layers.size(); i++) {
             layers.get(i).setCFunction(cFunctionName[i], degree[i], cFunction[i]);
@@ -58,24 +58,24 @@ public class Network {
         } return cFunction;
     }
 
-    public double[][] getDegree() {
-        double[][] degree = new double[this.layers.size()][];
+    public Double[][] getDegree() {
+        Double[][] degree = new Double[this.layers.size()][];
         for (int i = 0; i < degree.length; i++) { degree[i] = layers.get(i).getDegree(); }
         return degree;
     }
 
-    public void setPower (double power) { for (Layer layer : this.layers) { layer.setPower(power); } }
+    public void setPower (Double power) { for (Layer layer : this.layers) { layer.setPower(power); } }
 
-    public void setPower (double[] power) {
+    public void setPower (Double[] power) {
         for (Layer layer : this.layers) { layer.setPower(power); }
     }
 
-    public void setPower (double[][] power) {
+    public void setPower (Double[][] power) {
         for (int i = 0; i < layers.size(); i++) { layers.get(i).setPower(power[i]); }
     }
 
-    public double[][] getPower () {
-        double[][] power = new double[this.layers.size()][];
+    public Double[][] getPower () {
+        Double[][] power = new Double[this.layers.size()][];
         for (int i = 0; i < power.length; i++) { power[i] = layers.get(i).getPower(); }
         return power;
     }
@@ -119,14 +119,14 @@ public class Network {
         return thesis;
     }
 
-    public void train (int iteration, double[] objective, Double[]... input) {
+    public void train (int iteration, Double[] objective, Double[] input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
             else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesis()); }
         }
     }
 
-    public void test (Double[]... input) {
+    public void test (Double[] input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) {this.layers.get(i).test(input); }
             else { this.layers.get(i).test(this.layers.get(i - 1).getThesis()); }
@@ -139,5 +139,5 @@ public class Network {
         return false;
     }
 
-    private void nullifyNetOutput () { this.layers.get(this.getLength() - 1).test(new Double[][]{{null}}); }
+    private void nullifyNetOutput () { this.layers.get(this.getLength() - 1).test(new Double[]{null}); }
 }

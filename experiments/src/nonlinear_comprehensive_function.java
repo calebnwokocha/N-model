@@ -27,14 +27,14 @@ import java.util.function.Function;
 
 public class nonlinear_comprehensive_function {
     public static void main(String[] args) throws Exception {
-        double[] networkObjective = new double[]{200.0};
+        Double[] networkObjective = new Double[]{200.0};
 
-        double[] trainSet = new double[100];
+        Double[] trainSet = new Double[100];
         for (int i = 0; i < trainSet.length; i++) {
             trainSet[i] = Math.random() + 10;
         }
 
-        double[] testSet = new double[100];
+        Double[] testSet = new Double[100];
         for (int i = 0; i < testSet.length; i++) {
             testSet[i] = Math.random() + 10;
         }
@@ -42,8 +42,8 @@ public class nonlinear_comprehensive_function {
         Function<Double[], Double> square = x -> Math.pow(x[0], 2);
 
         Network network = new Network(2, 1);
-        network.setCFunction("square", 2, square);
-        network.setPower(-6);
+        network.setCFunction("square", 2.0, square);
+        network.setPower(-6.0);
 
         System.out.println("\nNETWORK TRAINING............................................................................................................................");
         System.out.println();

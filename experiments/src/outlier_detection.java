@@ -27,27 +27,27 @@ import java.util.function.Function;
 
 public class outlier_detection {
     public static void main(String[] args) throws Exception {
-        double[] networkObjective = new double[]{200.0};
+        Double[] networkObjective = new Double[]{200.0};
 
-        double[] trainSet = new double[100];
+        Double[] trainSet = new Double[100];
         for (int i = 0; i < trainSet.length; i++) {
             trainSet[i] = Math.random() + 10;
         }
 
-        double[] outlierTestSet = new double[100];
+        Double[] outlierTestSet = new Double[100];
         for (int i = 0; i < outlierTestSet.length; i++) {
             outlierTestSet[i] = Math.random() + 8;
         }
 
         Function<Double[], Double> sum = x -> {
-            double s = 0.0;
+            Double s = 0.0;
             for (Double d : x) { s += d; }
             return s;
         };
 
         Network network = new Network(2, 1);
-        network.setCFunction("sum", 1, sum);
-        network.setPower(40);
+        network.setCFunction("sum", 1.0, sum);
+        network.setPower(40.0);
         network.setCoverage(5.0);
 
         System.out.println("\nNETWORK TRAINING............................................................................................................................");

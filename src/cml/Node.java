@@ -10,12 +10,8 @@ import java.util.function.Function;
 
 public class Node {
     private String cFunctionName; private Function<Double[], Double> cFunction;
-    private Double hypothesis;
-    private Double thesis;
-
-    private Double errorMean = 0.0;
-    private Double coverage = null;
-    private double power, objective, degree;
+    private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
+    private Double power, objective, degree;
     private Double[] inputMean, upperBound, lowerBound;
     private final Mean mean = new Mean();
 
@@ -26,7 +22,7 @@ public class Node {
     public Double getThesis() { return this.thesis; }
 
     public String getRule () {
-        double probability = this.thesis / (this.thesis + this.errorMean);
+        Double probability = this.thesis / (this.thesis + this.errorMean);
         return this.cFunctionName + " at probability " + probability;
     }
 
@@ -34,11 +30,11 @@ public class Node {
 
     public void setErrorMean(Double errorMean) { this.errorMean = errorMean; }
 
-    public double getDegree() { return this.degree; }
+    public Double getDegree() { return this.degree; }
 
-    public double getPower() { return this.power; }
+    public Double getPower() { return this.power; }
 
-    public void setPower(double power) { this.power = power; }
+    public void setPower(Double power) { this.power = power; }
 
     public void setCoverage (Double coverage) { this.coverage = coverage; }
 
@@ -46,13 +42,13 @@ public class Node {
 
     public String getCFunctionName () { return this.cFunctionName; }
 
-    public void setCFunction (String cFunctionName, double degree, Function<Double[], Double> cFunction) {
+    public void setCFunction (String cFunctionName, Double degree, Function<Double[], Double> cFunction) {
         this.cFunctionName = cFunctionName; this.degree = degree; this.cFunction = cFunction;
     }
 
-    public void train (double objective, int iteration, Double... input) {
+    public void train (Double objective, int iteration, Double... input) {
         this.objective = objective; this.activate(input);
-        Double error = Math.pow(this.thesis - this.objective, 2);
+        Double error = Math.pow(this.hypothesis - this.objective, 2);
         if (iteration == 1) { this.inputMean = new Double[input.length];
             Arrays.fill(inputMean, 0.0); this.errorMean = error;}
         if (iteration > 1) { this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration); }
@@ -68,11 +64,9 @@ public class Node {
     }
 
     private void activate (Double[] input) {
-        double cValue = this.cFunction.apply(input);
-        this.hypothesis = this.degreeRoot(cValue, this.degree) +
-                (2 * (this.errorMean - this.degreeRoot(cValue, this.degree))) +
-                (2 * this.degreeRoot(cValue, this.degree) * this.objective);
-        this.thesis = Math.sqrt(this.hypothesis - this.errorMean);
+        this.hypothesis = this.degreeRoot(this.cFunction.apply(input), this.degree);
+        this.thesis = ((Math.pow(this.hypothesis, 2) + Math.pow(this.objective, 2)) - this.errorMean) /
+                (2 * this.hypothesis);
     }
 
     private boolean isOutlier (Double[] input) {
@@ -89,28 +83,28 @@ public class Node {
         this.upperBound = new Double[inputMean.length];
         this.lowerBound = new Double[inputMean.length];
         for (int i = 0; i < inputMean.length; i++) {
-            double inputDeviation = this.standardDeviation(input, inputMean[i]);
+            Double inputDeviation = this.standardDeviation(input, inputMean[i]);
             this.upperBound[i] = inputMean[i] + (this.coverage * inputDeviation);
             this.lowerBound[i] = inputMean[i] - (this.coverage * inputDeviation);
         }
     }
 
-    private double degreeRoot(double cValue, double degree) { return Math.pow(cValue, 1 / degree); }
+    private Double degreeRoot(Double cValue, Double degree) { return Math.pow(cValue, 1 / degree); }
 
     private boolean isBetween (Double data, Double minimum, Double maximum) {
         return minimum <= data && data <= maximum;
     }
 
-    private double variance (Double[] data, double expectedValue) {
-        double squaredSum = 0.0;
-        double variance;
-        for (double datum : data) { squaredSum += Math.pow(datum - expectedValue, 2); }
+    private Double variance (Double[] data, Double expectedValue) {
+        Double squaredSum = 0.0;
+        Double variance;
+        for (Double datum : data) { squaredSum += Math.pow(datum - expectedValue, 2); }
         if (squaredSum == 0 || (data.length - 1) == 0) { variance = squaredSum; }
         else { variance = squaredSum / (data.length - 1); }
         return variance;
     }
 
-    private double standardDeviation (Double[] data, double expectedValue) {
+    private Double standardDeviation (Double[] data, Double expectedValue) {
         return Math.sqrt(this.variance(data, expectedValue));
     }
 }

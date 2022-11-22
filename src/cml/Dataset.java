@@ -16,32 +16,32 @@ public class Dataset {
     public Dataset(Double[][] dataset) { this.dataset = dataset; }
 
     public Dataset (String... fileNames) throws IOException {
-        Data[] dataset = new Data[fileNames.length];
-        this.dataset = new Double[dataset.length][];
-        for (int i = 0; i < this.dataset.length; i++) {
-            dataset[i] = new Data(fileNames[i]);
-            this.dataset[i] = dataset[i].getData();
-        }
+        this.dataset = new Double[fileNames.length][];
+        for (int i = 0; i < this.dataset.length; i++) { this.dataset[i] = new Data(fileNames[i]).getData(); }
     }
 
     public Dataset (String folderName) throws IOException {
-        File file = new File(folderName);
-        File[] files = file.listFiles();
-        Data[] dataset = new Data[files.length];
-        this.dataset = new Double[dataset.length][];
-        for (int i = 0; i < this.dataset.length; i++) {
-            dataset[i] = new Data(files[i]);
-            this.dataset[i] = dataset[i].getData();
-        }
+        File file = new File(folderName); File[] files = file.listFiles();
+        this.dataset = new Double[files.length][];
+        for (int i = 0; i < this.dataset.length; i++) { this.dataset[i] = new Data(files[i]).getData(); }
     }
 
     public Double[][] getDataset() { return this.dataset; }
 
-    public Double[] getDataset (int index) { return this.dataset[index]; }
+    public Double[] getData (int index) { return this.dataset[index]; }
 
     public void setDataset(Double[]... dataset) { this.dataset = dataset; }
 
     public void shuffle () { Collections.shuffle(Arrays.asList(this.dataset)); }
+
+    public Double[][][] split (int[] groupSizes) {
+        Double[][][] groups = new Double[groupSizes.length][this.dataset.length][]; int k = 0;
+        for (int i = 0; i < groupSizes.length; i++) {
+            for (int j = 0; j < groupSizes[i]; j++, k++) {
+                groups[i][j] = this.dataset[k];
+            }
+        } return groups;
+    }
 
     public void saveDataset () {
         for (Double[] d : this.dataset) {

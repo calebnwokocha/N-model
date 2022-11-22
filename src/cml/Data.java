@@ -29,13 +29,12 @@ public class Data {
 
     public Double[] getData() { return this.data; }
 
-    public double getDatum (int index) { return this.data[index]; }
+    public Double getDatum (int index) { return this.data[index]; }
 
     public void setData(Double[] data) { this.data = data; }
 
-    public double[][] divide (int[] groupSizes) {
-        double[][] groups = new double[groupSizes.length][];
-        int k = 0;
+    public Double[][] split (int[] groupSizes) {
+        Double[][] groups = new Double[groupSizes.length][]; int k = 0;
         for (int i = 0; i < groupSizes.length; i++) {
             for (int j = 0; j < groupSizes[i]; j++, k++) {
                 groups[i][j] = this.data[k];
