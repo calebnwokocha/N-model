@@ -88,13 +88,25 @@ public class Layer {
         return thesis;
     }
 
-    public void train (int iteration, Double[] objectives, Double[] input) {
+    public void train (int iteration, Double[] objectives, Double[]... input) {
         for (int i = 0; i < this.nodes.size(); i++) {
-            this.nodes.get(i).train(objectives[i], iteration, input);
+            if (nodes.size() >= input.length) { this.nodes.get(i).train(objectives[0], iteration, input[i]); }
+            else { this.nodes.get(i).train(objectives[i], iteration, this.convertMatrixToVector(input)); }
         }
     }
 
-    public void test (Double[] input) {
-        for (Node node : this.nodes) { node.test(input); }
+    public void test (Double[]... input) {
+        for (int i = 0; i < this.nodes.size(); i++) {
+            try {
+                if (nodes.size() >= input.length) { this.nodes.get(i).test(input[i]); }
+                else { this.nodes.get(i).test(this.convertMatrixToVector(input)); }
+            } catch (NullPointerException e) { for (Node node : nodes) { node.test(null); } }
+        }
+    }
+
+    private Double[] convertMatrixToVector (Double[][] matrix) {
+        Double[] vector = new Double[matrix.length];
+        for (int i = 0; i < vector.length; i++) { vector[i] = matrix[i][0]; }
+        return vector;
     }
 }

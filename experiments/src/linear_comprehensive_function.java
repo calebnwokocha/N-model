@@ -55,7 +55,7 @@ public class linear_comprehensive_function {
         System.out.println();
         System.out.println();
         for (int i = 0; i < trainSet.length; i++) {
-            network.train(i + 1, networkObjective, trainSet[i]);
+            network.train(i + 1, networkObjective, convertVectorToMatrix(trainSet[i]));
             System.out.println("Example " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
@@ -75,7 +75,7 @@ public class linear_comprehensive_function {
         System.out.println();
         System.out.println();
         for (int i = 0; i < testSet.length; i++) {
-            network.test(trainSet[i]);
+            network.test(convertVectorToMatrix(trainSet[i]));
             System.out.println("Test " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
@@ -86,5 +86,11 @@ public class linear_comprehensive_function {
             System.out.println();
             System.out.println();
         }
+    }
+
+    public static Double[][] convertVectorToMatrix(Double[] vector) {
+        Double[][] matrix = new Double[vector.length][1];
+        for (int i = 0; i < matrix.length; i++) { matrix[i][0] = vector[i]; }
+        return matrix;
     }
 }

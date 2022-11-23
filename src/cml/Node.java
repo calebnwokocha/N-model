@@ -22,7 +22,7 @@ public class Node {
     public Double getThesis() { return this.thesis; }
 
     public String getRule () {
-        Double probability = this.thesis / (this.thesis + this.errorMean);
+        double probability = this.thesis / (this.thesis + this.errorMean);
         return this.cFunctionName + " at probability " + probability;
     }
 
@@ -63,18 +63,23 @@ public class Node {
         }
     }
 
-    private void activate (Double[] input) {
-        this.hypothesis = this.degreeRoot(this.cFunction.apply(input), this.degree);
+    private void activate (Double... input) {
+        this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree);
         this.thesis = ((Math.pow(this.hypothesis, 2) + Math.pow(this.objective, 2)) - this.errorMean) /
                 (2 * this.hypothesis);
+                /*this.hypothesis = this.degreeRoot(cValue, this.degree) +
+                (2 * (this.errorMean - this.degreeRoot(cValue, this.degree))) +
+                (2 * this.degreeRoot(cValue, this.degree) * this.objective);
+        this.thesis = Math.sqrt(Math.abs(this.hypothesis - this.errorMean));*/
+
     }
 
     private boolean isOutlier (Double[] input) {
-        for (int i = 0; i < input.length; i++) {
-            try { if (this.isBetween(input[i], this.lowerBound[i],
-                    this.upperBound[i])) { return false; }
-            } catch (NullPointerException e) { return true; }
-        } return true;
+        try { for (int i = 0; i < input.length; i++) {
+                if (this.isBetween(input[i], this.lowerBound[i], this.upperBound[i])) { return false; }
+            }
+        } catch (NullPointerException e) { return true; }
+        return true;
     }
 
     private void setInputBounds (Double[] input, Integer iteration) {
@@ -96,8 +101,8 @@ public class Node {
     }
 
     private Double variance (Double[] data, Double expectedValue) {
-        Double squaredSum = 0.0;
-        Double variance;
+        double squaredSum = 0.0;
+        double variance;
         for (Double datum : data) { squaredSum += Math.pow(datum - expectedValue, 2); }
         if (squaredSum == 0 || (data.length - 1) == 0) { variance = squaredSum; }
         else { variance = squaredSum / (data.length - 1); }

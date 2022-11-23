@@ -61,11 +61,11 @@ public class Multitask {
         } return thesis;
     }
 
-    public void train (int iteration, Double[] objective, Double... input) {
+    public void train (int iteration, Double[] objective, Double[]... input) {
         this.networks.get(this.lastNetworkIndex).train(iteration, objective, input);
     }
 
-    public void test (Double... input) { for (Network network : this.networks) { network.test(input); } }
+    public void test (Double[]... input) { for (Network network : this.networks) { network.test(input); } }
 
     private void transferKnowledgeTo(Network network) {
         if (networks.size() > 0) {

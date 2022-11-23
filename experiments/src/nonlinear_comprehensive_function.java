@@ -29,17 +29,20 @@ public class nonlinear_comprehensive_function {
     public static void main(String[] args) throws Exception {
         Double[] networkObjective = new Double[]{200.0};
 
-        Double[] trainSet = new Double[100];
+        Double[][] trainSet = new Double[100][2];
         for (int i = 0; i < trainSet.length; i++) {
-            trainSet[i] = Math.random() + 10;
+            trainSet[i][0] = Math.random() + 10;
+            trainSet[i][1] = Math.random() + 10;
         }
 
-        Double[] testSet = new Double[100];
+        Double[][] testSet = new Double[100][2];
         for (int i = 0; i < testSet.length; i++) {
-            testSet[i] = Math.random() + 10;
+            testSet[i][0] = Math.random() + 10;
+            testSet[i][1] = Math.random() + 10;
         }
 
-        Function<Double[], Double> square = x -> Math.pow(x[0], 2);
+
+        Function<Double[], Double> square = x -> Math.pow(x[0], 2.0);
 
         Network network = new Network(2, 1);
         network.setCFunction("square", 2.0, square);
@@ -49,12 +52,12 @@ public class nonlinear_comprehensive_function {
         System.out.println();
         System.out.println();
         for (int i = 0; i < trainSet.length; i++) {
-            network.train(i + 1, networkObjective, new Double[]{trainSet[i]});
+            network.train(i + 1, networkObjective, convertVectorToMatrix(trainSet[i]));
             System.out.println("Example " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
             System.out.println();
-            System.out.println("Network input is " + trainSet[i]);
+            System.out.println("Network input is " + Arrays.toString(trainSet[i]));
             System.out.println();
             System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 1]));
             System.out.println();
@@ -69,16 +72,22 @@ public class nonlinear_comprehensive_function {
         System.out.println();
         System.out.println();
         for (int i = 0; i < testSet.length; i++) {
-            network.test(new Double[]{trainSet[i]});
+            network.test(convertVectorToMatrix(trainSet[i]));
             System.out.println("Test " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
             System.out.println();
-            System.out.println("Network input is " + testSet[i]);
+            System.out.println("Network input is " + Arrays.toString(testSet[i]));
             System.out.println();
             System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
             System.out.println();
             System.out.println();
         }
+    }
+
+    public static Double[][] convertVectorToMatrix(Double[] vector) {
+        Double[][] matrix = new Double[vector.length][1];
+        for (int i = 0; i < matrix.length; i++) { matrix[i][0] = vector[i]; }
+        return matrix;
     }
 }

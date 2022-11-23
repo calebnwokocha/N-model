@@ -119,19 +119,30 @@ public class Network {
         return thesis;
     }
 
-    public void train (int iteration, Double[] objective, Double[] input) {
+    public void train (int iteration, Double[] objective, Double[]... input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
-            else { this.layers.get(i).train(iteration, objective, this.layers.get(i - 1).getThesis()); }
+            else { Double[] previousLayerThesis = this.layers.get(i - 1).getThesis();
+                this.layers.get(i).train(iteration, objective, this.convertVectorToMatrix(previousLayerThesis));
+            }
         }
     }
 
-    public void test (Double[] input) {
+    public void test (Double[]... input) {
         for (int i = 0; i < this.layers.size(); i++) {
-            if (i == 0) {this.layers.get(i).test(input); }
-            else { this.layers.get(i).test(this.layers.get(i - 1).getThesis()); }
-            if (this.isNull(this.layers.get(i))) { this.nullifyNetOutput(); break; }
+            if (i == 0) {this.layers.get(i).test(input);
+                if (this.isNull(this.layers.get(i))) { this.nullifyNetOutput(); break; }
+            } else { Double[] previousLayerThesis = this.layers.get(i - 1).getThesis();
+                this.layers.get(i).test(this.convertVectorToMatrix(previousLayerThesis));
+                if (this.isNull(this.layers.get(i))) { this.nullifyNetOutput(); break; }
+            }
         }
+    }
+
+    private Double[][] convertVectorToMatrix (Double[] vector) {
+        Double[][] matrix = new Double[vector.length][1];
+        for (int i = 0; i < matrix.length; i++) { matrix[i][0] = vector[i]; }
+        return matrix;
     }
 
     private boolean isNull (Layer layer) {
@@ -139,5 +150,5 @@ public class Network {
         return false;
     }
 
-    private void nullifyNetOutput () { this.layers.get(this.getLength() - 1).test(new Double[]{null}); }
+    private void nullifyNetOutput () { this.layers.get(this.getLength() - 1).test(null); }
 }

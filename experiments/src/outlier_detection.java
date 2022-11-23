@@ -29,14 +29,16 @@ public class outlier_detection {
     public static void main(String[] args) throws Exception {
         Double[] networkObjective = new Double[]{200.0};
 
-        Double[] trainSet = new Double[100];
+        Double[][] trainSet = new Double[100][2];
         for (int i = 0; i < trainSet.length; i++) {
-            trainSet[i] = Math.random() + 10;
+            trainSet[i][0] = Math.random() + 10;
+            trainSet[i][1] = Math.random() + 10;
         }
 
-        Double[] outlierTestSet = new Double[100];
+        Double[][] outlierTestSet = new Double[100][2];
         for (int i = 0; i < outlierTestSet.length; i++) {
-            outlierTestSet[i] = Math.random() + 8;
+            outlierTestSet[i][0] = Math.random() + 8;
+            outlierTestSet[i][1] = Math.random() + 8;
         }
 
         Function<Double[], Double> sum = x -> {
@@ -47,19 +49,19 @@ public class outlier_detection {
 
         Network network = new Network(2, 1);
         network.setCFunction("sum", 1.0, sum);
-        network.setPower(40.0);
-        network.setCoverage(5.0);
+        network.setPower(-6.0);
+        network.setCoverage(1.1);
 
         System.out.println("\nNETWORK TRAINING............................................................................................................................");
         System.out.println();
         System.out.println();
         for (int i = 0; i < trainSet.length; i++) {
-            network.train(i + 1, networkObjective, new Double[]{trainSet[i]});
+            network.train(i + 1, networkObjective, convertVectorToMatrix(trainSet[i]));
             System.out.println("Example " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
             System.out.println();
-            System.out.println("Network input is " + trainSet[i]);
+            System.out.println("Network input is " + Arrays.toString(trainSet[i]));
             System.out.println();
             System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 1]));
             System.out.println();
@@ -74,16 +76,22 @@ public class outlier_detection {
         System.out.println();
         System.out.println();
         for (int i = 0; i < outlierTestSet.length; i++) {
-            network.test(new Double[]{outlierTestSet[i]});
+            network.test(convertVectorToMatrix(outlierTestSet[i]));
             System.out.println("Outlier Test " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
             System.out.println();
-            System.out.println("Network input is " + outlierTestSet[i]);
+            System.out.println("Network input is " + Arrays.toString(outlierTestSet[i]));
             System.out.println();
             System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
             System.out.println();
             System.out.println();
         }
+    }
+
+    public static Double[][] convertVectorToMatrix(Double[] vector) {
+        Double[][] matrix = new Double[vector.length][1];
+        for (int i = 0; i < matrix.length; i++) { matrix[i][0] = vector[i]; }
+        return matrix;
     }
 }
