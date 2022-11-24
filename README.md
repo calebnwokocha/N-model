@@ -1,3 +1,3 @@
-# Comprehensive Machine Learning (CML)
+# Automatom
 
-Learn about CML at https://www.researchgate.net/profile/Caleb-Nwokocha/research
+Learn about Automatom at https://www.researchgate.net/profile/Caleb-Nwokocha/research
