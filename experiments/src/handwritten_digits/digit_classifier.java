@@ -1,7 +1,7 @@
 package handwritten_digits;
 
-import cml.Dataset;
-import cml.Network;
+import model.Dataset;
+import model.Network;
 
 import java.util.Arrays;
 import java.util.function.Function;

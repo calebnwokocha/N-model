@@ -3,7 +3,7 @@
  Emails: calebnwokocha@gmail.com, nwokochc@myumanitoba.ca
 ---------------------------------------------------------------------------- */
 
-package cml;
+package model;
 
 import java.util.Arrays;
 import java.util.function.Function;
@@ -47,11 +47,12 @@ public class Node {
     }
 
     public void train (Double objective, int iteration, Double... input) {
-        this.objective = objective; this.activate(input);
-        Double error = Math.pow(this.hypothesis - this.objective, 2);
-        if (iteration == 1) { this.inputMean = new Double[input.length];
-            Arrays.fill(inputMean, 0.0); this.errorMean = error;}
-        if (iteration > 1) { this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration); }
+        try { this.objective = objective; this.activate(input);
+            Double error = Math.pow(this.hypothesis - this.objective, 2);
+            if (iteration == 1) { this.inputMean = new Double[input.length];
+                Arrays.fill(inputMean, 0.0); this.errorMean = error;}
+            if (iteration > 1) { this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration); }
+        } catch (NullPointerException e) { e.printStackTrace(); }
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
     }
 
@@ -64,14 +65,14 @@ public class Node {
     }
 
     private void activate (Double... input) {
-        this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree);
-        this.thesis = ((Math.pow(this.hypothesis, 2) + Math.pow(this.objective, 2)) - this.errorMean) /
-                (2 * this.hypothesis);
+        try { this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree);
+            this.thesis = ((Math.pow(this.hypothesis, 2) + Math.pow(this.objective, 2)) - this.errorMean) /
+                    (2 * this.hypothesis);
                 /*this.hypothesis = this.degreeRoot(cValue, this.degree) +
                 (2 * (this.errorMean - this.degreeRoot(cValue, this.degree))) +
                 (2 * this.degreeRoot(cValue, this.degree) * this.objective);
         this.thesis = Math.sqrt(Math.abs(this.hypothesis - this.errorMean));*/
-
+        } catch (NullPointerException e) { e.printStackTrace(); }
     }
 
     private boolean isOutlier (Double[] input) {

@@ -3,7 +3,7 @@
  Emails: calebnwokocha@gmail.com, nwokochc@myumanitoba.ca
 ---------------------------------------------------------------------------- */
 
-package cml;
+package model;
 
 import java.util.ArrayList;
 

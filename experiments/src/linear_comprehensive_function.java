@@ -20,7 +20,7 @@
  permission to use this framework.
 ---------------------------------------------------------------------------- */
 
-import cml.Network;
+import model.Network;
 
 import java.util.Arrays;
 import java.util.function.Function;

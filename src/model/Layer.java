@@ -3,7 +3,7 @@
  Emails: calebnwokocha@gmail.com, nwokochc@myumanitoba.ca
 ---------------------------------------------------------------------------- */
 
-package cml;
+package model;
 
 import java.util.ArrayList;
 import java.util.function.Function;
@@ -90,8 +90,11 @@ public class Layer {
 
     public void train (int iteration, Double[] objectives, Double[]... input) {
         for (int i = 0; i < this.nodes.size(); i++) {
-            if (nodes.size() >= input.length) { this.nodes.get(i).train(objectives[0], iteration, input[i]); }
-            else { this.nodes.get(i).train(objectives[i], iteration, this.convertMatrixToVector(input)); }
+            if (nodes.size() >= input.length) {
+                try { this.nodes.get(i).train(objectives[0], iteration, input[i]); }
+                catch (ArrayIndexOutOfBoundsException e) { break; }
+            } else { this.nodes.get(i).train(objectives[i], iteration, this.convertMatrixToVector(input)); }
+            System.out.println("Layer");
         }
     }
 
