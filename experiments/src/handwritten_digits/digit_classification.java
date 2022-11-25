@@ -69,50 +69,28 @@ public class digit_classification {
             return Math.pow(s, 2);
         };
         
-        Network network = new Network(5, new int[]{1000, 1000, 1000, 1000, 1000});
+        Network network = new Network(5, 1000);
         network.setCFunction("sum", 3.0, sum);
         network.setPower(-10.0);
         //network.setCoverage(7.0);
+
+        Double[] networkObjective = new Double[1000];
+        Arrays.fill(networkObjective, 4.0);
 
         for (int i = 0; i < 500; i++) {
             System.out.println("Example " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 1]));
-            network.train(i + 1, new Double[]{3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0}, convertVectorToMatrix(threeTrainingSet[i]));
+            network.train(i + 1, networkObjective, convertVectorToMatrix(fourTrainingSet[i]));
             System.out.println();
-            System.out.println("Network objective is " + 3);
+            System.out.println("Network objective is " + networkObjective[i]);
             System.out.println();
-            System.out.println("Network input is " + Arrays.toString(threeTrainingSet[i]));
+            System.out.println("Network input is " + Arrays.toString(fourTrainingSet[i]));
             System.out.println();
             System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 1]));
             System.out.println();
             System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
             System.out.println();
- /*           System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 9]));
-            System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 9]));
-            System.out.println();
-            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 9]));
-            System.out.println();
-            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 8]));
-            System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 8]));
-            System.out.println();
-            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 8]));
-            System.out.println();
-            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 7]));
-            System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 7]));
-            System.out.println();
-            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 7]));
-            System.out.println();
-            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 10]));
-            System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 10]));
-            System.out.println();
-            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 10]));*//*
-            System.out.println();
-            System.out.println(); */
         }
 
         System.out.println("NETWORK TESTING............................................................................................................................");
