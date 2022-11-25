@@ -13,7 +13,7 @@ public class Node {
     private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
     private Double power, objective, degree;
     private Double[] inputMean, upperBound, lowerBound;
-    private final Mean mean = new Mean();
+    private final StatUtil statUtil = new StatUtil();
 
     public Node () {}
 
@@ -47,70 +47,43 @@ public class Node {
     }
 
     public void train (Double objective, int iteration, Double... input) {
-        try { this.objective = objective; this.activate(input);
-            Double error = Math.pow(this.hypothesis - this.objective, 2);
+        this.objective = objective; this.activate(input);
+        try { Double error = Math.pow(this.hypothesis - this.objective, 2);
             if (iteration == 1) { this.inputMean = new Double[input.length];
-                Arrays.fill(inputMean, 0.0); this.errorMean = error;}
-            if (iteration > 1) { this.errorMean = mean.powerMean(this.errorMean, error, this.power, iteration); }
-        } catch (NullPointerException e) { e.printStackTrace(); }
+                Arrays.fill(inputMean, 0.0); this.errorMean = error;
+            } if (iteration > 1) {
+                this.errorMean = statUtil.dynamicPowerMean(this.errorMean, error, this.power, iteration);
+            }
+        } catch (NullPointerException ignored) {}
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
     }
 
     public void test (Double... input) {
         if (coverage == null) { this.activate(input); }
         else {
-            if (this.isOutlier(input)) { this.thesis = null; }
+            if (statUtil.isOutlier(input, this.lowerBound, this.upperBound)) { this.thesis = null; }
             else { this.activate(input); }
         }
     }
 
     private void activate (Double... input) {
-        try { this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree);
+        try { this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree) + 1;
             this.thesis = ((Math.pow(this.hypothesis, 2) + Math.pow(this.objective, 2)) - this.errorMean) /
                     (2 * this.hypothesis);
-                /*this.hypothesis = this.degreeRoot(cValue, this.degree) +
-                (2 * (this.errorMean - this.degreeRoot(cValue, this.degree))) +
-                (2 * this.degreeRoot(cValue, this.degree) * this.objective);
-        this.thesis = Math.sqrt(Math.abs(this.hypothesis - this.errorMean));*/
-        } catch (NullPointerException e) { e.printStackTrace(); }
-    }
-
-    private boolean isOutlier (Double[] input) {
-        try { for (int i = 0; i < input.length; i++) {
-                if (this.isBetween(input[i], this.lowerBound[i], this.upperBound[i])) { return false; }
-            }
-        } catch (NullPointerException e) { return true; }
-        return true;
+        } catch (NullPointerException ignored) {}
     }
 
     private void setInputBounds (Double[] input, Integer iteration) {
-        this.inputMean = mean.powerMean(this.inputMean,
+        this.inputMean = statUtil.dynamicPowerMean(this.inputMean,
                 input, this.power, iteration + 1);
         this.upperBound = new Double[inputMean.length];
         this.lowerBound = new Double[inputMean.length];
         for (int i = 0; i < inputMean.length; i++) {
-            Double inputDeviation = this.standardDeviation(input, inputMean[i]);
+            Double inputDeviation = statUtil.standardDeviation(input, inputMean[i]);
             this.upperBound[i] = inputMean[i] + (this.coverage * inputDeviation);
             this.lowerBound[i] = inputMean[i] - (this.coverage * inputDeviation);
         }
     }
 
     private Double degreeRoot(Double cValue, Double degree) { return Math.pow(cValue, 1 / degree); }
-
-    private boolean isBetween (Double data, Double minimum, Double maximum) {
-        return minimum <= data && data <= maximum;
-    }
-
-    private Double variance (Double[] data, Double expectedValue) {
-        double squaredSum = 0.0;
-        double variance;
-        for (Double datum : data) { squaredSum += Math.pow(datum - expectedValue, 2); }
-        if (squaredSum == 0 || (data.length - 1) == 0) { variance = squaredSum; }
-        else { variance = squaredSum / (data.length - 1); }
-        return variance;
-    }
-
-    private Double standardDeviation (Double[] data, Double expectedValue) {
-        return Math.sqrt(this.variance(data, expectedValue));
-    }
 }

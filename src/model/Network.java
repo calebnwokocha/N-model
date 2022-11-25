@@ -121,6 +121,7 @@ public class Network {
 
     public void train (int iteration, Double[] objective, Double[]... input) {
         for (int i = 0; i < this.layers.size(); i++) {
+            //System.out.println("Layer " + i);
             if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
             else { Double[] previousLayerThesis = this.layers.get(i - 1).getThesis();
                 this.layers.get(i).train(iteration, objective, this.convertVectorToMatrix(previousLayerThesis));

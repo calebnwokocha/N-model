@@ -71,8 +71,8 @@ public class Multitask {
         if (networks.size() > 0) {
             this.lastNetworkIndex = this.networks.size() - 1;
             Double[][] lastNetworkErrorMean = networks.get(this.lastNetworkIndex).getErrorMean();
-            Mean mean = new Mean();
-            this.errorMeanMean = mean.powerMean(this.errorMeanMean, lastNetworkErrorMean,
+            StatUtil statUtil = new StatUtil();
+            this.errorMeanMean = statUtil.dynamicPowerMean(this.errorMeanMean, lastNetworkErrorMean,
                     1.0, this.networks.size());
             network.setErrorMean(this.errorMeanMean);
         }

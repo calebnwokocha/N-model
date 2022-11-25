@@ -6,18 +6,18 @@ import model.Network;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public class digit_classifier {
+public class digit_classification {
     public static void main(String[] args) throws Exception {
-        Dataset zeroDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\CML\\experiments\\src\\handwritten_digits\\dataset\\10000\\0");
-        Dataset oneDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\CML\\experiments\\src\\handwritten_digits\\dataset\\10000\\1");
-        Dataset twoDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\CML\\experiments\\src\\handwritten_digits\\dataset\\10000\\2");
-        Dataset threeDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\CML\\experiments\\src\\handwritten_digits\\dataset\\10000\\3");
-        Dataset fourDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\CML\\experiments\\src\\handwritten_digits\\dataset\\10000\\4");
-        Dataset fiveDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\CML\\experiments\\src\\handwritten_digits\\dataset\\10000\\5");
-        Dataset sixDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\CML\\experiments\\src\\handwritten_digits\\dataset\\10000\\6");
-        Dataset sevenDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\CML\\experiments\\src\\handwritten_digits\\dataset\\10000\\7");
-        Dataset eightDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\CML\\experiments\\src\\handwritten_digits\\dataset\\10000\\8");
-        Dataset nineDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\CML\\experiments\\src\\handwritten_digits\\dataset\\10000\\9");
+        Dataset zeroDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\Automaton\\experiments\\src\\handwritten_digits\\dataset\\10000\\0");
+        Dataset oneDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\Automaton\\experiments\\src\\handwritten_digits\\dataset\\10000\\1");
+        Dataset twoDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\Automaton\\experiments\\src\\handwritten_digits\\dataset\\10000\\2");
+        Dataset threeDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\Automaton\\experiments\\src\\handwritten_digits\\dataset\\10000\\3");
+        Dataset fourDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\Automaton\\experiments\\src\\handwritten_digits\\dataset\\10000\\4");
+        Dataset fiveDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\Automaton\\experiments\\src\\handwritten_digits\\dataset\\10000\\5");
+        Dataset sixDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\Automaton\\experiments\\src\\handwritten_digits\\dataset\\10000\\6");
+        Dataset sevenDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\Automaton\\experiments\\src\\handwritten_digits\\dataset\\10000\\7");
+        Dataset eightDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\Automaton\\experiments\\src\\handwritten_digits\\dataset\\10000\\8");
+        Dataset nineDataset = new Dataset("C:\\Users\\Caleb P. Nwokocha\\Documents\\Automaton\\experiments\\src\\handwritten_digits\\dataset\\10000\\9");
 
         int numOfTrainingSet = 500;
         int numOfTestingSet = 500;
@@ -66,29 +66,29 @@ public class digit_classifier {
         Function<Double[], Double> sum = x -> {
             Double s = 0.0;
             for (Double d : x) { s += d; }
-            return Math.pow(s, 0.5);
+            return Math.pow(s, 2);
         };
         
-        Network network = new Network(10, new int[]{1000, 1000, 1000, 1000, 1000, 1, 1, 1, 1, 1});
-        network.setCFunction("sum", 0.5, sum);
-        network.setPower(5.0);
+        Network network = new Network(5, new int[]{1000, 1000, 1000, 1000, 1000});
+        network.setCFunction("sum", 3.0, sum);
+        network.setPower(-10.0);
         //network.setCoverage(7.0);
 
-        for (int i = 0; i < 50; i++) {
-            network.train(i + 1, new Double[]{3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0}, convertVectorToMatrix(threeTrainingSet[i]));
+        for (int i = 0; i < 500; i++) {
             System.out.println("Example " + (i + 1) + ":");
             System.out.println();
-            System.out.println("Network objective is " + 0);
+            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 1]));
+            network.train(i + 1, new Double[]{3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0}, convertVectorToMatrix(threeTrainingSet[i]));
+            System.out.println();
+            System.out.println("Network objective is " + 3);
             System.out.println();
             System.out.println("Network input is " + Arrays.toString(threeTrainingSet[i]));
             System.out.println();
-            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 10]));
+            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 1]));
             System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 10]));
+            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
             System.out.println();
-            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 10]));
-            System.out.println();
-            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 9]));
+ /*           System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 9]));
             System.out.println();
             System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 9]));
             System.out.println();
@@ -110,9 +110,9 @@ public class digit_classifier {
             System.out.println();
             System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 10]));
             System.out.println();
-            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 10]));
+            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 10]));*//*
             System.out.println();
-            System.out.println();
+            System.out.println(); */
         }
 
         System.out.println("NETWORK TESTING............................................................................................................................");
