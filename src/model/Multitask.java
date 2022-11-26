@@ -22,10 +22,7 @@ public class Multitask {
 
     public ArrayList<Network> getNetworks() { return this.networks; }
 
-    public void addNetwork (Network network) {
-        this.transferKnowledgeTo(network);
-        this.networks.add(network);
-    }
+    public void addNetwork (Network network) { this.transferKnowledgeTo(network); this.networks.add(network); }
 
     public void removeNetwork (int index) { this.networks.remove(index); }
 
@@ -71,8 +68,8 @@ public class Multitask {
         if (networks.size() > 0) {
             this.lastNetworkIndex = this.networks.size() - 1;
             Double[][] lastNetworkErrorMean = networks.get(this.lastNetworkIndex).getErrorMean();
-            StatUtil statUtil = new StatUtil();
-            this.errorMeanMean = statUtil.dynamicPowerMean(this.errorMeanMean, lastNetworkErrorMean,
+            StatUtil stat = new StatUtil();
+            this.errorMeanMean = stat.dynamicPowerMean(this.errorMeanMean, lastNetworkErrorMean,
                     1.0, this.networks.size());
             network.setErrorMean(this.errorMeanMean);
         }

@@ -13,7 +13,7 @@ public class Node {
     private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
     private Double power, objective, degree;
     private Double[] inputMean, upperBound, lowerBound;
-    private final StatUtil statUtil = new StatUtil();
+    private final StatUtil stat = new StatUtil();
 
     public Node () {}
 
@@ -52,7 +52,7 @@ public class Node {
             if (iteration == 1) { this.inputMean = new Double[input.length];
                 Arrays.fill(inputMean, 0.0); this.errorMean = error;
             } if (iteration > 1) {
-                this.errorMean = statUtil.dynamicPowerMean(this.errorMean, error, this.power, iteration);
+                this.errorMean = stat.dynamicPowerMean(this.errorMean, error, this.power, iteration);
             }
         } catch (NullPointerException ignored) {}
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
@@ -61,7 +61,7 @@ public class Node {
     public void test (Double... input) {
         if (coverage == null) { this.activate(input); }
         else {
-            if (statUtil.isOutlier(input, this.lowerBound, this.upperBound)) { this.thesis = null; }
+            if (stat.isOutlier(input, this.lowerBound, this.upperBound)) { this.thesis = null; }
             else { this.activate(input); }
         }
     }
@@ -74,12 +74,12 @@ public class Node {
     }
 
     private void setInputBounds (Double[] input, Integer iteration) {
-        this.inputMean = statUtil.dynamicPowerMean(this.inputMean,
+        this.inputMean = stat.dynamicPowerMean(this.inputMean,
                 input, this.power, iteration + 1);
         this.upperBound = new Double[inputMean.length];
         this.lowerBound = new Double[inputMean.length];
         for (int i = 0; i < inputMean.length; i++) {
-            Double inputDeviation = statUtil.standardDeviation(input, inputMean[i]);
+            Double inputDeviation = stat.standardDeviation(input, inputMean[i]);
             this.upperBound[i] = inputMean[i] + (this.coverage * inputDeviation);
             this.lowerBound[i] = inputMean[i] - (this.coverage * inputDeviation);
         }

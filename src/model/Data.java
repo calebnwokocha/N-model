@@ -48,22 +48,6 @@ public class Data {
         return doubleData;
     }
 
-    public void toText () {
-
-    }
-
-    public void toSound () {
-
-    }
-
-    public void toImage () {
-
-    }
-
-    public void toVideo () {
-
-    }
-
     public void saveData () {
 
     }

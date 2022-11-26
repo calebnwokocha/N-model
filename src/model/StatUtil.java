@@ -5,8 +5,8 @@
 
 package model;
 
-public class StatUtil {
-    public StatUtil () {}
+class StatUtil {
+    StatUtil() {}
 
     public Double dynamicPowerMean (Double mean, Double datum, double power, int iteration) {
         mean = Math.pow((1.0 / iteration) * (Math.pow(datum, power) +
@@ -43,7 +43,8 @@ public class StatUtil {
     public boolean isBetween (Double data, Double minimum, Double maximum) {
         return minimum <= data && data <= maximum;
     }
-    public boolean isOutlier (Double[] data, Double[] dataLowerBound, Double[] dataUpperBound) {
+
+    public boolean isOutlier(Double[] data, Double[] dataLowerBound, Double[] dataUpperBound) {
         try { for (int i = 0; i < data.length; i++) {
             if (this.isBetween(data[i], dataLowerBound[i], dataUpperBound[i])) { return false; }
         } } catch (NullPointerException e) { return true; }
