@@ -60,8 +60,7 @@ public class Node {
 
     public void test (Double... input) {
         if (coverage == null) { this.activate(input); }
-        else {
-            if (stat.isOutlier(input, this.lowerBound, this.upperBound)) { this.thesis = null; }
+        else { if (stat.isOutlier(input, this.lowerBound, this.upperBound)) { this.thesis = null; }
             else { this.activate(input); }
         }
     }
@@ -74,8 +73,7 @@ public class Node {
     }
 
     private void setInputBounds (Double[] input, Integer iteration) {
-        this.inputMean = stat.dynamicPowerMean(this.inputMean,
-                input, this.power, iteration + 1);
+        this.inputMean = stat.dynamicPowerMean(this.inputMean, input, this.power, iteration + 1);
         this.upperBound = new Double[inputMean.length];
         this.lowerBound = new Double[inputMean.length];
         for (int i = 0; i < inputMean.length; i++) {
