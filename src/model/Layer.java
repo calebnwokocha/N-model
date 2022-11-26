@@ -97,8 +97,8 @@ public class Layer {
 
     public void test (Double[]... input) {
         for (int i = 0; i < nodes.size(); i++) {
-            try { this.nodes.get(i).test(input[i]);
-            } catch (NullPointerException e) { for (Node node : nodes) { node.test(null); } }
+            try { this.nodes.get(i).test(input[i]); }
+            catch (NullPointerException e) { for (Node node : nodes) { node.test(null); } }
         }
     }
 }
