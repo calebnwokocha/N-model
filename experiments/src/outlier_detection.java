@@ -50,7 +50,7 @@ public class outlier_detection {
         Network network = new Network(2, 1);
         network.setCFunction("sum", 1.0, sum);
         network.setPower(-6.0);
-        network.setCoverage(1.1);
+        network.setCoverage(3.0);
 
         System.out.println("\nNETWORK TRAINING............................................................................................................................");
         System.out.println();

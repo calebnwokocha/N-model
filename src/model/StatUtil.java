@@ -8,7 +8,7 @@ package model;
 class StatUtil {
     StatUtil() {}
 
-    public Double dynamicPowerMean (Double mean, Double datum, double power, int iteration) {
+    public Double dynamicPowerMean (Double mean, Double datum, Double power, int iteration) {
         mean = Math.pow((1.0 / iteration) * (Math.pow(datum, power) +
                 (Math.pow(mean, power) * (iteration - 1))), 1.0 / power);
         return mean;
@@ -16,7 +16,8 @@ class StatUtil {
 
     public Double[] dynamicPowerMean (Double[] mean, Double[] data, double power, int iteration) {
         for (int i = 0; i < data.length; i++) {
-            mean[i] = this.dynamicPowerMean(mean[i], data[i], power, iteration);
+            try { mean[i] = this.dynamicPowerMean(mean[i], data[i], power, iteration); }
+            catch (NullPointerException ignored) {}
         } return mean;
     }
 
@@ -30,7 +31,8 @@ class StatUtil {
     public Double variance (Double[] data, Double expectedValue) {
         double squaredSum = 0.0;
         double variance;
-        for (Double datum : data) { squaredSum += Math.pow(datum - expectedValue, 2); }
+        try { for (Double datum : data) { squaredSum += Math.pow(datum - expectedValue, 2); } }
+        catch (NullPointerException ignored) {}
         if (squaredSum == 0 || (data.length - 1) == 0) { variance = squaredSum; }
         else { variance = squaredSum / (data.length - 1); }
         return variance;

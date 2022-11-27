@@ -131,10 +131,10 @@ public class Network {
     public void test (Double[]... input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) {this.layers.get(i).test(input);
-                if (this.isNull(this.layers.get(i))) { this.nullifyNetOutput(); break; }
+                if (this.layers.get(i).isNull()) { this.nullifyNetOutput(); }
             } else { Double[] previousLayerThesis = this.layers.get(i - 1).getThesis();
                 this.layers.get(i).test(this.convertVectorToMatrix(previousLayerThesis));
-                if (this.isNull(this.layers.get(i))) { this.nullifyNetOutput(); break; }
+                if (this.layers.get(i).isNull()) { this.nullifyNetOutput(); }
             }
         }
     }
@@ -143,11 +143,6 @@ public class Network {
         Double[][] matrix = new Double[vector.length][1];
         for (int i = 0; i < matrix.length; i++) { matrix[i][0] = vector[i]; }
         return matrix;
-    }
-
-    private boolean isNull (Layer layer) {
-        for (Node node : layer.getNodes()) { if (node.getThesis() == null) { return true; } }
-        return false;
     }
 
     private void nullifyNetOutput () { this.layers.get(this.getLength() - 1).test(null); }

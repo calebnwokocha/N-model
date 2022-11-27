@@ -12,6 +12,7 @@ import java.util.Collections;
 
 public class Dataset {
     private Double[][] dataset;
+    Data data = new Data();
 
     public Dataset(Double[][] dataset) { this.dataset = dataset; }
 
@@ -43,10 +44,15 @@ public class Dataset {
         } return groups;
     }
 
+    public void transform (Double[][] basis) {
+        for (int i = 0; i < dataset.length; i++) { this.data.setData(dataset[i]);
+            this.data.transform(basis[i]); dataset[i] = this.data.getData();
+        }
+    }
+
     public void saveDataset () {
         for (Double[] d : this.dataset) {
-            Data data = new Data(d);
-            data.saveData();
+            this.data.saveData();
         }
     }
 

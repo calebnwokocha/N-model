@@ -73,13 +73,15 @@ public class Node {
     }
 
     private void setInputBounds (Double[] input, Integer iteration) {
-        this.inputMean = stat.dynamicPowerMean(this.inputMean, input, this.power, iteration + 1);
-        this.upperBound = new Double[inputMean.length];
-        this.lowerBound = new Double[inputMean.length];
-        for (int i = 0; i < inputMean.length; i++) {
-            Double inputDeviation = stat.standardDeviation(input, inputMean[i]);
-            this.upperBound[i] = inputMean[i] + (this.coverage * inputDeviation);
-            this.lowerBound[i] = inputMean[i] - (this.coverage * inputDeviation);
+        if (iteration == 1) { this.inputMean = input; }
+        else { this.inputMean = stat.dynamicPowerMean(this.inputMean, input, this.power, iteration + 1); }
+        this.upperBound = new Double[input.length];
+        this.lowerBound = new Double[input.length];
+        for (int i = 0; i < input.length; i++) {
+            try { Double inputDeviation = stat.standardDeviation(input, this.inputMean[i]);
+                this.upperBound[i] = this.inputMean[i] + (this.coverage * inputDeviation);
+                this.lowerBound[i] = this.inputMean[i] - (this.coverage * inputDeviation);
+            } catch (NullPointerException ignored) {}
         }
     }
 

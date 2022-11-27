@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.function.Function;
 
 public class Layer {
+    private boolean isNull;
+
     private ArrayList<Node> nodes = new ArrayList<>();
 
     public Layer (int width) { for (int i = 0; i < width; i++) { this.nodes.add(new Node()); } }
@@ -89,16 +91,21 @@ public class Layer {
     }
 
     public void train (int iteration, Double[] objectives, Double[]... input) {
-        for (int i = 0; i < nodes.size(); i++) {
+        for (int i = 0; i < this.nodes.size(); i++) {
             try { this.nodes.get(i).train(objectives[i], iteration, input[i]); }
             catch (ArrayIndexOutOfBoundsException e) { break; }
         }
     }
 
     public void test (Double[]... input) {
-        for (int i = 0; i < nodes.size(); i++) {
+        int nullCount = 0;
+        for (int i = 0; i < this.nodes.size(); i++) {
             try { this.nodes.get(i).test(input[i]); }
-            catch (NullPointerException e) { for (Node node : nodes) { node.test(null); } }
-        }
+            catch (ArrayIndexOutOfBoundsException e) { break; }
+            catch (NullPointerException e) { nodes.get(i).test(null); }
+            if (this.nodes.get(i).getThesis() == null) { nullCount += 1; }
+        } this.isNull = nullCount == this.nodes.size();
     }
+
+    public boolean isNull () { return this.isNull; }
 }

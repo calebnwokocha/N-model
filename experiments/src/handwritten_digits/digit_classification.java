@@ -69,15 +69,15 @@ public class digit_classification {
             return Math.pow(s, 2);
         };
         
-        Network network = new Network(5, 1000);
+        Network network = new Network(5, 6);
         network.setCFunction("sum", 3.0, sum);
         network.setPower(-10.0);
-        //network.setCoverage(7.0);
+        network.setCoverage(1.0084);
 
-        Double[] networkObjective = new Double[1000];
+        Double[] networkObjective = new Double[6];
         Arrays.fill(networkObjective, 4.0);
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 6; i++) {
             System.out.println("Example " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 1]));
@@ -96,8 +96,8 @@ public class digit_classification {
         System.out.println("NETWORK TESTING............................................................................................................................");
         System.out.println();
         System.out.println();
-        for (int i = 0; i < 50; i++) {
-            network.test(convertVectorToMatrix(threeTestingSet[i]));
+        for (int i = 0; i < 10; i++) {
+            network.test(convertVectorToMatrix(fourTestingSet[i]));
             System.out.println("Test " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + 0);

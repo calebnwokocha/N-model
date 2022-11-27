@@ -14,6 +14,8 @@ import java.nio.file.Paths;
 public class Data {
     private Double[] data;
 
+    public Data() {}
+
     public Data(Double[] data) { this.data = data; }
 
     public Data (String fileName) throws IOException {
@@ -41,6 +43,8 @@ public class Data {
             }
         } return groups;
     }
+
+    public void transform (Double[] basis) { for (int i = 0; i < data.length; i++) { data[i] += basis[i]; } }
 
     private Double[] convertByteToDouble (byte[] byteData) {
         Double[] doubleData = new Double[byteData.length];
