@@ -51,9 +51,7 @@ public class Dataset {
     }
 
     public void saveDataset () {
-        for (Double[] d : this.dataset) {
-            this.data.saveData();
-        }
+        for (Double[] data : this.dataset) { this.data.setData(data); this.data.saveData(); }
     }
 
     public void retrieveDataset () {
