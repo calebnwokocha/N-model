@@ -7,6 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Automaton" />
+    <orderEntry type="module" module-name="Automaton" exported="" />
   </component>
 </module>
