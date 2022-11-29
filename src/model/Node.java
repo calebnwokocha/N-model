@@ -12,7 +12,7 @@ public class Node {
     private String cFunctionName; private Function<Double[], Double> cFunction;
     private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
     private Double power, objective, degree;
-    private Double[] inputMean, upperBound, lowerBound;
+    private Double[] inputMean, inputUpperBound, inputLowerBound;
     private final StatUtil stat = new StatUtil();
 
     public Node () {}
@@ -60,28 +60,29 @@ public class Node {
 
     public void test (Double... input) {
         if (coverage == null) { this.activate(input); }
-        else { if (stat.isOutlier(input, this.lowerBound, this.upperBound)) { this.thesis = null; }
+        else { if (stat.isOutlier(input, this.inputLowerBound, this.inputUpperBound)) { this.thesis = null; }
             else { this.activate(input); }
         }
     }
 
     private void activate (Double... input) {
         try { this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree) + 1;
-            this.thesis = ((Math.pow(this.hypothesis, 2) + Math.pow(this.objective, 2)) - this.errorMean) /
-                    (2 * this.hypothesis);
-        } catch (NullPointerException ignored) {}
+            this.thesis = ((Math.pow(this.hypothesis, 2) +
+                    Math.pow(this.objective, 2)) - this.errorMean) / (2 * this.hypothesis);
+        } catch (NullPointerException e) { this.thesis = null; }
     }
 
     private void setInputBounds (Double[] input, Integer iteration) {
         if (iteration == 1) { this.inputMean = input; }
-        else { this.inputMean = stat.dynamicPowerMean(this.inputMean, input, this.power, iteration + 1); }
-        this.upperBound = new Double[input.length];
-        this.lowerBound = new Double[input.length];
+        else { this.inputMean = stat.dynamicPowerMean(this.inputMean, input,
+                this.power, iteration + 1); }
+        this.inputUpperBound = new Double[input.length];
+        this.inputLowerBound = new Double[input.length];
         for (int i = 0; i < input.length; i++) {
             try { Double inputDeviation = stat.standardDeviation(input, this.inputMean[i]);
-                this.upperBound[i] = this.inputMean[i] + (this.coverage * inputDeviation);
-                this.lowerBound[i] = this.inputMean[i] - (this.coverage * inputDeviation);
-            } catch (NullPointerException ignored) {}
+                this.inputUpperBound[i] = this.inputMean[i] + (this.coverage * inputDeviation);
+                this.inputLowerBound[i] = this.inputMean[i] - (this.coverage * inputDeviation);
+            } catch (NullPointerException e) { break; }
         }
     }
 

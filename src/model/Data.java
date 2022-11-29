@@ -44,7 +44,12 @@ public class Data {
         } return groups;
     }
 
-    public void transform (Double[] basis) { for (int i = 0; i < data.length; i++) { data[i] += basis[i]; } }
+    public void transform (Double[] basis) {
+        for (int i = 0; i < data.length; i++) {
+            try { data[i] += basis[i]; }
+            catch (NullPointerException | ArrayIndexOutOfBoundsException e) { break; }
+        }
+    }
 
     private Double[] convertByteToDouble (byte[] byteData) {
         Double[] doubleData = new Double[byteData.length];

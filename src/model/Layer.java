@@ -97,14 +97,12 @@ public class Layer {
         }
     }
 
-    public void test (Double[]... input) {
-        int nullCount = 0;
-        for (int i = 0; i < this.nodes.size(); i++) {
-            try { this.nodes.get(i).test(input[i]); }
+    public void test (Double[]... input) { int nullCount = 0;
+        for (int i = 0; i < this.nodes.size(); i++) { try { this.nodes.get(i).test(input[i]); }
             catch (ArrayIndexOutOfBoundsException e) { break; }
             catch (NullPointerException e) { nodes.get(i).test(null); }
             if (this.nodes.get(i).getThesis() == null) { nullCount += 1; }
-        } this.isNull = nullCount == this.nodes.size();
+        } this.isNull = nullCount >= this.nodes.size() / 2;
     }
 
     public boolean isNull () { return this.isNull; }

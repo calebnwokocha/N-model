@@ -84,9 +84,7 @@ public class Network {
         for (Layer layer : this.layers) { layer.setCoverage(coverage); }
     }
 
-    public void setCoverage (Double[] coverage) {
-        for (Layer layer : this.layers) { layer.setCoverage(coverage); }
-    }
+    public void setCoverage (Double[] coverage) { for (Layer layer : this.layers) { layer.setCoverage(coverage); } }
 
     public void setCoverage (Double[][] coverage) {
         for (int i = 0; i < layers.size(); i++) { layers.get(i).setCoverage(coverage[i]); }

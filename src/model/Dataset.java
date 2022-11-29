@@ -46,7 +46,8 @@ public class Dataset {
 
     public void transform (Double[][] basis) {
         for (int i = 0; i < dataset.length; i++) { this.data.setData(dataset[i]);
-            this.data.transform(basis[i]); dataset[i] = this.data.getData();
+            try { this.data.transform(basis[i]); dataset[i] = this.data.getData(); }
+            catch (NullPointerException e) { break; }
         }
     }
 
