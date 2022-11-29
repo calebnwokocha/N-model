@@ -101,7 +101,8 @@ public class Layer {
         for (int i = 0; i < this.nodes.size(); i++) { try { this.nodes.get(i).test(input[i]); }
             catch (ArrayIndexOutOfBoundsException e) { break; }
             catch (NullPointerException e) { nodes.get(i).test(null); }
-            if (this.nodes.get(i).getThesis() == null) { nullCount += 1; }
+            Node currentNode = this.nodes.get(i);
+            if (currentNode.getThesis() == null && currentNode.getCoverage() != null) { nullCount += 1; }
         } this.isNull = nullCount >= this.nodes.size() / 2;
     }
 
