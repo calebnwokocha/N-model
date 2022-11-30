@@ -104,7 +104,7 @@ public class digit_classification {
         Network network = new Network(5, 812);
         network.setCFunction("sum", 2.0, sum);
         network.setPower(-12.0);
-        network.setCoverage(2.0);
+        network.setCoverage(3.0);
 
         Double[] networkObjective = new Double[900];
         Arrays.fill(networkObjective, 4.0);

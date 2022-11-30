@@ -66,10 +66,11 @@ public class Node {
     }
 
     private void activate (Double... input) {
-        try { this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree) + 1;
+        try {
+            this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree) + 1;
             this.thesis = ((Math.pow(this.hypothesis, 2) +
                     Math.pow(this.objective, 2)) - this.errorMean) / (2 * this.hypothesis);
-        } catch (NullPointerException e) { this.thesis = null; }
+        } catch (NullPointerException ignored) {}
     }
 
     private void setInputBounds (Double[] input, Integer iteration) {

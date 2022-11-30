@@ -103,7 +103,7 @@ public class Layer {
             catch (NullPointerException e) { nodes.get(i).test(null); }
             Node currentNode = this.nodes.get(i);
             if (currentNode.getThesis() == null && currentNode.getCoverage() != null) { nullCount += 1; }
-        } this.isNull = nullCount >= this.nodes.size() / 2;
+        } this.isNull = nullCount > this.nodes.size() / 2;
     }
 
     public boolean isNull () { return this.isNull; }
