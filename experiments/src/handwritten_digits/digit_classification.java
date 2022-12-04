@@ -1,6 +1,6 @@
 package handwritten_digits;
 
-import model.Network;
+import model.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -95,50 +95,63 @@ public class digit_classification {
             else if (dataset[0] == 9.0) { nineTestingSet.add(dataset); }
         }
 
+        Multitask multitask = new Multitask();
         Function<Double[], Double> sum = x -> {
             Double s = 0.0;
             for (Double d : x) { s += d; }
             return Math.pow(s, 2);
         };
-        
-        Network network = new Network(5, 812);
-        network.setCFunction("sum", 2.0, sum);
-        network.setPower(-12.0);
-        network.setCoverage(3.0);
-
-        Double[] networkObjective = new Double[900];
-        Arrays.fill(networkObjective, 4.0);
-
-        for (int i = 0; i < 10; i++) {
-            System.out.println("Example " + (i + 1) + ":");
-            System.out.println();
-            System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 1]));
-            network.train(i + 1, networkObjective, convertVectorToMatrix(fourTrainingSet.get(i)));
-            System.out.println();
-            System.out.println("Network objective is " + networkObjective[i]);
-            System.out.println();
-            System.out.println("Network input is " + Arrays.toString(fourTrainingSet.get(i)));
-            System.out.println();
-            System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 1]));
-            System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
-            System.out.println();
+        for (int i = 0; i <= 9; i++) {
+            Network network = new Network(5, 812);
+            network.setCFunction("sum", 2.0, sum);
+            network.setPower(-12.0);
+            network.setCoverage(5.0);
+            Double[] networkObjective = new Double[812];
+            Arrays.fill(networkObjective, (double) i);
+            multitask.addNetwork(network);
+            ArrayList<Double[]> trainingSet = switch (i) { case 0 -> zeroTrainingSet; case 1 -> oneTrainingSet;
+                case 2 -> twoTrainingSet; case 3 -> threeTrainingSet; case 4 -> fourTrainingSet;
+                case 5 -> fiveTrainingSet; case 6 -> sixTrainingSet; case 7 -> sevenTrainingSet;
+                case 8 -> eightTrainingSet; case 9 -> nineTrainingSet; default -> new ArrayList<>();
+            };
+            for (int j = 0; j < 100; j++) {
+               /* System.out.println("Example " + (j + 1) + ":");
+                System.out.println();
+                System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 1]));*/
+                multitask.train(j + 1, networkObjective, convertVectorToMatrix(fiveTestingSet.get(j)));
+                /*System.out.println();
+                System.out.println("Network objective is " + networkObjective[j]);
+                System.out.println();
+                System.out.println("Network input is " + Arrays.toString(trainingSet.get(j)));
+                System.out.println();
+                System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 1]));
+                System.out.println();
+                System.out.println("Network thesis is " + Arrays.deepToString(multitask.getThesis()));
+                System.out.println();*/
+            }
         }
 
         System.out.println("NETWORK TESTING............................................................................................................................");
         System.out.println();
         System.out.println();
-        for (int i = 0; i < 10; i++) {
-            network.test(convertVectorToMatrix(fourTestingSet.get(i)));
-            System.out.println("Test " + (i + 1) + ":");
-            System.out.println();
-            System.out.println("Network objective is " + 0);
-            System.out.println();
-            System.out.println("Network input is " + Arrays.toString(fourTestingSet.get(i)));
-            System.out.println();
-            System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
-            System.out.println();
-            System.out.println();
+        for (int i = 0; i <= 9; i++) {
+            ArrayList<Double[]> testingSet = switch (i) { case 0 -> zeroTestingSet; case 1 -> oneTestingSet;
+                case 2 -> twoTestingSet; case 3 -> threeTestingSet; case 4 -> fourTestingSet;
+                case 5 -> fiveTestingSet; case 6 -> sixTestingSet; case 7 -> sevenTestingSet;
+                case 8 -> eightTestingSet; case 9 -> nineTestingSet; default -> new ArrayList<>();
+            };
+            for (int j = 0; j < 10; j++) {
+                multitask.test(convertVectorToMatrix(testingSet.get(j)));
+                System.out.println("Test " + (j + 1) + ":");
+                System.out.println();
+                System.out.println("Network objective is " + i);
+                System.out.println();
+                System.out.println("Network input is " + Arrays.toString(testingSet.get(j)));
+                System.out.println();
+                System.out.println("Network thesis is " + Arrays.deepToString(multitask.getThesis()));
+                System.out.println();
+                System.out.println();
+            }
         }
     }
 

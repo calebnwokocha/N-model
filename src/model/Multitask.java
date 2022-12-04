@@ -8,7 +8,7 @@ package model;
 import java.util.ArrayList;
 
 public class Multitask {
-    private ArrayList<Network> networks;
+    private ArrayList<Network> networks = new ArrayList<>();
     private Double[][] errorMeanMean;
     private int lastNetworkIndex;
 
@@ -22,7 +22,10 @@ public class Multitask {
 
     public ArrayList<Network> getNetworks() { return this.networks; }
 
-    public void addNetwork (Network network) { this.transferKnowledgeTo(network); this.networks.add(network); }
+    public void addNetwork (Network network) {
+        if (networks.size() >= 1) { this.transferKnowledgeTo(network); }
+        this.networks.add(network);
+    }
 
     public void removeNetwork (int index) { this.networks.remove(index); }
 
@@ -69,9 +72,13 @@ public class Multitask {
             this.lastNetworkIndex = this.networks.size() - 1;
             Double[][] lastNetworkErrorMean = networks.get(this.lastNetworkIndex).getErrorMean();
             StatUtil stat = new StatUtil();
-            this.errorMeanMean = stat.dynamicPowerMean(this.errorMeanMean, lastNetworkErrorMean,
+            if (hasOnlyOneNetwork()) { this.errorMeanMean =
+                    this.networks.get(this.lastNetworkIndex).getErrorMean();
+            } else { this.errorMeanMean = stat.dynamicPowerMean(this.errorMeanMean, lastNetworkErrorMean,
                     1.0, this.networks.size());
-            network.setErrorMean(this.errorMeanMean);
+            } network.setErrorMean(this.errorMeanMean);
         }
     }
+
+    private boolean hasOnlyOneNetwork () { return this.networks.size() == 1; }
 }
