@@ -25,17 +25,17 @@ import model.*;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public class linear_comprehensive_function {
+public class linear_regression {
     public static void main(String[] args) throws Exception {
         Double[] networkObjective = new Double[]{200.0};
 
-        Double[][] trainSet = new Double[100][2];
+        Double[][] trainSet = new Double[8][2];
         for (int i = 0; i < trainSet.length; i++) {
             trainSet[i][0] = Math.random() + 10;
             trainSet[i][1] = Math.random() + 10;
         }
 
-        Double[][] testSet = new Double[100][2];
+        Double[][] testSet = new Double[20][2];
         for (int i = 0; i < testSet.length; i++) {
             testSet[i][0] = Math.random() + 10;
             testSet[i][1] = Math.random() + 10;

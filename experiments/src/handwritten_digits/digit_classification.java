@@ -118,7 +118,7 @@ public class digit_classification {
                /* System.out.println("Example " + (j + 1) + ":");
                 System.out.println();
                 System.out.println("Network error mean is " + Arrays.toString(network.getErrorMean()[network.getLength() - 1]));*/
-                multitask.train(j + 1, networkObjective, convertVectorToMatrix(fiveTestingSet.get(j)));
+                multitask.train(j + 1, networkObjective, vectorToMatrix(fiveTestingSet.get(j)));
                 /*System.out.println();
                 System.out.println("Network objective is " + networkObjective[j]);
                 System.out.println();
@@ -141,7 +141,7 @@ public class digit_classification {
                 case 8 -> eightTestingSet; case 9 -> nineTestingSet; default -> new ArrayList<>();
             };
             for (int j = 0; j < 10; j++) {
-                multitask.test(convertVectorToMatrix(testingSet.get(j)));
+                multitask.test(vectorToMatrix(testingSet.get(j)));
                 System.out.println("Test " + (j + 1) + ":");
                 System.out.println();
                 System.out.println("Network objective is " + i);
@@ -155,13 +155,13 @@ public class digit_classification {
         }
     }
 
-    public static Double[][] convertVectorToMatrix(Double[] vector) {
+    public static Double[][] vectorToMatrix(Double[] vector) {
         Double[][] matrix = new Double[vector.length][1];
         for (int i = 0; i < matrix.length; i++) { matrix[i][0] = vector[i]; }
         return matrix;
     }
 
-    public static Double[][] convertBasisScalarToMatrix (Double basis, Double[][] dataset) {
+    public static Double[][] basisScalarToMatrix(Double basis, Double[][] dataset) {
         Double[][] basisMatrix = new Double[dataset.length][];
         for (int i = 0; i < basisMatrix.length; i++) {
             try { basisMatrix[i] = new Double[dataset[i].length];

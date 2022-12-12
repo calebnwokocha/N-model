@@ -16,17 +16,16 @@ public class Data {
 
     public Data() {}
 
-    public Data(Double[] data) { this.data = data; }
-
+    public Data(Double... data) { this.data = data; }
     public Data (String fileName) throws IOException {
         Path path = Paths.get(fileName);
         byte[] data = Files.readAllBytes(path);
-        this.data = this.convertByteToDouble(data);
+        this.data = this.byteToDouble(data);
     }
 
     public Data (File file) throws IOException {
         byte[] data = Files.readAllBytes(file.toPath());
-        this.data = this.convertByteToDouble(data);
+        this.data = this.byteToDouble(data);
     }
 
     public Double[] getData() { return this.data; }
@@ -35,7 +34,7 @@ public class Data {
 
     public void setData(Double[] data) { this.data = data; }
 
-    public Double[][] split (int[] groupSizes) {
+    public Double[][] split (int... groupSizes) {
         Double[][] groups = new Double[groupSizes.length][]; int k = 0;
         for (int i = 0; i < groupSizes.length; i++) {
             for (int j = 0; j < groupSizes[i]; j++, k++) {
@@ -44,14 +43,14 @@ public class Data {
         } return groups;
     }
 
-    public void transform (Double[] basis) {
+    public void transform (Double... basis) {
         for (int i = 0; i < data.length; i++) {
             try { data[i] += basis[i]; }
             catch (NullPointerException | ArrayIndexOutOfBoundsException e) { break; }
         }
     }
 
-    private Double[] convertByteToDouble (byte[] byteData) {
+    public Double[] byteToDouble(byte... byteData) {
         Double[] doubleData = new Double[byteData.length];
         for (int i = 0; i < doubleData.length; i++) { doubleData[i] = (double) byteData[i]; }
         return doubleData;

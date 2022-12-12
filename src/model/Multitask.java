@@ -55,13 +55,14 @@ public class Multitask {
     public Double[][] getThesis () {
         Double[][] thesis = new Double[this.networks.size()][];
         for (int i = 0; i < thesis.length; i++) {
-            Network currentNetwork = networks.get(i);
+            Network currentNetwork = this.networks.get(i);
             int outputLayerIndex = currentNetwork.getLength() - 1;
             thesis[i] = currentNetwork.getThesis()[outputLayerIndex];
         } return thesis;
     }
 
     public void train (int iteration, Double[] objective, Double[]... input) {
+        this.lastNetworkIndex = this.networks.size() - 1;
         this.networks.get(this.lastNetworkIndex).train(iteration, objective, input);
     }
 
@@ -72,8 +73,8 @@ public class Multitask {
             this.lastNetworkIndex = this.networks.size() - 1;
             Double[][] lastNetworkErrorMean = networks.get(this.lastNetworkIndex).getErrorMean();
             StatUtil stat = new StatUtil();
-            if (hasOnlyOneNetwork()) { this.errorMeanMean =
-                    this.networks.get(this.lastNetworkIndex).getErrorMean();
+            if (hasOnlyOneNetwork()) {
+                this.errorMeanMean = this.networks.get(this.lastNetworkIndex).getErrorMean();
             } else { this.errorMeanMean = stat.dynamicPowerMean(this.errorMeanMean, lastNetworkErrorMean,
                     1.0, this.networks.size());
             } network.setErrorMean(this.errorMeanMean);

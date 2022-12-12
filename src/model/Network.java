@@ -121,7 +121,7 @@ public class Network {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
             else { Double[] previousLayerThesis = this.layers.get(i - 1).getThesis();
-                this.layers.get(i).train(iteration, objective, this.convertVectorToMatrix(previousLayerThesis));
+                this.layers.get(i).train(iteration, objective, this.vectorToMatrix(previousLayerThesis));
             }
         }
     }
@@ -131,13 +131,13 @@ public class Network {
             if (i == 0) {this.layers.get(i).test(input);
                 if (this.layers.get(i).isNull()) { this.nullifyNetOutput(); }
             } else { Double[] previousLayerThesis = this.layers.get(i - 1).getThesis();
-                this.layers.get(i).test(this.convertVectorToMatrix(previousLayerThesis));
+                this.layers.get(i).test(this.vectorToMatrix(previousLayerThesis));
                 if (this.layers.get(i).isNull()) { this.nullifyNetOutput(); }
             }
         }
     }
 
-    private Double[][] convertVectorToMatrix (Double[] vector) {
+    private Double[][] vectorToMatrix(Double[] vector) {
         Double[][] matrix = new Double[vector.length][1];
         for (int i = 0; i < matrix.length; i++) { matrix[i][0] = vector[i]; }
         return matrix;
