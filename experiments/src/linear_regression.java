@@ -27,18 +27,26 @@ import java.util.function.Function;
 
 public class linear_regression {
     public static void main(String[] args) throws Exception {
-        Double[] networkObjective = new Double[]{200.0};
+        Double[] networkObjective1 = new Double[]{100.0};
+        Double[] networkObjective2 = new Double[]{200.0};
 
-        Double[][] trainSet = new Double[8][2];
-        for (int i = 0; i < trainSet.length; i++) {
-            trainSet[i][0] = Math.random() + 10;
-            trainSet[i][1] = Math.random() + 10;
+
+        Double[][] trainSet1 = new Double[8][2];
+        Double[][] trainSet2 = new Double[8][2];
+        for (int i = 0; i < trainSet1.length; i++) {
+            trainSet1[i][0] = Math.random() + 1;
+            trainSet1[i][1] = Math.random() + 1;
+            trainSet2[i][0] = Math.random() + 10;
+            trainSet2[i][1] = Math.random() + 10;
         }
 
-        Double[][] testSet = new Double[20][2];
-        for (int i = 0; i < testSet.length; i++) {
-            testSet[i][0] = Math.random() + 10;
-            testSet[i][1] = Math.random() + 10;
+        Double[][] testSet1 = new Double[20][2];
+        Double[][] testSet2 = new Double[20][2];
+        for (int i = 0; i < testSet1.length; i++) {
+            testSet1[i][0] = Math.random() + 1;
+            testSet1[i][1] = Math.random() + 1;
+            testSet2[i][0] = Math.random() + 10;
+            testSet2[i][1] = Math.random() + 10;
         }
 
         Function<Double[], Double> sum = x -> {
@@ -54,13 +62,13 @@ public class linear_regression {
         System.out.println("\nNETWORK TRAINING............................................................................................................................");
         System.out.println();
         System.out.println();
-        for (int i = 0; i < trainSet.length; i++) {
-            network.train(i + 1, networkObjective, trainSet[i]);
+        for (int i = 0; i < trainSet1.length; i++) {
+            network.train(i + 1, networkObjective1, trainSet1[i]);
             System.out.println("Example " + (i + 1) + ":");
             System.out.println();
-            System.out.println("Network objective is " + Arrays.toString(networkObjective));
+            System.out.println("Network objective is " + Arrays.toString(networkObjective1));
             System.out.println();
-            System.out.println("Network input is " + Arrays.toString(trainSet[i]));
+            System.out.println("Network input is " + Arrays.toString(trainSet1[i]));
             System.out.println();
             System.out.println("Network hypothesis is " + Arrays.toString(network.getHypothesis()[network.getLength() - 1]));
             System.out.println();
@@ -74,13 +82,13 @@ public class linear_regression {
         System.out.println("NETWORK TESTING............................................................................................................................");
         System.out.println();
         System.out.println();
-        for (int i = 0; i < testSet.length; i++) {
-            network.test(testSet[i]);
+        for (int i = 0; i < testSet1.length; i++) {
+            network.test(testSet1[i]);
             System.out.println("Test " + (i + 1) + ":");
             System.out.println();
             System.out.println("Network objective is " + Arrays.toString(networkObjective));
             System.out.println();
-            System.out.println("Network input is " + Arrays.toString(testSet[i]));
+            System.out.println("Network input is " + Arrays.toString(testSet1[i]));
             System.out.println();
             System.out.println("Network thesis is " + Arrays.toString(network.getThesis()[network.getLength() - 1]));
             System.out.println();
