@@ -29,22 +29,6 @@ public class Multitask {
 
     public void removeNetwork (int index) { this.networks.remove(index); }
 
-    public void setCoverage (Double coverage) {
-        for (Network network : this.networks) { network.setCoverage(coverage); }
-    }
-
-    public void setCoverage (Double[] coverage) {
-        for (Network network : this.networks) { network.setCoverage(coverage); }
-    }
-
-    public void setCoverage (Double[][] coverage) {
-        for (Network network : this.networks) { network.setCoverage(coverage); }
-    }
-
-    public void setCoverage (Double[][][] coverage) {
-        for (int i = 0; i < this.networks.size(); i++) { networks.get(i).setCoverage(coverage[i]); }
-    }
-
     public Double[][][] getCoverage () {
         Double[][][] coverage = new Double[this.networks.size()][][];
         for (int i = 0; i < coverage.length; i++) {
