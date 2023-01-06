@@ -36,12 +36,12 @@ public class linear_regression {
 
         for (int i = 0; i < trainSet1.length; i++) {
             trainSet1[i][0] = Math.random() + 1;
-            trainSet2[i][0] = Math.random() + 10;
+            trainSet2[i][0] = Math.random() + 100;
         }
 
         for (int i = 0; i < testSet1.length; i++) {
             testSet1[i][0] = Math.random() + 1;
-            testSet2[i][0] = Math.random() + 10;
+            testSet2[i][0] = Math.random() + 100;
         }
 
         Function<Double[], Double> sum = x -> {
@@ -76,7 +76,24 @@ public class linear_regression {
             System.out.println();
         }
 
-        Network networkB = new Network(2, 1);
+        for (int i = 0; i < trainSet2.length; i++) {
+            multitask.train(i + 1, networkObjective1, trainSet2[i]);
+            System.out.println("Example " + (i + 1) + ":");
+            System.out.println();
+            System.out.println("Network objective is " + Arrays.toString(networkObjective1));
+            System.out.println();
+            System.out.println("Network input is " + Arrays.toString(trainSet2[i]));
+            System.out.println();
+            //System.out.println("Network hypothesis is " + Arrays.toString(networkA.getHypothesis()[networkA.getLength() - 1]));
+            //System.out.println();
+            System.out.println("Network thesis is " + Arrays.deepToString(multitask.getThesis()));
+            System.out.println();
+            //System.out.println("Network error mean is " + Arrays.toString(networkA.getErrorMean()[networkA.getLength() - 1]));
+            //System.out.println();
+            System.out.println();
+        }
+
+        /*Network networkB = new Network(2, 1);
         networkB.setCFunction("sum", 1.0, sum);
         networkB.setPower(-6.0);
         networkB.setCoverage(10.0);
@@ -97,7 +114,7 @@ public class linear_regression {
             //System.out.println();
             System.out.println();
         }
-
+*/
         System.out.println("NETWORK TESTING............................................................................................................................");
         System.out.println();
         System.out.println();
