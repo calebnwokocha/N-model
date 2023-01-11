@@ -68,7 +68,7 @@ public class linear_regression {
         int k = 0;
         for (int i = 1; i < network.length; i++) {
             multitask.addNetwork(network[i]);
-            for (int j = 0; j < trainSet[i].length; j++) {
+            for (int j = 0; j < trainSet[i].length; j++, k++) {
                 multitask.train(j + 1, networkObjective[i], trainSet[i][j]);
                 System.out.println("Example " + (k + 1) + ":");
                 System.out.println();
@@ -84,7 +84,6 @@ public class linear_regression {
                 System.out.println("Network error mean is " + Arrays.toString(multitask.getNetworks().get(0)
                         .getErrorMean()[network[i].getLength() - 1]));
                 System.out.println();
-                k += j;
             }
         }
 
@@ -95,7 +94,7 @@ public class linear_regression {
         System.out.println();
         k = 0;
         for (int i = 1; i < network.length; i++) {
-            for (int j = 0; j < testSet[i].length; j++) {
+            for (int j = 0; j < testSet[i].length; j++, k++) {
                 multitask.test(testSet[i][j]);
                 System.out.println("Test " + (k + 1) + ":");
                 System.out.println();
@@ -106,7 +105,6 @@ public class linear_regression {
                 System.out.println("Network thesis is " + Arrays.deepToString(multitask.getThesis()));
                 System.out.println();
                 System.out.println();
-                k += j;
             }
         }
     }
