@@ -25,7 +25,7 @@ import model.*;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public class nonlinear_comprehensive_function {
+public class logistic_regression {
     public static void main(String[] args) throws Exception {
         Multitask multitask = new Multitask();
         Network[] network = new Network[10];
@@ -34,7 +34,7 @@ public class nonlinear_comprehensive_function {
         Double[][][] testSet = new Double[10][20][1];
 
         for (int i = 1; i < networkObjective.length; i++) {
-            networkObjective[i] = new Double[]{Math.pow(10.0, i)};
+            networkObjective[i] = new Double[]{(double) (i % 2)};
         }
 
         for (int i = 1; i < trainSet.length; i++){
