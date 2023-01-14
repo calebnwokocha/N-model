@@ -47,7 +47,7 @@ public class linear_regression {
             System.out.println("\nTask " + i);
             for (int j = 0; j < trainSets[i].length; j++) {
                 multitask.train(j + 1, networkObjectives[i], trainSets[i][j]);
-                System.out.println(multitask.getNetworks().get(0).getErrorMean()[networks[i].getLength() - 1][0]);
+                System.out.println(multitask.getNetworks().get(i - 1).getErrorMean()[networks[i].getLength() - 1][0]);
             }
         }
 
@@ -56,7 +56,7 @@ public class linear_regression {
             System.out.println("\nTask " + i);
             for (int j = 0; j < testSets[i].length; j++) {
                 multitask.test(testSets[i][j]);
-                System.out.println(multitask.getNetworks().get(0).getErrorMean()[networks[i].getLength() - 1][0]);
+                System.out.println(multitask.getNetworks().get(i - 1).getErrorMean()[networks[i].getLength() - 1][0]);
             }
         }
 
