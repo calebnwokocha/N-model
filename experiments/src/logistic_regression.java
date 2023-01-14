@@ -41,26 +41,8 @@ public class logistic_regression {
             networks[i].setCoverage(4.0);
         }
 
-        System.out.println("TRAINING ERROR MEAN.................................................................");
-        for (int i = 1; i < networks.length; i++) {
-            multitask.addNetwork(networks[i]);
-            System.out.println("\nTask " + i);
-            for (int j = 0; j < trainSets[i].length; j++) {
-                multitask.train(j + 1, networkObjectives[i], trainSets[i][j]);
-                System.out.println(multitask.getNetworks().get(i - 1).getErrorMean()[networks[i].getLength() - 1][0]);
-            }
-        }
 
-        System.out.println("\n\nTESTING ERROR MEAN.................................................................");
-        for (int i = 1; i < networks.length; i++) {
-            System.out.println("\nTask " + i);
-            for (int j = 0; j < testSets[i].length; j++) {
-                multitask.test(testSets[i][j]);
-                System.out.println(multitask.getNetworks().get(i - 1).getErrorMean()[networks[i].getLength() - 1][0]);
-            }
-        }
-
-        /*System.out.println("\nNETWORK TRAINING....................................................................");
+        System.out.println("\nNETWORK TRAINING....................................................................");
         System.out.println();
         System.out.println();
         int k = 0;
@@ -104,6 +86,6 @@ public class logistic_regression {
                 System.out.println();
                 System.out.println();
             }
-        }*/
+        }
     }
 }
