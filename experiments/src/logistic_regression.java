@@ -75,7 +75,7 @@ public class logistic_regression {
         k = 0;
         for (int i = 1; i < networks.length; i++) {
             for (int j = 0; j < testSets[i].length; j++, k++) {
-                multitask.test(testSets[i][j]);
+                multitask.test(k, testSets[i][j]);
                 System.out.println("Test " + (k + 1) + ":");
                 System.out.println();
                 System.out.println("Network objective is " + Arrays.toString(networkObjectives[i]));
