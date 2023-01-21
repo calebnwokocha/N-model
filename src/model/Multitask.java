@@ -38,8 +38,8 @@ public class Multitask {
         } return coverage;
     }
 
-    public Complex[][] getThesis () {
-        Complex[][] thesis = new Complex[this.networks.size()][];
+    public Double[][] getThesis () {
+        Double[][] thesis = new Double[this.networks.size()][];
         for (int i = 0; i < thesis.length; i++) {
             Network currentNetwork = this.networks.get(i);
             int outputLayerIndex = currentNetwork.getLength() - 1;
@@ -53,14 +53,14 @@ public class Multitask {
     }
 
     public void test (int iteration, Double[]... input) { for (Network network : this.networks) { network.test(input); }
-        Complex[][] thesis = this.getThesis();
+        Double[][] thesis = this.getThesis();
         int[][] nullNonNullAs10 = this.convertNullTo1AndNonNullTo0(thesis);
         int[] nullCountPerNetwork = this.countNullsPerNetwork(nullNonNullAs10);
         if (iteration == 0) {
             for (int count : nullCountPerNetwork) { this.nullFrequencyPerNetwork.add(count); }
         } else { for (int i = 0; i < nullCountPerNetwork.length; i++) {
             this.nullFrequencyPerNetwork.set(i, this.nullFrequencyPerNetwork.get(i) + nullCountPerNetwork[i]);
-            }
+        }
         } System.out.println("Null frequence per network of multitask: "
                 + Arrays.toString(new ArrayList[]{this.nullFrequencyPerNetwork}));
         System.out.println();
@@ -82,7 +82,7 @@ public class Multitask {
 
     private boolean hasOnlyOneNetwork () { return this.networks.size() == 1; }
 
-    private int[][] convertNullTo1AndNonNullTo0 (Complex[][] thesis) {
+    private int[][] convertNullTo1AndNonNullTo0 (Double[][] thesis) {
         int[][] nullNonNullAs10 = new int[thesis.length][];
         for (int i = 0; i < thesis.length; i++) {
             nullNonNullAs10[i] = new int[thesis[i].length];

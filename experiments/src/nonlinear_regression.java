@@ -55,19 +55,10 @@ public class nonlinear_regression {
                 System.out.println();
                 System.out.println("Network input is " + Arrays.toString(trainSets[i][j]));
                 System.out.println();
-                System.out.print("Network hypothesis is ");
-                Complex[] hypothesis = multitask.getNetworks().get(0).getHypothesis()[networks[i].getLength() - 1];
-                for (Complex complex : hypothesis) {
-                    System.out.print(complex.getReal() + " + " + complex.getImaginary() + "i, ");
-                } System.out.println();
+                System.out.println("Network hypothesis is " + Arrays.toString(multitask.getNetworks().get(0).
+                        getHypothesis()[networks[i].getLength() - 1]));
                 System.out.println();
-                System.out.print("Network thesis is ");
-                Complex[][] thesis = multitask.getThesis();
-                for (Complex[] complexes : thesis) { for (Complex complex : complexes) {
-                    System.out.print(complex.getReal() + " + " + complex.getImaginary() + "i, ");
-                }
-                }
-                System.out.println();
+                System.out.println("Network thesis is " + Arrays.deepToString(multitask.getThesis()));
                 System.out.println();
                 System.out.println("Network error mean is " + Arrays.toString(multitask.getNetworks().get(0)
                         .getErrorMean()[networks[i].getLength() - 1]));

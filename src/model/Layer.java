@@ -76,16 +76,16 @@ public class Layer {
         return errorMean;
     }
 
-    public void setErrorMean (Double[] errorMean) { 
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setErrorMean(errorMean[i]); } 
+    public void setErrorMean (Double[] errorMean) {
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setErrorMean(errorMean[i]); }
     }
 
-    public Complex[] getHypothesis() { Complex[] hypothesis = new Complex[this.nodes.size()];
+    public Double[] getHypothesis() { Double[] hypothesis = new Double[this.nodes.size()];
         for (int i = 0; i < hypothesis.length; i++) { hypothesis[i] = this.nodes.get(i).getHypothesis(); }
         return hypothesis;
     }
 
-    public Complex[] getThesis() { Complex[] thesis = new Complex[this.nodes.size()];
+    public Double[] getThesis() { Double[] thesis = new Double[this.nodes.size()];
         for (int i = 0; i < thesis.length; i++) { thesis[i] = this.nodes.get(i).getThesis(); }
         return thesis;
     }
@@ -99,8 +99,8 @@ public class Layer {
 
     public void test (Double[]... input) { int nullCount = 0;
         for (int i = 0; i < this.nodes.size(); i++) { try { this.nodes.get(i).test(input[i]); }
-            catch (ArrayIndexOutOfBoundsException e) { break; }
-            catch (NullPointerException e) { nodes.get(i).test(null); }
+        catch (ArrayIndexOutOfBoundsException e) { break; }
+        catch (NullPointerException e) { nodes.get(i).test(null); }
             Node currentNode = this.nodes.get(i);
             if (currentNode.getThesis() == null && currentNode.getCoverage() != null) { nullCount += 1; }
         } this.isNull = nullCount > this.nodes.size() / 3;
