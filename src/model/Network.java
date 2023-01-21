@@ -106,13 +106,13 @@ public class Network {
         for (int i = 0; i < layers.size(); i++) { layers.get(i).setErrorMean(errorMean[i]); }
     }
 
-    public Double[][] getHypothesis() { Double[][] hypothesis = new Double[this.layers.size()][];
+    public Complex[][] getHypothesis() { Complex[][] hypothesis = new Complex[this.layers.size()][];
         for (int i = 0; i < hypothesis.length; i++) {
             hypothesis[i] = this.layers.get(i).getHypothesis();
         } return hypothesis;
     }
 
-    public Double[][] getThesis() { Double[][] thesis = new Double[this.layers.size()][];
+    public Complex[][] getThesis() { Complex[][] thesis = new Complex[this.layers.size()][];
         for (int i = 0; i < thesis.length; i++) { thesis[i] = this.layers.get(i).getThesis(); }
         return thesis;
     }
@@ -120,7 +120,7 @@ public class Network {
     public void train (int iteration, Double[] objective, Double[]... input) {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) { this.layers.get(i).train(iteration, objective, input); }
-            else { Double[] previousLayerThesis = this.layers.get(i - 1).getThesis();
+            else { Complex[] previousLayerThesis = this.layers.get(i - 1).getThesis();
                 this.layers.get(i).train(iteration, objective, this.vectorToMatrix(previousLayerThesis));
             }
         }
@@ -130,16 +130,16 @@ public class Network {
         for (int i = 0; i < this.layers.size(); i++) {
             if (i == 0) {this.layers.get(i).test(input);
                 if (this.layers.get(i).isNull()) { this.nullifyNetOutput(); }
-            } else { Double[] previousLayerThesis = this.layers.get(i - 1).getThesis();
+            } else { Complex[] previousLayerThesis = this.layers.get(i - 1).getThesis();
                 this.layers.get(i).test(this.vectorToMatrix(previousLayerThesis));
                 if (this.layers.get(i).isNull()) { this.nullifyNetOutput(); }
             }
         }
     }
 
-    private Double[][] vectorToMatrix(Double[] vector) {
+    private Double[][] vectorToMatrix(Complex[] vector) {
         Double[][] matrix = new Double[vector.length][1];
-        for (int i = 0; i < matrix.length; i++) { matrix[i][0] = vector[i]; }
+        for (int i = 0; i < matrix.length; i++) { matrix[i][0] = vector[i].getReal(); }
         return matrix;
     }
 

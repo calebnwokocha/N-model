@@ -36,7 +36,7 @@ public class nonlinear_regression {
 
         for (int i = 1; i < networks.length; i++){
             networks[i] = new Network(2, 1);
-            networks[i].setCFunction("sum", 2.0, square);
+            networks[i].setCFunction("square", 2.0, square);
             networks[i].setPower(-6.0);
             networks[i].setCoverage(4.0);
         }

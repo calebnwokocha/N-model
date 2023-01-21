@@ -80,12 +80,12 @@ public class Layer {
         for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setErrorMean(errorMean[i]); } 
     }
 
-    public Double[] getHypothesis() { Double[] hypothesis = new Double[this.nodes.size()];
+    public Complex[] getHypothesis() { Complex[] hypothesis = new Complex[this.nodes.size()];
         for (int i = 0; i < hypothesis.length; i++) { hypothesis[i] = this.nodes.get(i).getHypothesis(); }
         return hypothesis;
     }
 
-    public Double[] getThesis() { Double[] thesis = new Double[this.nodes.size()];
+    public Complex[] getThesis() { Complex[] thesis = new Complex[this.nodes.size()];
         for (int i = 0; i < thesis.length; i++) { thesis[i] = this.nodes.get(i).getThesis(); }
         return thesis;
     }

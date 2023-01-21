@@ -35,8 +35,8 @@ public class competing_functions {
 
         for (int i = 1; i < networks.length; i++){
             networks[i] = new Network(2, 1);
-            if (i == 0) { networks[i].setCFunction("sum", 1.0, positiveX); }
-            else { networks[i].setCFunction("sum", 1.0, negativeX); }
+            if (i == 0) { networks[i].setCFunction("positiveX", 1.0, positiveX); }
+            else { networks[i].setCFunction("negativeX", 1.0, negativeX); }
             networks[i].setPower(-6.0);
             networks[i].setCoverage(4.0);
         }

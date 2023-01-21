@@ -38,8 +38,8 @@ public class Multitask {
         } return coverage;
     }
 
-    public Double[][] getThesis () {
-        Double[][] thesis = new Double[this.networks.size()][];
+    public Complex[][] getThesis () {
+        Complex[][] thesis = new Complex[this.networks.size()][];
         for (int i = 0; i < thesis.length; i++) {
             Network currentNetwork = this.networks.get(i);
             int outputLayerIndex = currentNetwork.getLength() - 1;
@@ -53,7 +53,7 @@ public class Multitask {
     }
 
     public void test (int iteration, Double[]... input) { for (Network network : this.networks) { network.test(input); }
-        Double[][] thesis = this.getThesis();
+        Complex[][] thesis = this.getThesis();
         int[][] nullNonNullAs10 = this.convertNullTo1AndNonNullTo0(thesis);
         int[] nullCountPerNetwork = this.countNullsPerNetwork(nullNonNullAs10);
         if (iteration == 0) {
@@ -82,12 +82,12 @@ public class Multitask {
 
     private boolean hasOnlyOneNetwork () { return this.networks.size() == 1; }
 
-    private int[][] convertNullTo1AndNonNullTo0 (Double[][] thesis) {
+    private int[][] convertNullTo1AndNonNullTo0 (Complex[][] thesis) {
         int[][] nullNonNullAs10 = new int[thesis.length][];
         for (int i = 0; i < thesis.length; i++) {
             nullNonNullAs10[i] = new int[thesis[i].length];
             for (int j = 0; j < thesis[i].length; j++) {
-                if (thesis[i][j] == null) { nullNonNullAs10[i][j] = 1; }
+                if (thesis[i][j].getReal() == null) { nullNonNullAs10[i][j] = 1; }
                 else { nullNonNullAs10[i][j] = 0; }
             }
         } return nullNonNullAs10;
