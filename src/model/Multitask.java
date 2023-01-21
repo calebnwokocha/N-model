@@ -87,7 +87,7 @@ public class Multitask {
         for (int i = 0; i < thesis.length; i++) {
             nullNonNullAs10[i] = new int[thesis[i].length];
             for (int j = 0; j < thesis[i].length; j++) {
-                if (thesis[i][j].getReal() == null) { nullNonNullAs10[i][j] = 1; }
+                if (thesis[i][j] == null) { nullNonNullAs10[i][j] = 1; }
                 else { nullNonNullAs10[i][j] = 0; }
             }
         } return nullNonNullAs10;

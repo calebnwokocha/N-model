@@ -139,7 +139,10 @@ public class Network {
 
     private Double[][] vectorToMatrix(Complex[] vector) {
         Double[][] matrix = new Double[vector.length][1];
-        for (int i = 0; i < matrix.length; i++) { matrix[i][0] = vector[i].getReal(); }
+        for (int i = 0; i < matrix.length; i++) {
+            try { matrix[i][0] = vector[i].getReal(); }
+            catch (NullPointerException e) { matrix[i][0] = null; }
+        }
         return matrix;
     }
 
