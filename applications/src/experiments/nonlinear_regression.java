@@ -27,7 +27,7 @@ public class nonlinear_regression {
 
         // Set network objectives
         for (int i = 1; i < networkObjectives.length; i++) {
-            networkObjectives[i] = new Double[]{Math.pow(10, i)};
+            networkObjectives[i] = new Double[]{Math.pow(10.0, i)};
         }
 
         // Set training sets

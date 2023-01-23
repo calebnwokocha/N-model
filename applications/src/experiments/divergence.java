@@ -24,7 +24,6 @@ public class divergence {
             testSet[i][1] = Math.random() + 10;
         }
 
-
         Function<Double[], Double> square = x -> Math.pow(x[0], 2.0);
 
         Network network = new Network(2, 1);
