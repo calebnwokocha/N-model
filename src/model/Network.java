@@ -79,10 +79,10 @@ public class Network {
     }
 
     /**
-     * Sets the cost function for all layers in the network.
+     * Sets the comprehensive function for all layers in the network.
      * @param cFunctionName The name of the comprehensive function
      * @param degree The degree of the comprehensive function
-     * @param cFunction The cost function to be set
+     * @param cFunction The comprehensive function to be set
      */
     public void setCFunction (String cFunctionName, Double degree, Function<Double[], Double> cFunction) {
         for (Layer layer : layers) { layer.setCFunction (cFunctionName, degree, cFunction); }
