@@ -9,9 +9,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Multitask class creates an object that holds multiple instances of the network class
- * and can train or test them at once. It also allows for knowledge transfer between
- * the networks and keeps track of the null frequency of each network.
+ * The Multitask class is used to hold multiple instances of the Network class,
+ * allowing for training and testing of multiple networks at once. It also allows
+ * for knowledge transfer between networks and keeps track of the non-null thesis frequency
+ * of each network. The class has various methods such as adding and removing networks,
+ * getting the coverage and thesis of all networks, and training and testing all the
+ * networks in the multitask network. It also has a variable to keep track of the index
+ * of the last network added to the multitask network.
  */
 public class Multitask {
     private ArrayList<Network> networks = new ArrayList<>();
