@@ -51,10 +51,7 @@ public class Node {
      * This method returns a string representation of the rule of the current node.
      * @return A string representation of the rule of the current node.
      */
-    public String getRule () {
-        double probability = this.thesis / (this.thesis + this.currentErrorMean);
-        return this.cFunctionName + " at probability " + probability;
-    }
+    public Double getWeight () { return this.thesis / this.hypothesis; }
 
     /**
      * Getter method for the errorMean variable.

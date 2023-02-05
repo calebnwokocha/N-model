@@ -90,6 +90,9 @@ public class linear_regression {
                 System.out.println("Network gradient is " + Arrays.deepToString(multitask.getNetworks().get(i - 1)
                         .getGradient(j + 1)));
                 System.out.println();
+                System.out.println("Network weight is " + Arrays.deepToString(multitask.getNetworks().get(i - 1)
+                        .getWeight()));
+                System.out.println();
                 System.out.println();
             }
         }

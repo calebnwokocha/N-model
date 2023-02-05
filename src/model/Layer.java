@@ -115,6 +115,11 @@ public class Layer {
         return degree;
     }
 
+    public Double[] getWeight () { Double[] weight = new Double[this.getWidth()];
+        for (int i = 0; i < weight.length; i++) { weight[i] = nodes.get(i).getWeight(); }
+        return weight;
+    }
+
     /**
      * getPower returns an array of the power of each node in the layer.
      * @return - an array of doubles representing the power of the nodes
