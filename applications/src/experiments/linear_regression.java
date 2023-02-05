@@ -23,7 +23,7 @@ public class linear_regression {
         Double[][] networkObjectives = new Double[10][];
 
         // Create an array of training sets
-        Double[][][] trainSets = new Double[10][8][1];
+        Double[][][] trainSets = new Double[10][20][1];
 
         // Create an array of test sets
         Double[][][] testSets = new Double[10][20][1];
@@ -86,6 +86,10 @@ public class linear_regression {
                 // print the network error mean
                 System.out.println("Network error mean is " + Arrays.toString(multitask.getNetworks().get(0)
                         .getErrorMean()[networks[i].getLength() - 1]));
+                System.out.println();
+                System.out.println("Network gradient is " + Arrays.deepToString(multitask.getNetworks().get(i - 1)
+                        .getGradient(j + 1)));
+                System.out.println();
                 System.out.println();
             }
         }

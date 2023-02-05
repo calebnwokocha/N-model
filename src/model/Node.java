@@ -24,7 +24,8 @@ public class Node {
 
     private String cFunctionName;
     private Function<Double[], Double> cFunction;
-    private Double hypothesis, thesis, errorMean = 0.0, coverage = null;
+    private Double hypothesis, thesis, currentErrorMean = 0.0,
+            previousErrorMean = 0.0, coverage = null;
     private Double power, objective, degree;
     private Double[] inputMean, inputUpperBound, inputLowerBound;
     private final StatUtil stat = new StatUtil();
@@ -51,7 +52,7 @@ public class Node {
      * @return A string representation of the rule of the current node.
      */
     public String getRule () {
-        double probability = this.thesis / (this.thesis + this.errorMean);
+        double probability = this.thesis / (this.thesis + this.currentErrorMean);
         return this.cFunctionName + " at probability " + probability;
     }
 
@@ -59,13 +60,13 @@ public class Node {
      * Getter method for the errorMean variable.
      * @return The value of the errorMean variable.
      */
-    public Double getErrorMean() { return Math.sqrt(this.errorMean); }
+    public Double getCurrentErrorMean() { return Math.sqrt(this.currentErrorMean); }
 
     /**
      * Setter method for the errorMean variable.
-     * @param errorMean The new value of the errorMean variable.
+     * @param currentErrorMean The new value of the errorMean variable.
      */
-    public void setErrorMean(Double errorMean) { this.errorMean = errorMean; }
+    public void setCurrentErrorMean(Double currentErrorMean) { this.currentErrorMean = currentErrorMean; }
 
     /**
      * Getter method for the degree variable.
@@ -123,15 +124,20 @@ public class Node {
     public void train (Double objective, int iteration, Double... input) {
         this.objective = objective; this.activate(input);
         try { Double error = Math.pow(this.hypothesis - this.objective, 2);
+            //System.out.println("Node error is " + error);
             if (iteration == 1) { this.inputMean = new Double[input.length];
-                Arrays.fill(inputMean, 0.0); this.errorMean = error;
+                Arrays.fill(inputMean, 0.0); this.currentErrorMean = error;
             } if (iteration > 1) {
-                this.errorMean = stat.dynamicPowerMean(this.errorMean, error, this.power, iteration);
+                this.previousErrorMean = this.currentErrorMean;
+                this.currentErrorMean = stat.dynamicPowerMean(this.currentErrorMean, error, this.power, iteration);
             }
         } catch (NullPointerException ignored) {}
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
     }
 
+    public Double getGradient (int iteration) {
+        return Math.pow(this.currentErrorMean, this.power) - Math.pow(this.previousErrorMean, this.power);
+    }
 
     /**
      * This method tests the input by activating the function
@@ -153,7 +159,7 @@ public class Node {
     private void activate (Double... input) {
         try { this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree) + 1;
             this.thesis = ((Math.pow(this.hypothesis, 2) +
-                    Math.pow(this.objective, 2)) - this.errorMean) / (2 * this.hypothesis);
+                    Math.pow(this.objective, 2)) - this.currentErrorMean) / (2 * this.hypothesis);
         } catch (NullPointerException ignored) {}
     }
 

@@ -165,7 +165,7 @@ public class Layer {
      */
     public Double[] getErrorMean() {
         Double[] errorMean = new Double[this.nodes.size()];
-        for (int i = 0; i < errorMean.length; i++) { errorMean[i] = this.nodes.get(i).getErrorMean(); }
+        for (int i = 0; i < errorMean.length; i++) { errorMean[i] = this.nodes.get(i).getCurrentErrorMean(); }
         return errorMean;
     }
 
@@ -174,7 +174,7 @@ public class Layer {
      * @param errorMean an array of error means that will be set to each node in the list of nodes.
      */
     public void setErrorMean (Double[] errorMean) {
-        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setErrorMean(errorMean[i]); }
+        for (int i = 0; i < nodes.size(); i++) { nodes.get(i).setCurrentErrorMean(errorMean[i]); }
     }
 
     /**
@@ -232,6 +232,12 @@ public class Layer {
                 nullCount += 1;
             }
         } this.isNull = nullCount > this.nodes.size() / 3;
+    }
+
+    public Double[] getGradient (int iteration) {
+        Double[] gradient = new Double[this.getWidth()];
+        for (int i = 0; i < gradient.length; i++) { gradient[i] = this.nodes.get(i).getGradient(iteration); }
+        return gradient;
     }
 
     /**

@@ -283,6 +283,15 @@ public class Network {
         }
     }
 
+    public Double[][] getGradient (int iteration) {
+        Double[][] gradient = new Double[this.getLength()][];
+        for (int i = 0; i < gradient.length; i++) { gradient[i] = new Double[this.layers.get(i).getWidth()];
+            for (int j = 0; j < gradient[i].length; j++) {
+                gradient[i][j] = this.layers.get(i).getNodes().get(j).getGradient(iteration);
+            }
+        } return gradient;
+    }
+
     /**
      * Utility function to convert a vector to a matrix
      * @param vector The vector to convert
