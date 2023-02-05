@@ -135,10 +135,6 @@ public class Node {
         if (this.coverage != null) { this.setInputBounds(input, iteration); }
     }
 
-    public Double getGradient (int iteration) {
-        return Math.pow(this.currentErrorMean, this.power) - Math.pow(this.previousErrorMean, this.power);
-    }
-
     /**
      * This method tests the input by activating the function
      * and determining if it is an outlier.
@@ -149,6 +145,10 @@ public class Node {
         else { if (stat.isOutlier(input, this.inputLowerBound, this.inputUpperBound)) { this.thesis = null; }
         else { this.activate(input); }
         }
+    }
+
+    public Double getGradient (int iteration) {
+        return Math.pow(this.currentErrorMean, this.power) - Math.pow(this.previousErrorMean, this.power);
     }
 
     /**
