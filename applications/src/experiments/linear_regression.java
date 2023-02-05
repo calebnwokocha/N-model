@@ -23,7 +23,7 @@ public class linear_regression {
         Double[][] networkObjectives = new Double[10][];
 
         // Create an array of training sets
-        Double[][][] trainSets = new Double[10][20][1];
+        Double[][][] trainSets = new Double[10][8][1];
 
         // Create an array of test sets
         Double[][][] testSets = new Double[10][20][1];
@@ -77,21 +77,22 @@ public class linear_regression {
                 System.out.println("Network input is " + Arrays.toString(trainSets[i][j]));
                 System.out.println();
                 // print the network hypothesis
-                System.out.println("Network hypothesis is " + Arrays.toString(multitask.getNetworks().get(0).
+                System.out.println("Network hypothesis is " + Arrays.toString(multitask.getNetworks().get(i - 1).
                         getHypothesis()[networks[i].getLength() - 1]));
                 System.out.println();
                 // print the network thesis
-                System.out.println("Network thesis is " + Arrays.deepToString(multitask.getThesis()));
+                System.out.println("Network thesis is " + Arrays.toString(multitask.getNetworks().get(i - 1).
+                        getThesis()[networks[i].getLength() - 1]));
                 System.out.println();
                 // print the network error mean
-                System.out.println("Network error mean is " + Arrays.toString(multitask.getNetworks().get(0)
+                System.out.println("Network error mean is " + Arrays.toString(multitask.getNetworks().get(i - 1)
                         .getErrorMean()[networks[i].getLength() - 1]));
-                System.out.println();
+/*                System.out.println();
                 System.out.println("Network gradient is " + Arrays.deepToString(multitask.getNetworks().get(i - 1)
                         .getGradient(j + 1)));
                 System.out.println();
                 System.out.println("Network weight is " + Arrays.deepToString(multitask.getNetworks().get(i - 1)
-                        .getWeight()));
+                        .getWeight()));*/
                 System.out.println();
                 System.out.println();
             }

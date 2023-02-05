@@ -1,4 +1,6 @@
-package experiments;// This experiment is design to check if a 2-layer basic comprehensive network will converge to y.
+package experiments;
+
+// This experiment is design to check if a 2-layer basic comprehensive network will converge to y.
 // The comprehensive function of Node A is f(x) = x, and that of Node B is f(x) = -x.
 
 import model.*;
@@ -58,7 +60,8 @@ public class competing_functions {
                 System.out.println("Network hypothesis is " + Arrays.toString(multitask.getNetworks().get(0).
                         getHypothesis()[networks[i].getLength() - 1]));
                 System.out.println();
-                System.out.println("Network thesis is " + Arrays.deepToString(multitask.getThesis()));
+                System.out.println("Network thesis is " + Arrays.toString(multitask.getNetworks().get(i - 1).
+                        getThesis()[networks[i].getLength() - 1]));
                 System.out.println();
                 System.out.println("Network error mean is " + Arrays.toString(multitask.getNetworks().get(0)
                         .getErrorMean()[networks[i].getLength() - 1]));

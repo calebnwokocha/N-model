@@ -78,7 +78,8 @@ public class logistic_regression {
                         getHypothesis()[networks[i].getLength() - 1]));
                 System.out.println();
                 // print the network thesis
-                System.out.println("Network thesis is " + Arrays.deepToString(multitask.getThesis()));
+                System.out.println("Network thesis is " + Arrays.toString(multitask.getNetworks().get(i - 1).
+                        getThesis()[networks[i].getLength() - 1]));
                 System.out.println();
                 // print the network error mean
                 System.out.println("Network error mean is " + Arrays.toString(multitask.getNetworks().get(0)
