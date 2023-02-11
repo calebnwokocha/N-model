@@ -203,11 +203,6 @@ public class Network {
         return coverage;
     }
 
-    public Double[][] getWeight () { Double[][] weight = new Double[this.getLength()][];
-        for (int i = 0; i < weight.length; i++) { weight[i] = this.layers.get(i).getWeight(); }
-        return weight;
-    }
-
     /**
      * Get the mean error of each layer
      *

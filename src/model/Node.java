@@ -26,7 +26,7 @@ public class Node {
     private Function<Double[], Double> cFunction;
     private Double hypothesis, thesis, currentErrorMean = 0.0,
             previousErrorMean = 0.0, coverage = null;
-    private Double power, objective, degree;
+    private Double power, degree;
     private Double[] inputMean, inputUpperBound, inputLowerBound;
     private final StatUtil stat = new StatUtil();
 
@@ -46,12 +46,6 @@ public class Node {
      * @return The value of the thesis variable.
      */
     public Double getThesis() { return this.thesis; }
-
-    /**
-     * This method returns a string representation of the rule of the current node.
-     * @return A string representation of the rule of the current node.
-     */
-    public Double getWeight () { return this.thesis / this.hypothesis; }
 
     /**
      * Getter method for the errorMean variable.
@@ -119,8 +113,8 @@ public class Node {
      * @param input The input data for the training.
      */
     public void train (Double objective, int iteration, Double... input) {
-        this.objective = objective; this.activate(input);
-        try { Double error = Math.pow(this.hypothesis - this.objective, 2);
+        this.activate(input);
+        try { Double error = Math.pow(this.hypothesis - objective, 2);
             //System.out.println("Node error is " + error);
             if (iteration == 1) { this.inputMean = new Double[input.length];
                 Arrays.fill(inputMean, 0.0); this.currentErrorMean = error;
@@ -154,9 +148,8 @@ public class Node {
      * @param input The input to be used in activating the function.
      */
     private void activate (Double... input) {
-        try { this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree) + 1;
-            this.thesis = ((Math.pow(this.hypothesis, 2) +
-                    Math.pow(this.objective, 2)) - this.currentErrorMean) / (2 * this.hypothesis);
+        try { this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree);
+            this.thesis = this.hypothesis + (this.currentErrorMean / (Math.pow(this.currentErrorMean, 0.5) + 1));
         } catch (NullPointerException ignored) {}
     }
 
