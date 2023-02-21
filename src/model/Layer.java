@@ -234,9 +234,9 @@ public class Layer {
         } this.isNull = nullCount > this.nodes.size() / 3;
     }
 
-    public Double[] getGradient (int iteration) {
+    public Double[] getGradient () {
         Double[] gradient = new Double[this.getWidth()];
-        for (int i = 0; i < gradient.length; i++) { gradient[i] = this.nodes.get(i).getGradient(iteration); }
+        for (int i = 0; i < gradient.length; i++) { gradient[i] = this.nodes.get(i).getGradient(); }
         return gradient;
     }
 

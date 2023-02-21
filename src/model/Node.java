@@ -24,8 +24,8 @@ public class Node {
 
     private String cFunctionName;
     private Function<Double[], Double> cFunction;
-    private Double hypothesis, thesis, currentErrorMean = 0.0,
-            previousErrorMean = 0.0, coverage = null;
+    private Double hypothesis, thesis, currentErrorMean = 1.0,
+            previousErrorMean = 1.0, coverage = null;
     private Double power, degree;
     private Double[] inputMean, inputUpperBound, inputLowerBound;
     private final StatUtil stat = new StatUtil();
@@ -138,7 +138,7 @@ public class Node {
         }
     }
 
-    public Double getGradient (int iteration) {
+    public Double getGradient () {
         return Math.pow(this.currentErrorMean, this.power) - Math.pow(this.previousErrorMean, this.power);
     }
 
@@ -149,7 +149,7 @@ public class Node {
      */
     private void activate (Double... input) {
         try { this.hypothesis = this.degreeRoot(Math.abs(this.cFunction.apply(input)), this.degree);
-            this.thesis = this.hypothesis + (this.currentErrorMean / (Math.pow(this.currentErrorMean, 0.5) + 1));
+            this.thesis = this.hypothesis + Math.pow(this.currentErrorMean, 0.5);
         } catch (NullPointerException ignored) {}
     }
 

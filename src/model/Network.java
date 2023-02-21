@@ -283,9 +283,9 @@ public class Network {
         }
     }
 
-    public Double[][] getGradient (int iteration) {
+    public Double[][] getGradient () {
         Double[][] gradient = new Double[this.getLength()][];
-        for (int i = 0; i < gradient.length; i++) { gradient[i] = this.layers.get(i).getGradient(iteration); }
+        for (int i = 0; i < gradient.length; i++) { gradient[i] = this.layers.get(i).getGradient(); }
         return gradient;
     }
 

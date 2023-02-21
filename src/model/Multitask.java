@@ -121,8 +121,8 @@ public class Multitask {
         }
         }/* System.out.println("Non-null thesis frequence per network of multitask: "
                 + Arrays.toString(new ArrayList[]{this.nullFrequencyPerNetwork}));*/
-        System.out.println();
-        System.out.println();
+        //System.out.println();
+        //System.out.println();
     }
 
     /**
